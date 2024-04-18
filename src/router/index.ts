@@ -4,21 +4,9 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/lby',
-      component: () => import('@/views/lby/lby.vue'),
+      path: '',
+      component: () => import('@/views/homePage.vue'),
     },
-    {
-        path: '/zyq',
-        component: () => import('@/views/zyq/index.vue'),
-      },
-    {
-      path: '/yjl',
-      component: () => import('@/views/yjl/index.vue'),
-    },
-    {
-        path: '/wzy',
-        component: () => import('@/views/wzy/index.vue'),
-      }
   ]
 });
 

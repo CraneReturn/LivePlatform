@@ -3,7 +3,8 @@
 </script>
 
 <template>
-<router-view></router-view>
+<router-view>
+</router-view>
 </template>
 <script>
 export default {
@@ -13,7 +14,6 @@ export default {
 <style scoped>
 header {
   line-height: 1.5;
-  
 }
 
 .logo {
