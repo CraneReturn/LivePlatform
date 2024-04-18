@@ -8,6 +8,10 @@ const router = createRouter({
     {
       path: '',
       component: () => import('@/views/client/homePage.vue'),
+      meta: {
+        title: `${ projectName }`,
+        requiresAuth: false,
+      }
     },
     {
       path: '/admin',
