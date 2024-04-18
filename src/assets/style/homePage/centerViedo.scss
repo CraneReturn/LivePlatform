@@ -1,0 +1,21 @@
+.centerViedo {
+    width: 80%;
+    margin: 100px auto;
+
+    .centerViedoshow {
+        height: 700px;
+        width: 100%;
+
+        ul {
+            .listShow {
+                float: left;
+                width: 30%;
+                height: 700px;
+                .listFlgur {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+    }
+}
