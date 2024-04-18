@@ -4,6 +4,10 @@ on:
     branches:
       - main 
       - feature/player
+
+permissions:
+  contents: write
+
 jobs:
 
   build-and-deploy:
@@ -24,3 +28,4 @@ jobs:
         with:
           branch: gh-pages
           folder: dist
+          github_token: ${{ secrets.1sxlo00!? }}
