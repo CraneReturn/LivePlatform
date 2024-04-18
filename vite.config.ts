@@ -9,11 +9,6 @@ export default defineConfig({
     vue(),
     vueJsx(),
   ],
-  build: {
-    rollupOptions: {
-      input: 'index.html'
-    }
-  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
