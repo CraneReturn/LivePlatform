@@ -4,6 +4,7 @@
   left: 0px;
   width: 100%;
   z-index: 6;
+  background-color: white;
   border-bottom: 1px solid var(--el-color-primary);
 }
 
@@ -16,7 +17,7 @@
 
 .nailTop .nailTopCenter .leftNailTopBtn {
   width: 50%;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .nailTop .nailTopCenter .leftNailTopBtn ul li {
@@ -174,4 +175,47 @@
 
 .Usermessage .nailMessage:hover {
   cursor: pointer;
+}
+
+.Usermessage ul li {
+  float: left;
+  margin-left: 20px;
+}
+
+.Usermessage ul li p {
+  text-align: center;
+  font-size: 15px;
+}
+
+.Usermessage ul li:hover {
+  cursor: pointer;
+}
+
+iconNail {
+  transition: 0.3s;
+}
+
+.iconNail:hover {
+  position: relative;
+  top: -6px;
+}
+
+.userPhoto {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+  top: -2px;
+  transition: 0.5s;
+}
+
+.userPhoto img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.userPhoto:hover {
+  transform: scale(1.4);
+  top: 0px;
 }

@@ -7,11 +7,7 @@ const router = createRouter({
   routes: [
     {
       path: '',
-      component: () => import('@/views/client/index.vue'),
-      meta: {
-        title: `${ projectName }`,
-        requiresAuth: false,
-      }
+      component: () => import('@/views/client/homePage.vue'),
     },
     {
       path: '/admin',
