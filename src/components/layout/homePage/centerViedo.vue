@@ -1,11 +1,12 @@
 <template>
+  qqqqq
     <div class="centerViedo">
         <div class="centerViedoshow">
             <ul>
                 <li class="listShow" >
                     <img class="listFlgur" src="/src/assets/images/viedoImg/1.jpg">
                 </li>
-                <li class="listShow">
+                <li class="listShow middleShow">
                     <img class="listFlgur" src="/src/assets/images/viedoImg/2.jpg">
                 </li>
                 <li class="listShow" >

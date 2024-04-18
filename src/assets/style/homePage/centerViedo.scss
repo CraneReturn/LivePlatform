@@ -1,7 +1,6 @@
 .centerViedo {
     width: 80%;
     margin: 100px auto;
-
     .centerViedoshow {
         height: 700px;
         width: 100%;
@@ -17,4 +16,8 @@
             }
         }
     }
+}
+.middleShow{
+    position: relative;
+    z-index: 6;
 }

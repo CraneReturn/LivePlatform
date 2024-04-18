@@ -3,7 +3,7 @@
     <div class="nailTopCenter">
       <div class="leftNailTopBtn">
         <ul>
-          <li :class="{ showStatusColor:isRootPath}">首页</li>
+          <li :class="{ showStatusColor: isRootPath == '/' }">首页</li>
           <li>分类</li>
           <li>直播视频</li>
         </ul>
@@ -63,7 +63,7 @@ export default {};
 import { reactive } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute();
-const isRootPath = route.path == '/';
+const isRootPath = route.path === '/';
 const userMessage=reactive({
   userPhoto : '@/assets/images/userPhoto/userphotojpg.jpg'
 })

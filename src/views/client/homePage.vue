@@ -1,15 +1,15 @@
 <template>
   <nailTopVue/>
-  <centerViedoVue/>
+  <centerViedo/>
 </template>
 
 <script lang="ts">
-import centerViedoVue from '../components/layout/homePage/centerViedo.vue'
-import nailTopVue from '../components/layout/Nail/nailTop.vue'
+import nailTopVue from '@/components/layout/Nail/nailTop.vue';
+import centerViedo from '@/components/layout/homePage/centerViedo.vue';
 export default {
     components:{
         nailTopVue,
-        centerViedoVue
+        centerViedo
     }
 }
 </script>

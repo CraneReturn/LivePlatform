@@ -12,9 +12,3 @@ import { ref } from 'vue';
     const isAdmin = ref(true);
 
 </script>
-<<<<<<< HEAD
-<style scoped>
-
-</style>
-=======
->>>>>>> bc1029e9136e94f553e3fec7d21a4556ecca5087
