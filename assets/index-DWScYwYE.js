@@ -1,1 +1,0 @@
-import{o as r,c as s}from"./index-D4bhaBNF.js";const a=(e,t)=>{const c=e.__vccOpts||e;for(const[n,o]of t)c[n]=o;return c},_={};function f(e,t){return r(),s("h1",null,"这是admin")}const d=a(_,[["render",f]]);export{d as default};
