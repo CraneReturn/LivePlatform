@@ -1,9 +1,8 @@
-name: CI Github Pages
+name: Live Platform CI 
 on:
   push:
     branches:
       - main 
-      - feature/player
 
 permissions:
   contents: write
