@@ -35,7 +35,10 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
 
-      - name: Setup Node
+      - name: Install Dependence
+        run: npm install
+
+      - name: Build Vue App
         run: npm run build
 
       - name: Build with Jekyll
@@ -43,6 +46,7 @@ jobs:
         with:
           source: ./
           destination: ./_site
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
