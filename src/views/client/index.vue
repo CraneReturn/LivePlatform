@@ -1,6 +1,13 @@
-<template>
+<script setup lang="ts">
+import NailTop from '@/components/layout/Nail/nailTop.vue';
+</script>
 
+<template>
+<nail-top></nail-top>
 </template>
 
-<script setup>
+<script lang="ts">
+export default {
+    name: "client",
+};
 </script>

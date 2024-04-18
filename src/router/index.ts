@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-// 创建路由实例
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -7,8 +7,11 @@ const router = createRouter({
       path: '',
       component: () => import('@/views/client/index.vue'),
     },
+    {
+      path: '/admin',
+      component: () => import('@/views/admin/index.vue'),
+    },
   ]
 });
 
-// 导出路由实例
 export default router;
