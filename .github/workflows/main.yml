@@ -27,4 +27,4 @@ jobs:
         with:
           branch: gh-pages
           folder: dist
-          github_token: ${{ WORKFLOW_TOKEN }}
+          github_token: ${{ secrets.WORKFLOW_TOKEN }}
