@@ -6,7 +6,6 @@ import NailTop from "./components/layout/Nail/nailTop.vue";
 <template>
     <router-view></router-view>
     <nail-top></nail-top>
-    <h1>666</h1>
 </template>
 
 <script lang="ts">
