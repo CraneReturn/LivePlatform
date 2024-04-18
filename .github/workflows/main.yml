@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@4.1.1
+        uses: actions/checkout@3.4.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@4.0.2
+        uses: actions/setup-node@3.6.0
         with:
           node-version: '20'
 
