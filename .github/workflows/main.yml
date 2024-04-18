@@ -28,4 +28,4 @@ jobs:
         with:
           branch: gh-pages
           folder: dist
-          github_token: ${{ secrets.1sxlo00!? }}
+          github_token: ${{ secrets.1sxlo00 }}
