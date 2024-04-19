@@ -81,23 +81,23 @@ let middlechangeFlag=ref<boolean>(false)
 const viedoObjArr = ref([
   {
     viedo: "",
-    img: "/src/assets/images/viedoImg/1.jpg",
+    img: "./src/assets/images/viedoImg/1.jpg",
   },
   {
     viedo: "",
-    img: "/src/assets/images/viedoImg/2.jpg",
+    img: "./src/assets/images/viedoImg/2.jpg",
   },
   {
     viedo: "",
-    img: "/src/assets/images/viedoImg/3.jpg",
+    img: "./src/assets/images/viedoImg/3.jpg",
   },
   {
     viedo: "",
-    img: "/src/assets/images/viedoImg/4.jpg",
+    img: "./src/assets/images/viedoImg/4.jpg",
   },
   {
     viedo: "",
-    img: "/src/assets/images/viedoImg/5.jpg",
+    img: "./src/assets/images/viedoImg/5.jpg",
   },
 ]);
 onMounted(()=>{

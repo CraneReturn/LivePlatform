@@ -1,6 +1,7 @@
 <template>
   <nailTopVue/>
   <centerViedo/>
+  <clientRecommed/>
 </template>
 
 <script lang="ts">
