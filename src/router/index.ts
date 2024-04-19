@@ -1,26 +1,52 @@
-import { createRouter, createWebHistory } from 'vue-router';
-// 创建路由实例
+import { createRouter, createWebHashHistory} from "vue-router";
+
+const projectName = "家乐直播";
+
 const router = createRouter({
-  history: createWebHistory(),
-  routes: [
-    {
-      path: '/lby',
-      component: () => import('@/views/lby/lby.vue'),
-    },
-    {
-        path: '/zyq',
-        component: () => import('@/views/zyq/index.vue'),
-      },
-    {
-      path: '/yjl',
-      component: () => import('@/views/yjl/index.vue'),
-    },
-    {
-        path: '/wzy',
-        component: () => import('@/views/wzy/index.vue'),
-      }
-  ]
+    history: createWebHashHistory(),
+    routes: [
+        {
+            path: "",
+            component: () => import("@/views/client/index.vue"),
+            meta: {
+                title: `${projectName}`,
+                requiresAuth: false,
+            },
+        },
+        {
+            path: "/client",
+            component: () => import("@/views/client/index.vue"),
+            meta: {
+                title: `${projectName}`,
+                requiresAuth: false,
+            },
+        },
+        {
+            path: "/admin",
+            component: () => import("@/views/admin/index.vue"),
+            meta: {
+                title: `${projectName} - 管理员`,
+                requiresAuth: true,
+            },
+        },
+        {
+            path: "/streamer",
+            component: () => import("@/views/admin/index.vue"),
+            meta: {
+                title: `${projectName} - 主播`,
+                requiresAuth: true,
+            },
+        },
+    ],
 });
 
-// 导出路由实例
+router.beforeEach((to, from, next: () => void) => {
+  const { title, requiresAuth } = to.meta as { title: string, requiresAuth: boolean };
+  document.title = title;
+  next();
+  // if (!requiresAuth) {
+  //   next();
+  // }
+})
+
 export default router;
