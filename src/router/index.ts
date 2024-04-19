@@ -6,7 +6,15 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '',
+      path: '/',
+      component: () => import('@/views/client/homePage.vue'),
+      meta: {
+        title: `${ projectName }`,
+        requiresAuth: false,
+      }
+    },
+    {
+      path: '/client',
       component: () => import('@/views/client/homePage.vue'),
       meta: {
         title: `${ projectName }`,
