@@ -13,7 +13,7 @@ export default {
 };
 </script>
 <script lang="ts" setup>
-import NailTop from '../layouts/Nail/nailTop.vue';
-import CenterVideo from '../layouts/homePage/centerVideo.vue';
+import NailTop from './layouts/Nail/nailTop.vue';
+import CenterVideo from './layouts/homePage/centerVideo.vue';
 </script>
 <style></style>
