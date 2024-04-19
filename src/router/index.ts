@@ -32,11 +32,4 @@ const router = createRouter({
   ]
 });
 
-router.afterEach((to, from: object, next) => {
-  const requireAuth = to.meta.requiresAuth;
-  const title: string = to.meta?.title as string || '登录';
-  document.title = title;
-})
-
-
 export default router;
