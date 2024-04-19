@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHashHistory} from "vue-router";
 
 const projectName = "家乐直播";
 
@@ -7,7 +7,7 @@ const router = createRouter({
     routes: [
         {
             path: "",
-            component: () => import("@/views/client/homePage.vue"),
+            component: () => import("@/views/client/index.vue"),
             meta: {
                 title: `${projectName}`,
                 requiresAuth: false,
@@ -15,7 +15,7 @@ const router = createRouter({
         },
         {
             path: "/client",
-            component: () => import("@/views/client/homePage.vue"),
+            component: () => import("@/views/client/index.vue"),
             meta: {
                 title: `${projectName}`,
                 requiresAuth: false,
@@ -39,5 +39,14 @@ const router = createRouter({
         },
     ],
 });
+
+router.beforeEach((to, from, next: () => void) => {
+  const { title, requiresAuth } = to.meta as { title: string, requiresAuth: boolean };
+  document.title = title;
+  next();
+  // if (!requiresAuth) {
+  //   next();
+  // }
+})
 
 export default router;

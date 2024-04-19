@@ -1,10 +1,13 @@
 <template>
-    <h1>这是admin</h1>
-    <h2>666</h2>
+    <Sidebar />
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
+import Sidebar from "@/views/admin/layouts/sidebar/index.vue";
 
-
-
+export default {
+    components: {
+        Sidebar
+    },
+};
 </script>

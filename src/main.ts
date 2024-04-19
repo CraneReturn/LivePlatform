@@ -1,6 +1,6 @@
-import "./assets/main.css";
+import "@/styles/main.css";
 import "animate.css";
-import "@/assets/style/variables.scss";
+import "@/styles/variables.scss";
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";

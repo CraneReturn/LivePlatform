@@ -69,6 +69,6 @@ const userMessage=reactive({
 })
 </script>
 <style lang="scss">
-@import "@/assets/style/homePage/homePageTop.scss";
-@import "@/assets/style/component/component.scss";
+@import "@/styles/homePage/homePageTop.scss";
+@import "@/styles/component/component.scss";
 </style>
