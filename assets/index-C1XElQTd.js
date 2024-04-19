@@ -1,0 +1,1 @@
+import{_ as e,o as n,c as d,g as i,h as p}from"./index-4rBjmgED.js";const m={name:"AdminSidebar"},$={class:"aside"};function f(o,s,t,c,a,r){return n(),d("aside",$)}const l=e(m,[["render",f]]),u={components:{Sidebar:l}};function x(o,s,t,c,a,r){const _=i("Sidebar");return n(),p(_)}const h=e(u,[["render",x]]);export{h as default};
