@@ -1,20 +1,13 @@
 <template>
   <nailTopVue/>
   <centerViedo/>
-  <clientRecommed/>
+  <clientCommentVue/>
 </template>
 
-<script lang="ts">
-import nailTopVue from '@/components/layout/Nail/nailTop.vue';
-import centerViedo from '@/components/layout/homePage/centerViedo.vue';
-export default {
-    components:{
-        nailTopVue,
-        centerViedo
-    }
-}
-</script>
 <script lang="ts" setup >
+import nailTopVue from './layouts/Nail/nailTop.vue';
+import centerViedo from './layouts/homePage/centerVideo.vue';
+import clientCommentVue from './layouts/homePage/clientComment.vue';
 </script>
 <style>
 </style>

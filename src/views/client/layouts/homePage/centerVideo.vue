@@ -67,10 +67,8 @@
     </div>
   </div>
 </template>
-
 <script lang="ts">
-export default {
-};
+export default {};
 </script>
 <script setup lang="ts">
 import { reactive, ref, onMounted } from "vue";
