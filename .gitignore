@@ -13,6 +13,8 @@ dist
 dist-ssr
 coverage
 *.local
+__test__
+jset.config.js
 
 /cypress/videos/
 /cypress/screenshots/

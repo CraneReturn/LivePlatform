@@ -1,13 +1,13 @@
 <template>
-    <Sidebar />
+    <AdminSidebar></AdminSidebar>
 </template>
 
 <script lang="ts">
-import Sidebar from "@/views/admin/layouts/sidebar/index.vue";
+import AdminSidebar from "@/views/admin/layouts/sidebar/index.vue";
 
 export default {
     components: {
-        Sidebar
+        AdminSidebar
     },
 };
 </script>
