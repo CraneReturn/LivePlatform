@@ -1,17 +1,19 @@
 <template>
-    <nailTopVue />
-    <centerVideo />
+    <NailTop />
+    <CenterVideo />
 </template>
 
 <script lang="ts">
-import nailTopVue from "@/components/layout/Nail/nailTop.vue";
-import centerVideo from "@/components/layout/homePage/centerVideo.vue";
+
 export default {
     components: {
-        nailTopVue,
-        centerVideo,
+        NailTop,
+        CenterVideo
     },
 };
 </script>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import NailTop from '../layouts/Nail/nailTop.vue';
+import CenterVideo from '../layouts/homePage/centerVideo.vue';
+</script>
 <style></style>

@@ -52,7 +52,7 @@ const viedoObjArr = ref([
 ]);
 </script>
 <style lang="scss">
-@import "@/styles/homePage/homePageTop.scss";
-@import "@/styles/homePage/centerViedo.scss";
+@import "@/views/client/styles/homePage/homePageTop.scss";
+@import "@/views/client/styles/homePage/centerViedo.scss";
 @import "@/styles/component/component.scss";
 </style>
