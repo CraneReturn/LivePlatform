@@ -1,1 +1,0 @@
-import{_ as n,o as t,c,F as o,a as e}from"./index-ueQBAmEn.js";const s={},a=e("h1",null,"这是admin",-1),r=e("h2",null,"666",-1);function _(l,d){return t(),c(o,null,[a,r],64)}const f=n(s,[["render",_]]);export{f as default};
