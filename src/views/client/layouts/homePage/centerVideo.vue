@@ -81,23 +81,23 @@ let middlechangeFlag=ref<boolean>(false)
 const viedoObjArr = ref([
   {
     viedo: "",
-    img: "./src/assets/images/viedoImg/1.jpg",
+    img: "https://img1.baidu.com/it/u=3303672271,880595832&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto?sec=1713632400&t=9668270f3ad056bb44d577e0d1d78a00",
   },
   {
     viedo: "",
-    img: "./src/assets/images/viedoImg/2.jpg",
+    img: "https://img2.baidu.com/it/u=4067814844,4223671934&fm=253&fmt=auto&app=120&f=JPEG?w=800&h=500",
   },
   {
     viedo: "",
-    img: "./src/assets/images/viedoImg/3.jpg",
+    img: "	https://img2.baidu.com/it/u=1892451883,89205910&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300",
   },
   {
     viedo: "",
-    img: "./src/assets/images/viedoImg/4.jpg",
+    img: "https://img2.baidu.com/it/u=1892451883,89205910&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=300",
   },
   {
     viedo: "",
-    img: "./src/assets/images/viedoImg/5.jpg",
+    img: "https://img2.baidu.com/it/u=4042138618,4130225644&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500",
   },
 ]);
 onMounted(()=>{
