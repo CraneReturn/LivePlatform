@@ -37,6 +37,22 @@ const router = createRouter({
                 requiresAuth: true,
             },
         },
+        {
+            path: "/category",
+            component: () => import("@/views/client/layouts/category/index.vue"),
+            meta: {
+                title: `${projectName}`,
+                requiresAuth: false,
+            },
+        },
+        {
+            path: "/login",
+            component: () => import("@/views/client/login.vue"),
+            meta: {
+                title: `${projectName}`,
+                requiresAuth: false,
+            },
+        },
     ],
 });
 
