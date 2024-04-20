@@ -76,7 +76,7 @@
     position: relative;
     .rightCommentListConten{
         width: 100%;
-        overflow-y: scroll; 
+        // overflow-y: scroll; 
          overflow-x: hidden;
         position: absolute;
         margin-top: 30px;
@@ -87,7 +87,7 @@
             overflow-x:hidden ;
             background-color: var(--el-color-primary);
             li{
-                width: 90%;
+                width: 100%;
                 height: 100px;
                 padding-top: 10px;
                 border-bottom: 1px solid var(--el-color-primary);
@@ -212,4 +212,12 @@
 }
 .fixedupShow{
     position: relative;
+}
+.srcollUserTop{
+    height: 300px;
+    width: 100%;
+    overflow: hidden;
+}
+.jumptopShow{
+   transition: 0.4s;
 }

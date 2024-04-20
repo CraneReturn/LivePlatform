@@ -168,67 +168,96 @@
             </div>
           </div>
         </li>
-        <li
-          v-for="(item, index) in sortedArr"
-          :key="item"
-          class="fixedupShow"
-          :class="{ upshow: index % 2 == 0 }"
-        >
-          <div class="mainShowuser">
-            <div class="leftuserPhoto">
-              <img src="@/assets/images/userPhoto/userphotojpg.jpg" alt="" />
-            </div>
-            <div class="middleuserConten">
-              <p class="">哈哈哈哈 看我直播</p>
-            </div>
-            <div class="rightContenFire">
-              <div class="fireConten">
-                <svg
-                  t="1713532839250"
-                  class="icon"
-                  viewBox="0 0 1024 1024"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  p-id="2738"
-                  width="25"
-                  height="25"
-                >
-                  <path
-                    d="M478.407873 121.186142c25.753964 104.949948 87.441324 175.493414 136.251703 236.111934l6.463939 6.311249 74.564342 89.579004 39.597992-104.949947c6.46394-22.59834 15.676326-45.19668 22.089368-70.543467 101.285352 102.201501 172.235996 252.348129 124.341767 434.152791-16.592475 60.61852-52.474974 117.572444-97.620757 149.281376-48.810378 41.582981-133.503256 89.579005-267.057408 89.579005-172.185099 0-262.425767-79.654058-304.772205-127.599185a151.673542 151.673542 0 0 1-29.469457-37.969283c-64.435807-108.563646-74.564342-220.690094-25.804861-315.664198 15.676326 15.370943 32.268801 31.658035 48.861275 44.280531 9.161489 9.975844 19.340922 16.287092 25.753964 22.649237l139.967195 140.170784-26.72101-194.427158c-32.217903-160.122471 48.861275-281.359511 133.554153-360.962673zM530.83195 0C371.523833 104.949948 241.73607 277.694915 270.238481 491.157612 235.323028 455.885879 169.971072 415.16815 150.630151 350.935931 42.829962 472.172971 14.225757 647.666385 121.0589 820.46225c10.179432 15.370943 23.056414 34.355584 38.681843 50.642676 46.061932 54.307272 156.55967 152.895074 357.298076 152.895074 152.895074 0 250.464934-57.004821 312.203191-104.949948 61.68736-44.280531 104.033799-121.186142 123.37472-185.418361 65.351956-242.423182-61.68736-453.188329-233.872458-568.012326 0 57.870073-25.804861 128.413539-38.681843 166.433719C605.447189 245.935086 530.83195 159.155425 530.83195 0z"
-                    p-id="2739"
-                    fill="#d5948c"
-                  ></path>
-                </svg>
-                <span>{{ item.fire }}</span>
+        <div class="srcollUserTop">
+          <div class="jumptopShow" ref="jumpTopshow">
+            <li
+              v-for="(item, index) in sortedArr"
+              :key="index"
+              class="fixedupShow"
+              :class="{ upshow: index % 2 == 0 }"
+            >
+              <div class="mainShowuser">
+                <div class="leftuserPhoto">
+                  <img
+                    src="@/assets/images/userPhoto/userphotojpg.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="middleuserConten">
+                  <p class="">哈哈哈哈 看我直播</p>
+                </div>
+                <div class="rightContenFire">
+                  <div class="fireConten">
+                    <svg
+                      t="1713532839250"
+                      class="icon"
+                      viewBox="0 0 1024 1024"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      p-id="2738"
+                      width="25"
+                      height="25"
+                    >
+                      <path
+                        d="M478.407873 121.186142c25.753964 104.949948 87.441324 175.493414 136.251703 236.111934l6.463939 6.311249 74.564342 89.579004 39.597992-104.949947c6.46394-22.59834 15.676326-45.19668 22.089368-70.543467 101.285352 102.201501 172.235996 252.348129 124.341767 434.152791-16.592475 60.61852-52.474974 117.572444-97.620757 149.281376-48.810378 41.582981-133.503256 89.579005-267.057408 89.579005-172.185099 0-262.425767-79.654058-304.772205-127.599185a151.673542 151.673542 0 0 1-29.469457-37.969283c-64.435807-108.563646-74.564342-220.690094-25.804861-315.664198 15.676326 15.370943 32.268801 31.658035 48.861275 44.280531 9.161489 9.975844 19.340922 16.287092 25.753964 22.649237l139.967195 140.170784-26.72101-194.427158c-32.217903-160.122471 48.861275-281.359511 133.554153-360.962673zM530.83195 0C371.523833 104.949948 241.73607 277.694915 270.238481 491.157612 235.323028 455.885879 169.971072 415.16815 150.630151 350.935931 42.829962 472.172971 14.225757 647.666385 121.0589 820.46225c10.179432 15.370943 23.056414 34.355584 38.681843 50.642676 46.061932 54.307272 156.55967 152.895074 357.298076 152.895074 152.895074 0 250.464934-57.004821 312.203191-104.949948 61.68736-44.280531 104.033799-121.186142 123.37472-185.418361 65.351956-242.423182-61.68736-453.188329-233.872458-568.012326 0 57.870073-25.804861 128.413539-38.681843 166.433719C605.447189 245.935086 530.83195 159.155425 530.83195 0z"
+                        p-id="2739"
+                        fill="#d5948c"
+                      ></path>
+                    </svg>
+                    <span>{{ item.fire }}</span>
+                  </div>
+                </div>
               </div>
-            </div>
+            </li>
           </div>
-        </li>
+        </div>
       </ul>
     </div>
   </div>
 </template>
-<script lang="ts">
-export default {};
-</script>
 <script setup lang="ts">
-import { reactive, ref } from "vue";
+import { reactive, ref, onMounted,onBeforeUnmount  } from "vue";
+
 const liverComent = reactive([
   { fire: 111 },
   { fire: 5555 },
-  {
-    fire: 100,
-  },
-  { fire: 555 },
-  { fire: 5 },
-  { fire: 6 },
-  { fire: 7 },
-  { fire: 1000 },
-  { fire: 1000 },
+  { fire: 5555 },
+  { fire: 222 },
+  { fire: 222 },
+  { fire: 222 },
 ]);
+const jumpTopshow = ref<HTMLElement>();
 const sortedArr = ref([...liverComent].sort((a, b) => b.fire - a.fire));
-const routerSort = () => {};
+const lenSort = ref(sortedArr.value.length);
+
+onMounted(() => {
+  srollUpMethods(); // 启动滚动效果
+});
+const setTimeSroll=ref();
+const srollUpMethods = () => {
+  setTimeSroll.value=setInterval(() => {
+    if (jumpTopshow.value) {
+      sortIndex.value++;
+      if (sortIndex.value == lenSort.value - 2) {
+        sortIndex.value = 0;
+      }
+      const offset = -sortIndex.value * 100; // 每次向上移动100px
+
+      jumpTopshow.value.style.transform = `translateY(${offset}px)`;
+      if (sortIndex.value ==0) {
+        jumpTopshow.value.style.transition = "none";
+      } else {
+        jumpTopshow.value.style.transition = "0.4s";
+      }
+    }
+  }, 2000);
+};
+onBeforeUnmount(() => {
+  setTimeSroll.value=null
+});
+const sortIndex = ref(0);
 </script>
+
 <style lang="scss">
 @import "@/views/client/styles/homePage/homePageTop.scss";
 @import "@/views/client/styles/homePage/centerViedo.scss";
