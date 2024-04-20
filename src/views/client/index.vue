@@ -1,6 +1,7 @@
 <template>
     <NailTop />
     <CenterVideo />
+    <RouterView />
 </template>
 
 <script lang="ts">

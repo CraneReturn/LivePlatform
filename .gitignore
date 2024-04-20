@@ -15,6 +15,7 @@ coverage
 *.local
 __test__
 jset.config.js
+folder-alias.json
 
 /cypress/videos/
 /cypress/screenshots/

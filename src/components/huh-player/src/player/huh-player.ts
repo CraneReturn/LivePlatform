@@ -1,0 +1,7 @@
+class huhPlayer {
+
+    constructor() {
+        
+    }
+
+}
