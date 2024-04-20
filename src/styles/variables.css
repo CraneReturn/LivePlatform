@@ -4,4 +4,6 @@
 );
 :root {
   --el-color-primary: #7ca86d !important;
+  --el--title--color: #565353;
+  --el-color-opcatiy: rgba(124, 168, 109, 0.6);
 }

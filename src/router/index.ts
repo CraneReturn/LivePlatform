@@ -6,12 +6,27 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes: [
         {
-            path: "",
+            path: "/",
+            redirect: "/home",
             component: () => import("@/views/client/index.vue"),
             meta: {
                 title: `${projectName}`,
                 requiresAuth: false,
             },
+            children: [
+                {
+                    path: "/home",
+                    component: () => import("@/views/client/homePage.vue"),
+                },
+                {
+                    path: '/video-preview',
+                    component: () => import("@/components/huh-player/index.vue"),
+                },
+                {
+                    path: '/video-detail',
+                    component: () => import("@/components/huh-player/index.vue"),
+                },
+            ]
         },
         {
             path: "/client",
