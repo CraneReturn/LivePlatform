@@ -7,6 +7,7 @@ const router = createRouter({
     routes: [
         {
             path: "/",
+            redirect: "/home",
             component: () => import("@/views/client/index.vue"),
             meta: {
                 title: `${projectName}`,
@@ -15,10 +16,14 @@ const router = createRouter({
             children: [
                 {
                     path: "/home",
-                    component: () => import("@/views/client/index.vue"),
+                    component: () => import("@/views/client/homePage.vue"),
                 },
                 {
-                    path: '/video',
+                    path: '/video-preview',
+                    component: () => import("@/components/huh-player/index.vue"),
+                },
+                {
+                    path: '/video-detail',
                     component: () => import("@/components/huh-player/index.vue"),
                 },
             ]
