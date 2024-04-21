@@ -63,7 +63,7 @@ export default {};
 import { reactive } from 'vue';
 import { useRoute } from 'vue-router';
 const route = useRoute();
-const isRootPath = route.path === '/';
+const isRootPath = route.path === '/home';
 const userMessage=reactive({
   userPhoto : '@/assets/images/userPhoto/userphotojpg.jpg'
 })
