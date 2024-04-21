@@ -4,25 +4,19 @@ export interface MediaSegment {
 }
 
 export class Streamer {
-
     private baseURL: string;
-    private mediaSegments: MediaSegment[];
-    mediaElement: HTMLMediaElement;
-    private mediaSourceURL: string;
-    private mediaSourceObject: MediaSource;
+    private mediaSegments: MediaSegment[] | undefined;
+    public mediaSourceObject: MediaSource;
     private _currentSegment: number;
     private videoSourceBuffer: any;
     private audioSourceBuffer: any;
+
     get currentSegment(): number {
         return this._currentSegment;
     }
 
     set currentSegment(value: number) {
         this._currentSegment = value;
-    }
-
-    get currentTime(): number {
-        return this.mediaElement.currentTime;
     }
 
     get mediaSourceReadyState(): string {
@@ -38,27 +32,16 @@ export class Streamer {
     }
 
 
-    constructor(mediaSegments: MediaSegment[]) {
-        // video标签
-        this.mediaElement = document.createElement('video');
-        this.mediaElement.controls = true;
-        this.mediaElement.autoplay = true;
-        this.mediaElement.muted = true;
+    constructor() {
         // 创建mse对象
         this.mediaSourceObject = new MediaSource();
-        // segments数组
-        this.mediaSegments = mediaSegments;
         // 当前播放的 segment 的索引
         this._currentSegment = 0;
-        // mse 链接
-        this.mediaSourceURL = URL.createObjectURL(this.mediaSourceObject);
         // 获取ts文件的基网址
         this.baseURL = 'http://playertest.longtailvideo.com/adaptive/bipbop/gear4/';
 
         this.mediaSourceObject.addEventListener('sourceopen', this.onSourceOpen.bind(this));
 
-        this.mediaElement.src = this.mediaSourceURL;
-        
     }
 
     private onBufferUpdateEnd() {
@@ -78,6 +61,7 @@ export class Streamer {
         const segmentData = await fetch(`${this.baseURL}${segment.uri}`).then(res => res.arrayBuffer());
         sourceBuffer.appendBuffer(segmentData);
         this.currentSegment++;
+
     }
 
     private async onSourceOpen() {
@@ -91,7 +75,11 @@ export class Streamer {
         videoSourceBuffer.addEventListener('updateend', this.onBufferUpdateEnd.bind(this));
         this.videoSourceBuffer = videoSourceBuffer;
 
+    }
 
+    public appendSegments(segments: MediaSegment[]) {
+        this.mediaSegments = segments;
+        
     }
 
 }

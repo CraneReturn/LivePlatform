@@ -1,16 +1,28 @@
 <template>
-    <section class="huh-player" ref="huhPlayer"></section>
+    <section class="huh-player" ref="section">
+        <canvas class="canvas" ref="huhPlayer" width="640" height="360">
+
+        </canvas>
+    </section>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { initPlayer } from "./src/player";
+import { getSegments } from "./src/service/get-segments";
 
-const huhPlayer = ref<HTMLElement | null>(null);
+const huhPlayer = ref<HTMLCanvasElement | null>(null);
+const section = ref<HTMLCanvasElement | null>(null);
 
-onMounted(() => {
+onMounted(async () => {
     
-    huhPlayer.value && initPlayer(huhPlayer.value);
+    const canvas = huhPlayer.value;
+
+    if (canvas) {
+        const player = await initPlayer(canvas);
+        section.value?.append(player);
+    }
+
 
 });
 </script>
