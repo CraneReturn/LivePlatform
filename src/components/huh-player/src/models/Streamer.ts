@@ -5,7 +5,7 @@ export interface MediaSegment {
 
 export class Streamer {
     private baseURL: string;
-    private mediaSegments: MediaSegment[] | undefined;
+    private mediaSegments: MediaSegment[];
     public mediaSourceObject: MediaSource;
     private _currentSegment: number;
     private videoSourceBuffer: any;
@@ -41,6 +41,7 @@ export class Streamer {
         this.baseURL = 'http://playertest.longtailvideo.com/adaptive/bipbop/gear4/';
 
         this.mediaSourceObject.addEventListener('sourceopen', this.onSourceOpen.bind(this));
+        this.mediaSegments = [];
 
     }
 
