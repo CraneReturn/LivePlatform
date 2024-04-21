@@ -81,3 +81,12 @@
   position: relative;
   left: 100px;
 }
+
+.opcatityHotPerson {
+  opacity: 0;
+  transition: 1s;
+}
+
+.opcatityAnchorPersonshow {
+  opacity: 1;
+}
