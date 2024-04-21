@@ -1,4 +1,6 @@
-function fetchM3U8(url: string): any {
+import type { MediaSegment } from "../models/Streamer";
+
+function fetchM3U8(url: string): Promise<string> {
     // 发起 HTTP 请求
     const res = fetch(url)
     // 将响应内容转换为文本
@@ -8,12 +10,12 @@ function fetchM3U8(url: string): any {
     return data;
 }
 
-function parseM3U8(data: string): Array<object> {
+function parseM3U8(data: string): MediaSegment[] {
     // 将文本内容按行分割成数组
     const lines = data.split("\n");
 
     // 定义存储解析结果的数组
-    const segments: Array<object> = [];
+    const segments: MediaSegment[] = [];
 
     // 遍历每一行，解析出视频片段的地址
     for (let i = 0; i < lines.length; i++) {
@@ -41,16 +43,16 @@ function parseM3U8(data: string): Array<object> {
     return segments;
 }
 
-async function getSegments(url: string) {
+
+
+export async function getSegments(url: string): Promise<MediaSegment[]> {
   
     // 获取m3u8文件内容
-    const data: string = await fetchM3U8(url);
+    const data = await fetchM3U8(url);
     // 解析m3u8文件返回的片段信息
-    const segments: Array<object> = parseM3U8(data);
+    const segments = parseM3U8(data);
 
     // 返回包含片段名和片段时长的数组
     return segments;
-
 };
 
-getSegments('http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8');

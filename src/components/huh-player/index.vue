@@ -1,19 +1,16 @@
 <template>
-    <section class="huh-player" ref="huhPlayer">
-
-    </section>
+    <section class="huh-player" ref="huhPlayer"></section>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { initFrame } from './src/player';
+import { onMounted, ref } from "vue";
+import { initPlayer } from "./src/player";
 
-const huhPlayer = ref(null);
-
+const huhPlayer = ref<HTMLElement | null>(null);
 
 onMounted(() => {
-
-    initFrame(huhPlayer.value);
     
-})
+    huhPlayer.value && initPlayer(huhPlayer.value);
+
+});
 </script>

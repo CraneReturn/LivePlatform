@@ -1,24 +1,14 @@
+import { Streamer } from "../models/Streamer";
+import { getSegments } from "../service/get-segments";
+
 /**
- * @param rootEle - 要将 canvas 添加到的父元素
- * @returns 创建的canvas元素
+ * @param rootEle - 要将 video 添加到的父元素
  */
-export function initFrame(rootEle: HTMLElement): HTMLVideoElement {
+export async function initPlayer(rootEle: HTMLElement) {
 
-    // 创建canvas元素
-    const canvasEle = document.createElement('canvas');
-    const videoEle = document.createElement('video');
-    const ctx = canvasEle.getContext('2d');
+    const mediaSegments = await getSegments('http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8');
+    const streamer = new Streamer(mediaSegments);
 
-    const drawFrame = () => {
-
-        if (videoEle.paused || videoEle.ended) return;
-
-        ctx?.drawImage(videoEle, 0, 0, canvasEle.width, canvasEle.height);
-        requestAnimationFrame(drawFrame);
-    }
-
-    // 将canvas元素插入到指定父元素中
-    rootEle.append(canvasEle, videoEle);
-
-    return videoEle;
+    rootEle.append(streamer.mediaElement);
+    
 }
