@@ -6,8 +6,8 @@ class Queue<T> {
     private _isFinished: boolean;
     private _isDestroyed: boolean;
     private _isDestroyedPromise: Promise<void>;
-    private _isDestroyedPromiseResolve: () => void;
-    private _isDestroyedPromiseReject: () => void;
+    private _isDestroyedPromiseResolve: (() => void) | undefined;
+    private _isDestroyedPromiseReject: (() => void) | undefined;
 
     constructor() {
         this._queue = [];
@@ -105,7 +105,7 @@ class Queue<T> {
         if (!this._isDestroyed) {
             this._isDestroyed = true;
             this._queue.length = 0;
-            this._isDestroyedPromiseResolve();
+            // this._isDestroyedPromiseResolve();
         }
     }
 

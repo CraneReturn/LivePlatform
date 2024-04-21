@@ -5,7 +5,7 @@ export interface MediaSegment {
 
 export class Streamer {
     private baseURL: string;
-    private mediaSegments: MediaSegment[] | undefined;
+    private mediaSegments: MediaSegment[];
     public mediaSourceObject: MediaSource;
     private _currentSegment: number;
     private videoSourceBuffer: any;
@@ -38,9 +38,10 @@ export class Streamer {
         // 当前播放的 segment 的索引
         this._currentSegment = 0;
         // 获取ts文件的基网址
-        this.baseURL = 'http://playertest.longtailvideo.com/adaptive/bipbop/gear4/';
+        this.baseURL = 'https://playertest.longtailvideo.com/adaptive/bipbop/gear4/';
 
         this.mediaSourceObject.addEventListener('sourceopen', this.onSourceOpen.bind(this));
+        this.mediaSegments = [];
 
     }
 

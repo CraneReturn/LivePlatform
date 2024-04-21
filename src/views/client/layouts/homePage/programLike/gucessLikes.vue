@@ -8,7 +8,7 @@
     </div>
     <div class="gucessLikeList">
         <div class="gucessLikeListCenter">
-            <div class="onceGuessLike" v-for="item in gucessLike" :key="item">
+            <div class="onceGuessLike" v-for="item in gucessLike">
               <div>
                 <img src="@/assets/images/viedoImg/2.jpg" alt="">
                 

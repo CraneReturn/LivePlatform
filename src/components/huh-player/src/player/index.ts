@@ -9,7 +9,7 @@ export async function initPlayer(canvasElement: HTMLCanvasElement) {
 
     const player = new Player(canvasElement);
 
-    const segments = await getSegments('http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8')
+    const segments = await getSegments('https://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8')
 
     player.appendSegments(segments);
 

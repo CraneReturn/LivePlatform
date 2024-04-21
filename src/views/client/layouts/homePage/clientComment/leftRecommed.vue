@@ -38,10 +38,10 @@
               :key="index"
             >
               <p class="titieOnceComment">
-                主播：{{ item.name ? "111" : "乐乐学妹" }}
+                主播：{{ item ? "111" : "乐乐学妹" }}
               </p>
               <video
-                :key="item"
+                :key="index"
                 src="@/assets/viedo/test.mp4"
                 autoplay
                 muted
