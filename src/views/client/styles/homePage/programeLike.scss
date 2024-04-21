@@ -1,0 +1,211 @@
+.programeLikes {
+    width: 80%;
+    margin: 10px auto;
+    display: flex;
+    justify-content: space-between;
+
+    .arrgementShow {
+        width: 37.5%;
+        max-height: 600px;
+
+    }
+
+    .gucessLikeShow {
+        width: 58.5%;
+        max-height: 600px;
+        overflow: hidden;
+        margin-top: 12px;
+        position: relative;
+    }
+}
+.changeGucesstion{
+    position: absolute;
+    right: 50px;
+    top: 5px;
+    .icon{
+        transition: 0.6s;
+    }
+    .icon:hover{
+        cursor: pointer;
+        transform: rotate(360deg);
+    }
+}
+.iconPrograme {
+    img {
+        position: relative;
+        top: 5px;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.programeMain {
+    width: 100%;
+
+    ul {
+        padding-bottom: 15px;
+        border: 1px solid var(--el-color-primary);
+        border-radius: 15px;
+
+        li {
+            padding-bottom: 10px;
+            padding-top: 10px;
+            .showMangerTitle {
+                display: flex;
+
+                .programeicon {
+                    width: 50px;
+
+                }
+            }
+        }
+    }
+}
+
+.separatorPrograme {
+    width: 2px;
+    background-color: rgb(219, 216, 216);
+    height: 100%;
+    position: relative;
+    top: -10px;
+    left: 9px;
+}
+
+.progrmeAllshow {
+    width: 80%;
+    margin-bottom: 10px;
+    .programeTime {
+        max-width: 20%;
+        font-size: 17px;
+
+    }
+
+    .programeTitle {
+        max-width: 50%;
+        font-size: 18px;
+        margin-left: 10px;
+    }
+
+    .programeUp {
+        max-width: 20%;
+        font-size: 17px;
+        margin-left: 10px;
+    }
+}
+
+.progrmeAllshowtv {
+    border-radius: 6px;
+    height: 150px;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+
+    .leftTvImg {
+        width: 80%;
+
+        .leftTvImg {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+    .rightIconOrder {
+        width: 20%;
+        position: relative;
+        background-color: var(--el-color-opcatiy);
+        color: aliceblue;
+        .orderIconCenter {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+}
+.borderIcon{
+    background-color:var(--el-color-opcatiy) ;
+    border-radius: 50%;
+    width: 14px;
+    height:14px;
+    position: relative;
+    left: 5px;
+    display: inline-block;
+}
+.hiddenIcon{
+    display: none;
+}
+.hiddenTvShow{
+    display: none;
+}
+.showMangerTitle{
+    cursor: pointer;
+}
+.showHiddenTv{
+    width: 100%;
+    height: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.gucessLikeListCenter{
+    width: 100%;
+    margin:0px auto;
+    height: 150px;
+    .onceGuessLike{
+        float: left;
+        margin-top: 5px;
+        margin-left: 10px;
+        width: 200px;
+        height: 150px;
+        border-radius:6px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 1px -1px 2px 2px rgba(185, 179, 179, 0.5);
+        img{
+            padding: 2px;
+            width: 100%;
+            height: 120px;
+        }
+    }
+}
+.hiddenGucesstitle{
+    font-size: 14px;
+    height:25px;
+    padding-left: 4px;
+    margin-top: -5px;
+    width: 100%;
+   p{
+    color: rgb(107, 105, 105);
+   }
+}
+.onceGuessLike:hover{
+    cursor: pointer;
+    .hiddenTitleGucess{
+        top: 50%;
+    
+    }
+}
+.hiddenTitleGucess{
+    background-color: rgba(255, 255, 255,0.5);
+    width: 100%;
+    height: 50%;
+    transition: 0.4s;
+    position: absolute;
+    z-index: 5;
+    top: 100%;
+    span{
+        margin-top: 5px;
+        margin-left: 5px;
+        color: white;
+        position: relative;
+        top: 10px;
+        text-shadow: 1px -1px 2px rgba(52, 49, 49, 0.5);
+    }
+}
