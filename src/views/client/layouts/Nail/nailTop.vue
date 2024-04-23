@@ -55,10 +55,6 @@
   </div>
   <div></div>
 </template>
-
-<script lang="ts">
-export default {};
-</script>
 <script setup lang="ts">
 import { reactive } from 'vue';
 import { useRoute } from 'vue-router';

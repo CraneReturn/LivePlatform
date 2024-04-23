@@ -29,6 +29,13 @@ const router = createRouter({
                 {
                     path: '/video-createBefore',
                     component: () => import("@/views/client/viedoCreater.vue"),
+                    redirect: "/video-createBefore/homePage",
+                    children:[
+                        {
+                            path:'homePage',
+                            component:()=> import("@/views/client/layouts/viedoUpload/viedoUploadhome.vue"),
+                        }
+                    ]
                 },
             ]
         },
