@@ -78,7 +78,6 @@
             </div>
             <div class="progrmeAllshow">
               <span class="programeTime"> 20日4:30 </span>
-              {{ index }}
               <span
                 class="programeTitle"
               >
