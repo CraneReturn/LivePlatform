@@ -19,7 +19,7 @@
         </svg>
       </div>
       <div class="loginMain">
-        <Password @code="changeCodeLogin" v-if="passwordLogin"></Password>
+        <Password @code="changeCodeLogin" v-if="passwordLogin" @forget="forgetPassword"></Password>
         <Code @password="changePasswordLogin" v-if="codeLogin"></Code>
       </div>
     </div>
@@ -37,9 +37,11 @@ let passwordLogin = ref(true);
 let codeLogin = ref(false);
 function changeCodeLogin(value) {
   passwordLogin.value = value;
+  codeLogin.value = !value;
 }
 function changePasswordLogin(value) {
   codeLogin.value = value;
+  passwordLogin.value = !value;
 }
 </script>
 <style lang="scss" scoped>
@@ -62,7 +64,7 @@ function changePasswordLogin(value) {
     height: 60px;
     border-bottom: 1px solid rgba(228, 230, 235, 0.7);
     .title {
-      font-size: 18px;
+      font-size: var(--el-font-size-large);
       letter-spacing: 0.5px;
     }
     .cancelLogin {

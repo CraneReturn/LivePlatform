@@ -7,7 +7,7 @@
       </div>
       <div class="password">
         <input type="text" class="authPassword" placeholder="请输入密码" />
-        <button class="forget">忘记密码</button>
+        <button class="forget" @click="forgetPassword()">忘记密码</button>
       </div>
     </div>
     <div>
@@ -20,8 +20,13 @@
   </div>
 </template>
 <script setup lang="ts">
+import { defineEmits } from "vue";
+const emit = defineEmits(["code", "forget"]);
 function codeLogin() {
-  context.emit("code", false);
+  emit("code", false);
+}
+function forgetPassword() {
+  emit("forget", false);
 }
 </script>
 <style lang="scss" scoped>

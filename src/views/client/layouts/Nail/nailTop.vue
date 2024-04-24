@@ -205,10 +205,4 @@ const userMessage = reactive({
 <style lang="scss">
 @import "@/views/client/styles/homePage/homePageTop.scss";
 @import "@/styles/component/component.scss";
-.nailTop {
-  position: sticky;
-  height: 60px;
-  line-height: 60px;
-  margin-top: 0;
-}
 </style>

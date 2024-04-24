@@ -17,8 +17,10 @@
   </div>
 </template>
 <script setup lang="ts">
+import { defineEmits } from "vue";
+const emit = defineEmits(["password"]);
 function passwordLogin() {
-  context.emit("password", false);
+  emit("password", false);
 }
 </script>
 <style lang="scss" scoped>
