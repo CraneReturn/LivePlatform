@@ -38,8 +38,12 @@ const router = createRouter({
                         {
                             path:'uploadedWaiting',
                             component:()=> import("@/views/client/layouts/viedoUpload/viedoManger.vue"),
-                        }
+                        },
                     ]
+                },
+                {
+                    path: '/video-upload',
+                    component: () => import("@/views/client/viedoUpload.vue"),
                 },
             ]
         },

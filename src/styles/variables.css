@@ -4,6 +4,7 @@
 );
 .router-link-active {
   color: #565353;
+  background-color: white;
   border: none !important;
 }
 
@@ -11,4 +12,14 @@
   --el-color-primary: #7ca86d !important;
   --el--title--color: #565353;
   --el-color-opcatiy: rgba(124, 168, 109, 0.6);
+}
+
+a {
+  text-decoration: none;
+  color: #565353;
+  border: none !important;
+}
+
+a:hover {
+  background-color: white !important;
 }

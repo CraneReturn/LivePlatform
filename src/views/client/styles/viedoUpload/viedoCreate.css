@@ -17,7 +17,8 @@
 .viedoUploadNail {
   width: 100%;
   background-color: white;
-  padding-top: 10px;
+  padding-top: 20px;
+  padding-left: 5px;
   position: relative;
 }
 
@@ -59,13 +60,6 @@
 .analysisKeyMain .topKeyAnalysis {
   margin-top: 20px;
   margin-left: 5px;
-}
-
-.analysisKeyMain .topKeyAnalysis .titleAnalysis {
-  padding-left: 10px;
-  font-size: 15px !important;
-  color: var(--el--title--color);
-  text-shadow: 1px -1px 2px rgba(116, 113, 113, 0.5);
 }
 
 .analysisKeyMain .topKeyAnalysis .analysisData {
@@ -126,4 +120,144 @@
   height: 600px;
   width: 100%;
   margin-top: 100px;
+}
+
+.viedoMangerMainShow {
+  width: 98%;
+  margin: 0 auto;
+}
+
+.viedoMangerMainShow .viedoManger {
+  margin-top: 20px;
+  margin-left: 5px;
+}
+
+.titleAnalysis {
+  padding-left: 10px;
+  font-size: 15px !important;
+  color: var(--el--title--color);
+  text-shadow: 1px -1px 2px rgba(116, 113, 113, 0.5);
+}
+
+.waittingState .wordsGoing {
+  color: #8f8b8b;
+  font-size: 15px;
+}
+
+.waittingState .wordsStatespace {
+  padding: 6px;
+  margin-left: 10px;
+}
+
+.waittingState .wordsStateBorder {
+  border-right: 1px solid #8f8b8b;
+}
+
+.topViedoInput {
+  position: relative;
+  margin-top: 10px;
+  padding-bottom: 25px;
+}
+
+.topViedoInput .inputViedoSearch {
+  margin-top: 20px;
+}
+
+.topViedoInput .inputViedoSearch input {
+  border: 1px solid var(--el-color-primary);
+  border-radius: 6px;
+  padding: 8px 13px;
+  font-size: 15px;
+  color: #8f8b8b;
+}
+
+.topViedoInput .inputViedoSearch button {
+  background-color: var(--el-color-opcatiy);
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  margin-left: 12px;
+  border-radius: 6px;
+}
+
+.viedoListMain {
+  overflow: hidden;
+}
+
+.typeViedoStates {
+  position: absolute;
+  top: 10px;
+  right: 80px;
+}
+
+.viedoMangerMain {
+  padding-bottom: 25px;
+}
+
+.recommedViedoMainState {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.reviewComments {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 6;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(246, 247, 248, 0.5);
+}
+
+.reviewCommentsWords {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.reviewCommentsWords .reviewCommentsWordsCenter {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.reviewCommentsWords .reviewCommentsWordsCenter p {
+  font-size: 18px;
+  color: white;
+}
+
+.reviewCommentsWords .reviewCommentsWordsCenter span {
+  font-size: 15px;
+  color: white;
+}
+
+.noViedoDataManger {
+  width: 90%;
+  margin: 0 auto;
+  height: 600px;
+  position: relative;
+}
+
+.noViedoDataManger img {
+  width: 50%;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.viedoMangerShowPagistion {
+  width: 90%;
+}
+
+.viedoMangerShowPagistion {
+  margin-top: 10px;
+}
+
+.viedoMangerShowPagistion .viedoMangerShowPagistioncenter {
+  width: 300px;
+  float: right;
 }
