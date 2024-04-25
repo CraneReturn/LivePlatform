@@ -1,4 +1,4 @@
-class Queue<T> {
+export class Queue<T> {
     private _queue: T[];
     private _isRunning: boolean;
     private _isPaused: boolean;
