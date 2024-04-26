@@ -1,6 +1,7 @@
 import { ref } from "vue";
 import { Player } from "../models/Player";
-import { fa } from "element-plus/es/locales.mjs";
+import { Streamer } from "../models/Streamer";
+import { StreamerEventType } from "../streamer/streamer-events";
 
 export enum PlayerEventType {
     PlayStart = "playStart",
@@ -16,6 +17,7 @@ export enum PlayerEventType {
     FullscreenExit = "fullscreenExit",
     Error = "error",
     TimeUpdate = "timeupdate",
+    DurationChange = "durationChange"
 }
 
 export interface PlayerEvent {
@@ -51,25 +53,20 @@ export function initPlayerEvents(this: Player): void {
     });
 
     // 时间更新事件
-    Player.on(PlayerEventType.TimeUpdate, async (event: PlayerEvent, resolve: any) => {
+    Player.on(PlayerEventType.TimeUpdate, async (event: PlayerEvent) => {
         // 进度条得值跟随 video 标签得进度条更改
         if (Player.dragging === false) {
-            sliderValue.value = event.value;
+            sliderValue.value = Player.currentTime; // 大坑！！ 就不该用event.value 逆天
         }
-        
-        // 如果更改了时间，则更新当前播放的 segment 的索引
-        const newCurrentSegment = Math.floor(event.value / 10);
+
+        // 计算新的 segment 索引
+        const newCurrentSegment = Math.floor(Player.currentTime / 10);
         const currentSegment = this._streamer.currentSegment;
 
-        
+        // 如果索引不同，则更新 currentSegment
         if (newCurrentSegment !== currentSegment) {
-            this._streamer.currentSegment = newCurrentSegment;   
+            this._streamer.currentSegment = newCurrentSegment;
         }
-
-        await this._streamer.loadSegment(this._streamer._videoSourceBuffer);
-
-        resolve();
-
     });
 
     // 开始拖拽
@@ -78,17 +75,28 @@ export function initPlayerEvents(this: Player): void {
     });
 
     // 拖拽结束
-    Player.on(PlayerEventType.Seeked, async () => {  
-        
-        await Player.emit(PlayerEventType.TimeUpdate, {
+    Player.on(PlayerEventType.Seeked, async () => {
+
+        Player.emit(PlayerEventType.TimeUpdate, {
             type: PlayerEventType.Seeked,
             target: this,
-            value: sliderValue.value
-        })
+            value: sliderValue.value,
+        });
 
-        Player.currentTime = sliderValue.value;
+        // 计算新的 segment 索引
+        const newCurrentSegment = Math.floor(Player.currentTime / 10);
+        const currentSegment = this._streamer.currentSegment;
 
-        console.log(this._streamer._videoSourceBuffer);
-        
+        // 如果索引不同，则更新 currentSegment
+        if (newCurrentSegment !== currentSegment) {
+            this._streamer.currentSegment = newCurrentSegment;
+        }
+
+        Player.currentTime = sliderValue.value; // 修改进度变量，触发相应事件
     });
+
+    // video 标签duration属性更改事件
+    Player.on(PlayerEventType.DurationChange, () => {
+        Player.mediaElement.currentTime = Player.currentTime; // 修改进度变量，触发相应事件
+    })
 }
