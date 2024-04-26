@@ -8,10 +8,10 @@ export interface MediaSegment {
 }
 
 export class Streamer {
-    public mediaSegments: MediaSegment[];
+    public mediaSegments: MediaSegment[] = [];
     public mediaSourceObject: MediaSource;
     public _videoSourceBuffer: any;
-    public loadedBuffer: Set<MediaSegment>;
+    public loadedBuffer: Array<ArrayBuffer> = [];
     private _baseURL: string;
     // 当前播放的 segment 的索引
     private _currentSegment: number = 0;
@@ -25,9 +25,7 @@ export class Streamer {
 
     set currentSegment(value: number) {
         this._currentSegment = value;
-        Streamer.emit(StreamerEventType.SegmentChange, () => {
-            console.log(666);
-        })
+        Streamer.emit(StreamerEventType.SegmentUpdate)
     }
 
     get mediaSourceReadyState(): string {
@@ -38,15 +36,9 @@ export class Streamer {
         return this.mediaSourceObject.sourceBuffers;
     }
 
-    get mediaSourceBufferedLength(): number {
-        return this.mediaSourceObject.sourceBuffers.length;
-    }
-
     constructor() {
         // 创建mse对象
         this.mediaSourceObject = new MediaSource();
-        // 当前播放的 segment 的索引
-        this._currentSegment = 0;
         // 获取ts文件的基网址
         this._baseURL =
             "https://playertest.longtailvideo.com/adaptive/bipbop/gear4/";
@@ -55,9 +47,6 @@ export class Streamer {
             "sourceopen",
             this.onSourceOpen.bind(this)
         );
-        this.mediaSegments = [];
-
-        this.loadedBuffer = new Set();
 
         Streamer._eventEmitter = new EventEmitter();
 
@@ -67,29 +56,34 @@ export class Streamer {
     async loadSegment(sourceBuffer: SourceBuffer, targetSegment?: number) {
         let LoadingSegment = 0;
 
+        // 如果指定了加载片段就加载定义的
+        // 如果未指定，就计算应加载的
         if (targetSegment) {
             LoadingSegment = targetSegment;
-        } else if (this.loadedBuffer.size !== 0) {
-            if (!this.loadedBuffer.has(this.mediaSegments[this.currentSegment])) {
-                await this.loadSegment(sourceBuffer, this.currentSegment);
-            }
+        } else if (this.loadedBuffer.length !== 0) {
             LoadingSegment = this._currentSegment + 1;
         }
 
-        if (LoadingSegment >= this.mediaSegments.length - 1) return;
-        const segment = this.mediaSegments[LoadingSegment];
-        if (this.loadedBuffer.has(segment)) return;
+        console.log(targetSegment);
+        
+        
+        if (LoadingSegment >= this.mediaSegments.length - 1) return; // 如果已经加载完所有 segment 就返回
 
+        const segment = this.mediaSegments[LoadingSegment]; // 获取要加载的 segment
+
+        // 获取 segment 数据
         const segmentData = await fetch(`${this._baseURL}${segment.uri}`).then(
             res => res.arrayBuffer()
         );
 
-        if (!sourceBuffer.updating) {
-            sourceBuffer.appendBuffer(segmentData);
-        }
+        if (this.loadedBuffer.includes(segmentData)) return; // 如果已经加载过就返回
 
-        // 将加载的 segment 加入已加载的集合
-        this.loadedBuffer.add(segment);
+        console.log(this.mediaSourceObject);
+        
+
+        sourceBuffer.appendBuffer(segmentData); // 加载 segment
+
+        this.loadedBuffer[LoadingSegment] = segmentData; // 将加载的 segment 加入已加载的集合
     }
 
     private async onSourceOpen() {
@@ -97,7 +91,7 @@ export class Streamer {
 
         // 添加视频流
         const videoSourceBuffer = this.mediaSourceObject.addSourceBuffer(
-            'video/mp2t; codecs="avc1.42E01E"'
+            'video/mp2t; codecs="avc1.42E01E", mp4a.40.2"'
         );
         videoSourceBuffer.timestampOffset = -10;
         await this.loadSegment(videoSourceBuffer);

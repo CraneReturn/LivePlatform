@@ -3,7 +3,7 @@
         <span class="demonstration">Default value</span>
         <el-slider
             v-model="sliderValue"
-            :max="120"
+            :max="90"
             @input="handleSliderInput"
             @change="handleSliderChange"
         />

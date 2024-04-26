@@ -6,15 +6,16 @@ export class Player extends EventTarget {
     public _streamer: Streamer;
     public duration: number = 0;
     private fragDuration: number = 0;
+    private static _currentTime: number = 0;
     public static canvasElement: HTMLCanvasElement;
     public static mediaElement: HTMLMediaElement;
     private static _dragging: boolean = false;
     private static _eventEmitter: EventEmitter;
     public static get currentTime() {
-        return Player.mediaElement.currentTime;
+        return this._currentTime;
     }
     public static set currentTime(currentTime: number) {
-        Player.mediaElement.currentTime = currentTime;
+        this._currentTime = currentTime;
     }
     public static get dragging() {
         return Player._dragging;
@@ -44,6 +45,11 @@ export class Player extends EventTarget {
 
         Player._eventEmitter = new EventEmitter();
 
+        Player.mediaElement.addEventListener(
+            "durationchange",
+            this.onDurationChange.bind(this)
+        );
+
         this._initPlayerEvents();
     }
 
@@ -69,6 +75,14 @@ export class Player extends EventTarget {
         });
     }
 
+    private onDurationChange() {
+        Player.emit(PlayerEventType.DurationChange, {
+            type: PlayerEventType.DurationChange,
+            target: this,
+            value: this.duration, // 将时间更新事件传递给播放器
+        });
+    }
+
     public appendSegments(segments: MediaSegment[]) {
         this._streamer.appendSegments(segments);
         this._initMediaElement();
@@ -89,8 +103,6 @@ export class Player extends EventTarget {
     }
 
     static emit(eventName: string, ...args: any[]) {
-        return new Promise((resolve, reject) => {
-            this._eventEmitter.emit(eventName, ...args, resolve);
-        })
+        this._eventEmitter.emit(eventName, ...args);
     }
 }
