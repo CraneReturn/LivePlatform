@@ -10,6 +10,9 @@
       :size="formSize"
       status-icon
     >
+      <el-form-item label="封面" prop="name">
+        <el-input v-model="ruleForm.name" />
+      </el-form-item>
       <el-form-item label="标题" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
@@ -42,8 +45,8 @@
       <el-form-item label="是否定时" prop="delivery">
         <el-switch v-model="ruleForm.delivery" />
       </el-form-item>
-      <el-form-item label="选择日期(15天内)">
-        <el-col :span="11">
+      <el-form-item label="选择日期(15天内)" v-show="ruleForm.delivery">
+       
           <el-form-item prop="date1">
             <!-- <el-date-picker
               v-model="ruleForm.date1"
@@ -58,39 +61,26 @@
               placeholder="请选择日期"
               format="YYYY/MM/DD hh:mm:ss"
               value-format="x"
-              :locale="locale"
             />
           </el-form-item>
-        </el-col>
+       
       </el-form-item>
-      <!-- <el-form-item label="Activity type" prop="type">
-        <el-checkbox-group v-model="ruleForm.type">
-          <el-checkbox value="Online activities" name="type">
-            Online activities
-          </el-checkbox>
-          <el-checkbox value="Promotion activities" name="type">
-            Promotion activities
-          </el-checkbox>
-          <el-checkbox value="Offline activities" name="type">
-            Offline activities
-          </el-checkbox>
-          <el-checkbox value="Simple brand exposure" name="type">
-            Simple brand exposure
-          </el-checkbox>
-        </el-checkbox-group>
-      </el-form-item> -->
+
       <el-form-item>
         <el-button type="primary" @click="submitForm(ruleFormRef)">
-          Create
+            上传
         </el-button>
-        <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
+        <el-button @click="resetForm(ruleFormRef)">重置</el-button>
       </el-form-item>
     </el-form>
+    <ffmpegVue/>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
+import ffmpegVue from "./ffmpegVue.vue";
+import type { ComponentSize, FormInstance, FormRules } from "element-plus";
 interface RuleForm {
   name: string;
   region: string;
