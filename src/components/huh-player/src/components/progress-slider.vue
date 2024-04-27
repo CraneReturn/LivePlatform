@@ -23,6 +23,7 @@ const handleSliderInput = () => {
 
 // // TODO 在视频加载完成后执行
 const handleSliderChange = () => {
+
     Player.emit(PlayerEventType.Seeked, {
         type: PlayerEventType.Seeked,
         target: null,
