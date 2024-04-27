@@ -169,3 +169,6 @@
     cursor: pointer;
     border:2px solid var(--el-color-opcatiy) ;
 }
+.el-button:hover{
+    background-color: var(--el-color-primary);
+}
