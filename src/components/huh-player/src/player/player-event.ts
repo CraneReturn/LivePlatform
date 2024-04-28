@@ -1,13 +1,12 @@
 import { ref } from "vue";
 import { Player } from "../models/Player";
-import { StreamerEventType } from "../streamer/streamer-events";
 
 export enum PlayerEventType {
     PlayStart = "playStart",
     Pause = "pause",
     Resume = "resume",
     Stop = "stop",
-    Seek = "seek",
+    Seeking = "seeking",
     Seeked = "seeked",
     VolumeChange = "volumeChange",
     Mute = "mute",
@@ -54,31 +53,51 @@ export function initPlayerEvents(this: Player): void {
     });
 
     // 时间更新事件
-    Player.on(PlayerEventType.TimeUpdate, async (event: PlayerEvent) => {
-        this.currentTime = Player.mediaElement.currentTime;
+    Player.on(PlayerEventType.TimeUpdate, () => {
 
         // 进度条得值跟随 video 标签得进度条更改
         if (Player.dragging === false) {
-            sliderValue.value = this.currentTime;
+
+            const newCurrentTime = Player.mediaElement.currentTime;
+
+            sliderValue.value = newCurrentTime;
+            this.streamer.currentTime = newCurrentTime;
         }
 
+        const buffered = this.streamer.videoSourceBuffer.buffered;
+        const lastIndex = buffered.length - 1;
+
+        if (Player.mediaElement.currentTime >= buffered.end(lastIndex) - 5) {
+            this.streamer.mediaPreLoader.startPreloading([this.streamer.mediaSegments[this.streamer.currentSegment + 1].uri]);
+        }
+        
     });
 
-    // 开始拖拽
-    Player.on(PlayerEventType.Seek, () => {
-        if (Player.dragging) return;
-    });
+    Player.on(PlayerEventType.Seeking, () => {
+        // 拖拽开始
+        if (!Player.dragging) {
+            Player.dragging = true;
+        }
+    })
 
     // 拖拽结束
-    Player.on(PlayerEventType.Seeked, () => {
+    Player.on(PlayerEventType.Seeked, async () => {
+
+        Player.dragging = false;
 
         this.streamer.videoSourceBuffer.abort();
 
-        this.currentTime = sliderValue.value;
+        const targetIndex = sliderValue.value;
+
+        const newCurrentSegment = Math.floor(targetIndex / 10);
+
+        const buffer = this.streamer.mediaPreLoader.getBuffer(this.streamer.mediaSegments[newCurrentSegment].uri);
+        
+        if (!buffer) {
+            this.streamer.mediaPreLoader.enqueueLoadTask(this.streamer.mediaSegments[newCurrentSegment].uri);
+        } else {
+            Player.mediaElement.currentTime = sliderValue.value;
+        }
     });
 
-    // video 标签duration属性更改事件
-    Player.on(StreamerEventType.BufferUpdateEnd, () => {
-        Player.mediaElement.currentTime = sliderValue.value;
-    });
 }

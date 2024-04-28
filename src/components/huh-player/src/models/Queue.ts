@@ -1,35 +1,25 @@
 export class Queue<T> {
     private _queue: T[] = [];
-    private _isRunning = false;
+    private _maxSize?: number;
 
-    constructor() {}
+    constructor(maxSize: number) {
+        this._maxSize = maxSize;
+    }
 
     public enqueue(item: T) {
+
+        if (this._maxSize && this._queue.length >= this._maxSize) return;
         this._queue.push(item);
-        if (!this._isRunning) this._start();
     }
     public dequeue(): T | undefined {
         return this._queue.shift();
     }
 
-    private _start() {
-        if (this._isRunning) return;
-        this.processNextItem();
+    public isEmpty(): boolean {
+        return this._queue.length === 0;
     }
 
-    private processNextItem() {
-        const item = this.dequeue();
-        if (!item) {
-            this._isRunning = false;
-            return;
-        }
-
-        return new Promise((resolve, reject) => {
-            item();
-            resolve();
-        }).then(() => {
-            this.processNextItem();
-        })
-
+    public size(): number {
+        return this._queue.length;
     }
 }

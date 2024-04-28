@@ -1,5 +1,6 @@
 import { Player } from "../models/Player";
 import { Streamer } from "../models/Streamer";
+import { sliderValue } from "../player/player-event";
 
 export enum StreamerEventType {
     SegmentUpdate = "segmentUpdate",
@@ -12,16 +13,14 @@ export function initStreamerEvents(this: Streamer): void {
 
     Streamer.on(StreamerEventType.SegmentUpdate, async (event: any) => {
 
-        await this.loadSegment(this.videoSourceBuffer, this.currentSegment);
+        // await this.loadSegment(this.videoSourceBuffer, this.currentSegment);
 
     });
 
-    // Streamer.on(StreamerEventType.BufferUpdateEnd, () => {
-    //     if (this.mediaSourceObject.readyState == "open") {
-    //         this.mediaSourceObject.endOfStream();
-    //     }
+    Streamer.on(StreamerEventType.BufferUpdateEnd, () => {
+        Player.mediaElement.currentTime = sliderValue.value;
+        console.log('updateend');
         
-    //     this.currentTime = sliderValue.value
-    // })
+    })
 
 }

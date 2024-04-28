@@ -6,6 +6,9 @@
             :max="90"
             @input="handleSliderInput"
             @change="handleSliderChange"
+            :debounce=500
+            :format-tooltip="formatString"
+            height="100px"
         />
     </div>
 </template>
@@ -16,11 +19,6 @@ import { PlayerEventType, sliderValue } from "../player/player-event";
 
 sliderValue.value = 0;
 
-const handleSliderInput = () => {
-    if (Player.dragging) return;
-    Player.dragging = true;
-};
-
 // // TODO 在视频加载完成后执行
 const handleSliderChange = () => {
 
@@ -29,7 +27,22 @@ const handleSliderChange = () => {
         target: null,
         value: sliderValue.value
     })
+
 };
+
+const handleSliderInput = () => {
+        Player.emit(PlayerEventType.Seeking, {
+        type: PlayerEventType.Seeked,
+        target: null,
+        value: sliderValue.value
+    })
+};
+
+const formatString = (value: number) => {
+    
+    return value.toFixed(0);
+}
+
 </script>
 
 <style scoped>

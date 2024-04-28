@@ -3,6 +3,7 @@ import {
     StreamerEventType,
     initStreamerEvents,
 } from "../streamer/streamer-events";
+import { MediaPreloader } from "../streamer/streamer-preloader";
 import { EventEmitter } from "./EventEmitter";
 import { Player } from "./Player";
 import { Queue } from "./Queue";
@@ -16,11 +17,29 @@ export class Streamer {
     public mediaSegments: MediaSegment[] = []; // 媒体分片的数组
     public mediaSourceObject: MediaSource = new MediaSource(); // MediaSource 对象
     public videoSourceBuffer!: SourceBuffer;
-    public loadedBuffer: Array<ArrayBuffer> = [];
-    public updatingQueue: Queue<Function> = new Queue();
+    public loadedBuffer: Set<number> = new Set();
     private _baseURL: string;
+    private _currentTime: number = 0;
     private _currentSegment: number = 0; // 当前播放的 segment 的索引
+    public mediaPreLoader!: MediaPreloader;
     private static _eventEmitter: EventEmitter = new EventEmitter();
+
+    public get currentTime() {
+        return Player.mediaElement.currentTime;
+    }
+    public set currentTime(currentTime: number) {
+
+        this._currentTime = currentTime;
+
+        // 计算新的 segment 索引
+        const newCurrentSegment = Math.floor(this.currentTime / 10);
+        const currentSegment = this.currentSegment;
+
+        // 如果索引不同，则更新 currentSegment
+        if (newCurrentSegment !== currentSegment) {
+            this.currentSegment = newCurrentSegment;
+        }
+    }
 
     get currentSegment(): number {
         return this._currentSegment;
@@ -32,7 +51,7 @@ export class Streamer {
     }
 
     constructor(
-        baseURL: string = "https://playertest.longtailvideo.com/adaptive/bipbop/gear4/"
+        baseURL: string = ""
     ) {
         // 获取ts文件的基网址
         this._baseURL = baseURL;
@@ -47,10 +66,7 @@ export class Streamer {
         initStreamerEvents.call(this);
     }
 
-    async loadSegment(sourceBuffer: SourceBuffer, targetSegment?: number) {
-
-        console.log('加载片段');
-        
+    async initVideoBuffer(sourceBuffer: SourceBuffer, targetSegment?: number) {
 
         let LoadingSegment = 0;
 
@@ -58,35 +74,22 @@ export class Streamer {
         // 如果未指定，就计算应加载的
         if (targetSegment) {
             LoadingSegment = targetSegment;
-        } else if (this.loadedBuffer.length !== 0) {
+        } else if (this.loadedBuffer.size !== 0) {
             LoadingSegment = this._currentSegment + 1;
         }
 
         if (LoadingSegment >= this.mediaSegments.length - 1) return; // 如果已经加载完所有 segment 就返回
-
-        if (this.loadedBuffer[LoadingSegment]) {
-            this.updatingQueue.enqueue(() => {
-                Player.mediaElement.currentTime = sliderValue.value; // 修改进度变量，触发相应事件
-            })
-
-            return;
-        }; // 如果已经加载过就返回
-
+        
         const segment = this.mediaSegments[LoadingSegment]; // 获取要加载的 segment
-        // 获取 segment 数据
-        const segmentData = await fetch(`${this._baseURL}${segment.uri}`).then(
-            res => res.arrayBuffer()
-        );
 
-        this.updatingQueue.enqueue(() => {
+        const segmentData = this.mediaPreLoader.getBuffer(segment.uri);
+
+        if (segmentData) {
             sourceBuffer.appendBuffer(segmentData);
-        })
-
-        this.updatingQueue.enqueue(() => {
-            Player.mediaElement.currentTime = sliderValue.value; // 修改进度变量，触发相应事件
-        })
-
-        this.loadedBuffer[LoadingSegment] = segmentData; // 将加载的 segment 加入已加载的集合
+        } else {
+            const data = await this.mediaPreLoader.loadSegment(segment.uri);
+            sourceBuffer.appendBuffer(data);
+        }
     }
 
     private async onSourceOpen() {
@@ -103,12 +106,14 @@ export class Streamer {
             "updateend",
             this.onBufferUpdateEnd.bind(this)
         );
- 
-        await this.loadSegment(videoSourceBuffer);
+
+        this.mediaPreLoader = new MediaPreloader(videoSourceBuffer, 2, 'https://playertest.longtailvideo.com/adaptive/bipbop/gear4/');
+
+        await this.initVideoBuffer(videoSourceBuffer);
     }
 
     private onBufferUpdateEnd(event: Event) {
-        Player.emit(StreamerEventType.BufferUpdateEnd);
+        Streamer.emit(StreamerEventType.BufferUpdateEnd);
     }
 
     public appendSegments(segments: MediaSegment[]) {
