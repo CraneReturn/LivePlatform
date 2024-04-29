@@ -1,66 +1,69 @@
-<template>
-  <input type="file" name="" id="" @change="uploadFile" />
-  <button @click="getPicture">获取数据</button>
+   <template>
   <div>
-    <h2>Video Frames:</h2>
-    <div v-for="frame in videoFrames" :key="frame.id">
-      {{ frame }}
-      <img :src="frame.url" alt="Video Frame" />
+    <div>
+      {{
+        imgList.length === 0
+          ? "loading..."
+          : `耗时：${cost}s，关键帧数：${imgList.length}`
+      }}
+    </div>
+    <br />
+    <input type="file" name="" id="file-input" @change="start" />
+    <div class="flex flex-wrap">
+      <div v-for="item in imgList" :key="item.ts">
+        <div class="text-center">{{ (item.ts / 1e6).toFixed(2) }}s</div>
+        <img :src="item.img" alt="video-frame" />
+      </div>
     </div>
   </div>
 </template>
   
   <script lang="ts" setup>
-import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { ref, onMounted } from "vue";
-import { fetchFile, toBlobURL } from "@ffmpeg/util";
-import { da } from "element-plus/es/locale";
-const ffmpegRef = ref(new FFmpeg());
-const file = ref();
-const videoFrames: any = ref();
+import { MP4Clip } from "@webav/av-cliper";
+const imgList: any = ref([]);
+const cost: any = ref(0);
+const start = async (event: any) => {
+  const file = event.target.files[0];
+  const blob = new Blob([file], { type: file.type }); // 创建 Blob 对象
+  const url = URL.createObjectURL(blob); // 创建本地文件的 URL
+  const response = await fetch(url); // 使用 fetch 获取本地文件内容
+  const clip = new MP4Clip(response.body);
+  console.log(clip);
 
-onMounted(() => {
-  ffmpegRef.value.load();
-//   ffmpegRef.value.on("log", ({ message }) => {
-//     console.log(message);
-//   })
-});
-const getPicture = async () => {
-    console.log('1111')
-   ffmpegRef.value.writeFile(file.value.name,await fetchFile(file.value)).then((res)=>{
-    console.log(res);
-    
-   }).catch((err)=>{
-    console.log(err);
-    
-   })
-  debugger
-  await ffmpegRef.value.exec(["-i", file.value.name, "output%d.png"]);
-  const data = await ffmpegRef.value.readFile("output.png");
-//   videoRef.current.src = URL.createObjectURL(
-//     new Blob([data.buffer], { type: "video/mp4" })
-//   );
-console.log(data);
+  await clip.ready;
 
-};
-const uploadFile = async (event: any) => {
-  file.value = event.target.files[0];
+  let t = performance.now();
+  console.log(file);
 
-//   const frames = [];
+  const imgListData = await clip.thumbnails(200, {
+    start: 0,
+    end: file.lastModified,
+    step: 1e6,
+  });
+  const costValue = ((performance.now() - t) / 1000).toFixed(2);
 
-//   for (let i = 1; i <= 10; i++) {
-//     // 读取前10帧
-//     const frameData: any = ffmpegRef.value.readFile(`output${i}.png`);
-//     const blob = new Blob([frameData.buffer], { type: "image/png" });
-//     const url = URL.createObjectURL(blob);
-//     frames.push({ id: i, url });
-//   }
-
-//   videoFrames.value = frames;
-//   console.log(videoFrames.value);
+  imgList.value = imgListData.map(
+    (it: { ts: any; img: Blob | MediaSource }) => ({
+      ts: it.ts,
+      img: URL.createObjectURL(it.img),
+    })
+  );
+  cost.value = costValue;
 };
 </script>
   
   <style>
+.flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.text-center {
+  text-align: center;
+}
 </style>
   
