@@ -26,21 +26,25 @@ const router = createRouter({
           path: "/video-detail",
           component: () => import("@/components/huh-player/index.vue"),
         },
-                {
-                    path: '/video-createBefore',
-                    component: () => import("@/views/client/viedoCreater.vue"),
-                    redirect: "/video-createBefore/analysis",
-                    children:[
-                        {
-                            path:'analysis',
-                            component:()=> import("@/views/client/layouts/viedoUpload/viedoUploadhome.vue"),
-                        },
-                        {
-                            path:'uploadedWaiting',
-                            component:()=> import("@/views/client/layouts/viedoUpload/viedoManger.vue"),
-                        }
-                    ]
-                },
+        {
+          path: "/video-createBefore",
+          component: () => import("@/views/client/viedoCreater.vue"),
+          redirect: "/video-createBefore/analysis",
+          children: [
+            {
+              path: "analysis",
+              component: () =>
+                import(
+                  "@/views/client/layouts/viedoUpload/viedoUploadhome.vue"
+                ),
+            },
+            {
+              path: "uploadedWaiting",
+              component: () =>
+                import("@/views/client/layouts/viedoUpload/viedoManger.vue"),
+            },
+          ],
+        },
       ],
     },
     {
@@ -61,7 +65,7 @@ const router = createRouter({
     },
     {
       path: "/streamer",
-      component: () => import("@/views/admin/index.vue"),
+      component: () => import("@/views/streamer/index.vue"),
       meta: {
         title: `${projectName} - 主播`,
         requiresAuth: true,
@@ -93,7 +97,15 @@ const router = createRouter({
     },
     {
       path: "/page",
-      component: () => import("@/views/admin/layouts/giftManage/uploadGift.vue"),
+      component: () => import("@/views/admin/layouts/giftManage/index.vue"),
+      meta: {
+        title: `${projectName}`,
+        requiresAuth: false,
+      },
+    },
+    {
+      path: "/send",
+      component: () => import("@/views/streamer/send.vue"),
       meta: {
         title: `${projectName}`,
         requiresAuth: false,

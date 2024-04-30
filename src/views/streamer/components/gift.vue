@@ -1,5 +1,5 @@
 <template>
-  <el-popover ref="popover" placement="right" width="300" trigger="hover">
+  <el-popover ref="popover" placement="top" width="300" trigger="hover">
     <!-- 描述内容 -->
     <div class="giftInfo">
       <div class="imgInfo">
@@ -8,21 +8,18 @@
           alt="svg"
         />
       </div>
-
-      <p class="name">
-        <strong class="giftName">Joker</strong>
-        <span class="giftCost">9999 joker币</span>
-      </p>
-      <div class="foot">
+      <div class="right">
+        <p class="name">
+          <strong class="giftName">Joker</strong>
+        </p>
         <div class="descr">
-          <p class="title">描述:</p>
-          <p class="description">
-            而你,我的朋友,才是歌坛最大的Joker,而你,我的朋友,才是歌坛最大的Joker,而你,我的朋友,才是歌坛最大的Joker,而你,我的朋友,才是歌坛最大的Joker
-          </p>
+          <p class="description">而你,我的朋友,才是歌坛最大的Joker</p>
         </div>
+      </div>
+      <div class="foot">
         <div class="oprateUser">
-          <el-button type="primary" class="edit">编辑</el-button>
-          <el-button type="primary" class="del">删除</el-button>
+          <p>200joker</p>
+          <div class="donate"><el-button>赠送</el-button></div>
         </div>
       </div>
     </div>
@@ -38,52 +35,52 @@
     </template>
   </el-popover>
 </template>
-<script setup lang="ts"></script>
-<style lang="scss">
+<script setup lang="ts">
+import { ref } from "vue";
+let radio4 = ref("1");
+</script>
+<style lang="scss" scoped>
 .giftInfo {
   display: grid;
   align-items: center;
   grid-template-areas:
-    "img name name name name name"
-    "foot foot foot foot foot foot";
+    "img img right right right"
+    "foot foot foot foot foot";
   gap: 10px;
   .imgInfo {
     grid-area: img;
     height: 100%;
     img {
-      width: 55px;
+      width: 60px;
     }
   }
+  .right {
+    grid-area: right;
+  }
   .name {
-    grid-area: name;
     display: flex;
-    flex-direction: column;
     gap: 8px;
     .giftName {
       font-weight: 700;
       color: #464646;
       font-size: var(--el-font-size-medium);
     }
-    .giftCost {
-      color: #eb6100;
+  }
+  .descr {
+    display: flex;
+    gap: 6px;
+    .title {
+      font-weight: 700;
+      white-space: nowrap;
+      color: #464646;
+      font-size: var(--el-font-size-base);
+    }
+    .description {
       font-size: var(--el-font-size-small);
     }
   }
   .foot {
     grid-area: foot;
-    .descr {
-      display: flex;
-      gap: 6px;
-      .title {
-        font-weight: 700;
-        white-space: nowrap;
-        color: #464646;
-        font-size: var(--el-font-size-base);
-      }
-      .description {
-        font-size: var(--el-font-size-small);
-      }
-    }
   }
 
   .info {
@@ -94,8 +91,10 @@
 .gift {
   display: flex;
   flex-direction: column;
-  width: 120px;
-  height: 120px;
+  transform: scale(0.9);
+  transition-duration: 0.25s;
+  width: 65px;
+  height: 65px;
   padding: 10px;
   align-items: center;
   background-color: var(--el-color-success-light-5);
@@ -113,10 +112,12 @@
     }
   }
 }
-.edit {
-  color: var(--el-color-warning);
+.gift:hover {
+  transform: scale(1);
 }
-.del {
-  color: var(--el-color-danger);
+
+.oprateUser {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
