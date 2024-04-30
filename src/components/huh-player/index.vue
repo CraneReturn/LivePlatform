@@ -1,15 +1,17 @@
 <template>
-    <section class="huh-player" ref="section">
-        <canvas class="canvas" ref="huhPlayer" width="640" height="360">
-
-        </canvas>
+    <section class="huh-player">
+        <canvas class="canvas" ref="huhPlayer" width="640" height="360"></canvas>
+        <ToggleButton></ToggleButton>
+        <ProgressSlider></ProgressSlider>
     </section>
 </template>
 
 <script setup lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { initPlayer } from "./src/player";
-import { getSegments } from "./src/service/get-segments";
+import ToggleButton from "./src/components/toggle-button.vue";
+import { Player } from "./src/models/Player";
+import ProgressSlider from "./src/components/progress-slider.vue";
 
 const huhPlayer = ref<HTMLCanvasElement | null>(null);
 const section = ref<HTMLCanvasElement | null>(null);
@@ -20,9 +22,13 @@ onMounted(async () => {
 
     if (canvas) {
         const player = await initPlayer(canvas);
-        section.value?.append(player);
+        Player.play();
     }
 
 
 });
 </script>
+
+<style lang="scss">
+@import url('./src/styles/index.scss');
+</style>

@@ -1,73 +1,91 @@
+import { PlayerEventType, initPlayerEvents } from "../player/player-event";
+import { EventEmitter } from "./EventEmitter";
 import { Streamer, type MediaSegment } from "./Streamer";
 
-interface MediaEventMap {
-    play: Event;
-    pause: Event;
-    ended: Event;
-    timeupdate: Event
-}
+export class Player {
+    public streamer: Streamer = new Streamer();
+    public duration: number = 0;
+    public static canvasElement: HTMLCanvasElement;
+    public static mediaElement: HTMLMediaElement =
+        document.createElement("video");
+    private static _dragging: boolean = false;
+    private static _eventEmitter: EventEmitter = new EventEmitter();
 
-export class Player extends EventTarget {
-    // video元素
-    public _mediaElement: HTMLMediaElement;
-    private _streamer: Streamer;
-    public canvasElement: HTMLCanvasElement;
-
-    constructor(canvasElement: HTMLCanvasElement) {
-        super();
-
-        this.canvasElement = canvasElement;
-        // 绑定媒体元素的原生事件到Player类的相应事件
-        this._mediaElement = document.createElement('video');
-        // 创建 Streamer 类
-        this._streamer = new Streamer();
-
-        this._mediaElement.addEventListener('play', this.onPlayer.bind(this));
-
-        this._mediaElement.controls = true;
-
-        this._bindMediaEvents();
+    public static get dragging() {
+        return Player._dragging;
+    }
+    public static set dragging(value: boolean) {
+        
+        Player._dragging = value;
     }
 
-    // 绑定媒体元素的原生事件到Player类的相应事件
-    private _bindMediaEvents() {
-        const eventsToBind: Array<keyof MediaEventMap> = [
-            "play",
-            "pause",
-            "ended",
+    constructor(canvasElement: HTMLCanvasElement) {
+        Player.canvasElement = canvasElement;
+        // 绑定媒体元素的原生事件到Player类的相应事件
+
+        Player.mediaElement.addEventListener(
             "timeupdate",
-        ];
-        eventsToBind.forEach(event => {
-            console.log(this._mediaElement);
-            
-            this._mediaElement.addEventListener(event, () => {
-                this.dispatchEvent(new Event(event));
-            });
+            this.onTimeUpdate.bind(this)
+        );
+
+        Player.mediaElement.addEventListener(
+            "durationchange",
+            this.onDurationChange.bind(this)
+        );
+
+        // 初始化监听事件
+        this._initPlayerEvents();
+    }
+
+    private _initPlayerEvents() {
+        initPlayerEvents.call(this);
+    }
+
+    private _initMediaElement() {
+        Player.mediaElement.src = URL.createObjectURL(
+            this.streamer.mediaSourceObject
+        );
+        Player.mediaElement.autoplay = true;
+        Player.mediaElement.controls = true;
+        Player.mediaElement.muted = true;
+    }
+
+    // video 标签的时间更新事件
+    public onTimeUpdate() {
+        Player.emit(PlayerEventType.TimeUpdate, {
+            type: PlayerEventType.TimeUpdate,
+            target: this,
+            value: this.streamer.currentSegment, // 将时间更新事件传递给播放器
         });
     }
 
-    private onPlayer() {
-        const ctx = this.canvasElement.getContext('2d');
-        
-        const draw = () => {
-            ctx?.drawImage(this._mediaElement as CanvasImageSource, 0, 0, this.canvasElement.width, this.canvasElement.height);
-
-            requestAnimationFrame(draw);
-        };
-
-        requestAnimationFrame(draw);
-    }
-
-    initMediaElement() {
-        this._mediaElement.src = URL.createObjectURL(this._streamer.mediaSourceObject);
-        this._mediaElement.autoplay = true;
-        this._mediaElement.controls = true;
-        this._mediaElement.muted = true;
+    private onDurationChange() {
+        Player.emit(PlayerEventType.DurationChange, {
+            type: PlayerEventType.DurationChange,
+            target: this,
+            value: this.duration, // 将时间更新事件传递给播放器
+        });
     }
 
     public appendSegments(segments: MediaSegment[]) {
-        this._streamer.appendSegments(segments);
-        this.initMediaElement();
+        this.streamer.appendSegments(segments);
+        this._initMediaElement();
+        this.duration = segments[0].duration * segments.length;
     }
 
+    static play() {
+        Player.emit(PlayerEventType.PlayStart);
+    }
+
+    static pause() {
+        Player.emit(PlayerEventType.Pause);
+    }
+
+    static on(eventName: string, listener: Function) {
+        this._eventEmitter.on(eventName, listener);
+    }
+
+    static emit(eventName: string, ...args: any[]) {
+        this._eventEmitter.emit(eventName, ...args);
+    }
 }
