@@ -1,16 +1,15 @@
 <template>
-<aside class="aside">
-    <!-- <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
-        <el-radio-button :value="false">expand</el-radio-button>
-        <el-radio-button :value="true">collapse</el-radio-button>
-    </el-radio-group> -->
-    <!-- <div class="el-menu-vertical-demo"
-        :collapse="isCollapse">
-        我是直播
-    </div> -->
-    <topAdminLive  class="el-menu-vertical-demo" 
-    :class="{iscollapse:isCollapse}"
-    :isCollapse:isCollapse
+<aside class="aside adminMain">
+    <topNailAdmin  :collapse="isCollapse" 
+     @update:collapse="collapseUpdate"
+     />
+     <div class="adminMagerHome" :class="{ paddingAdminHome: !isCollapse }">
+        <router-view>
+
+      </router-view>
+    </div>
+    <topAdminLive
+    :class="{'iscollapse': isCollapse }"
     />
     <el-menu
         default-active="2"
@@ -61,14 +60,19 @@ import {
     Location,
     Setting,
 } from "@element-plus/icons-vue";
+import adminHome from './layouts/adminHome/adminHome.vue'
 import topAdminLive from './components/topAdminLive.vue'
-const isCollapse = ref(true);
+import topNailAdmin from './components/topNailAdmin.vue'
+const isCollapse = ref<Boolean>(true);
 const handleOpen = (key: string, keyPath: string[]) => {
     console.log(key, keyPath);
 };
 const handleClose = (key: string, keyPath: string[]) => {
     console.log(key, keyPath);
 };
+const collapseUpdate=(value:Boolean)=>{
+    isCollapse.value=value
+}
 </script>
 
 <style>

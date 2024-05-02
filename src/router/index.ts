@@ -26,25 +26,25 @@ const router = createRouter({
           path: "/video-detail",
           component: () => import("@/components/huh-player/index.vue"),
         },
-                {
-                    path: '/video-createBefore',
-                    component: () => import("@/views/client/viedoCreater.vue"),
-                    redirect: "/video-createBefore/analysis",
-                    children:[
-                        {
-                            path:'analysis',
-                            component:()=> import("@/views/client/layouts/viedoUpload/viedoUploadhome.vue"),
-                        },
-                        {
-                            path:'uploadedWaiting',
-                            component:()=> import("@/views/client/layouts/viedoUpload/viedoManger.vue"),
-                        },
-                    ]
-                },
-                {
-                    path: '/video-upload',
-                    component: () => import("@/views/client/viedoUpload.vue"),
-                },
+        {
+          path: '/video-createBefore',
+          component: () => import("@/views/client/viedoCreater.vue"),
+          redirect: "/video-createBefore/analysis",
+          children: [
+            {
+              path: 'analysis',
+              component: () => import("@/views/client/layouts/viedoUpload/viedoUploadhome.vue"),
+            },
+            {
+              path: 'uploadedWaiting',
+              component: () => import("@/views/client/layouts/viedoUpload/viedoManger.vue"),
+            },
+          ]
+        },
+        {
+          path: '/video-upload',
+          component: () => import("@/views/client/viedoUpload.vue"),
+        },
       ],
     },
     {
@@ -57,11 +57,26 @@ const router = createRouter({
     },
     {
       path: "/admin",
+      redirect:"/admin/home",
       component: () => import("@/views/admin/index.vue"),
       meta: {
         title: `${projectName} - 管理员`,
         requiresAuth: true,
       },
+      children: [
+        {
+          path: "home",
+          component: () => import("@/views/admin/layouts/adminHome/adminHome.vue"),
+          meta: {
+            title: "首页",
+            requiresAuth: true,
+          },
+        },
+        {
+          path: "gift",
+          component: () => import("@/views/admin/layouts/giftManage/gift.vue"),
+        },
+      ],
     },
     {
       path: "/streamer",
