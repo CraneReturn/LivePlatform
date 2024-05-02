@@ -1,9 +1,17 @@
 <template>
 <aside class="aside">
-    <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
+    <!-- <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
         <el-radio-button :value="false">expand</el-radio-button>
         <el-radio-button :value="true">collapse</el-radio-button>
-    </el-radio-group>
+    </el-radio-group> -->
+    <!-- <div class="el-menu-vertical-demo"
+        :collapse="isCollapse">
+        我是直播
+    </div> -->
+    <topAdminLive  class="el-menu-vertical-demo" 
+    :class="{iscollapse:isCollapse}"
+    :isCollapse:isCollapse
+    />
     <el-menu
         default-active="2"
         class="el-menu-vertical-demo"
@@ -53,7 +61,7 @@ import {
     Location,
     Setting,
 } from "@element-plus/icons-vue";
-
+import topAdminLive from './components/topAdminLive.vue'
 const isCollapse = ref(true);
 const handleOpen = (key: string, keyPath: string[]) => {
     console.log(key, keyPath);
@@ -75,5 +83,8 @@ const handleClose = (key: string, keyPath: string[]) => {
 
 .el-menu-vertical-demo {
     height: 100vh;
+}
+.iscollapse{
+  width:  calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding)* 2);
 }
 </style>

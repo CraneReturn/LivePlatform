@@ -14,7 +14,6 @@
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { ref, onMounted } from "vue";
 import { fetchFile, toBlobURL } from "@ffmpeg/util";
-import { da } from "element-plus/es/locale";
 const ffmpegRef = ref(new FFmpeg());
 const file = ref();
 const videoFrames: any = ref();
