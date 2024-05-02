@@ -65,7 +65,7 @@ const router = createRouter({
     },
     {
       path: "/streamer",
-      component: () => import("@/views/admin/index.vue"),
+      component: () => import("@/views/streamer/index.vue"),
       meta: {
         title: `${projectName} - 主播`,
         requiresAuth: true,
@@ -97,7 +97,15 @@ const router = createRouter({
     },
     {
       path: "/page",
-      component: () => import("@/views/admin/layouts/giftManage/uploadGift.vue"),
+      component: () => import("@/views/admin/layouts/giftManage/index.vue"),
+      meta: {
+        title: `${projectName}`,
+        requiresAuth: false,
+      },
+    },
+    {
+      path: "/send",
+      component: () => import("@/views/streamer/send.vue"),
       meta: {
         title: `${projectName}`,
         requiresAuth: false,

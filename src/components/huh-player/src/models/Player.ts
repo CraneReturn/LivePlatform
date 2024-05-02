@@ -2,54 +2,38 @@ import { PlayerEventType, initPlayerEvents } from "../player/player-event";
 import { EventEmitter } from "./EventEmitter";
 import { Streamer, type MediaSegment } from "./Streamer";
 
-export class Player extends EventTarget {
-    public _streamer: Streamer;
+export class Player {
+    public streamer: Streamer = new Streamer();
     public duration: number = 0;
-    private fragDuration: number = 0;
-    private static _currentTime: number = 0;
     public static canvasElement: HTMLCanvasElement;
-    public static mediaElement: HTMLMediaElement;
+    public static mediaElement: HTMLMediaElement =
+        document.createElement("video");
     private static _dragging: boolean = false;
-    private static _eventEmitter: EventEmitter;
-    public static get currentTime() {
-        return this._currentTime;
-    }
-    public static set currentTime(currentTime: number) {
-        this._currentTime = currentTime;
-    }
+    private static _eventEmitter: EventEmitter = new EventEmitter();
+
     public static get dragging() {
         return Player._dragging;
     }
     public static set dragging(value: boolean) {
+        
         Player._dragging = value;
-        if (value) {
-            Player.emit(PlayerEventType.Seek);
-        } else {
-            Player.emit(PlayerEventType.Seeked);
-        }
     }
 
     constructor(canvasElement: HTMLCanvasElement) {
-        super();
-
         Player.canvasElement = canvasElement;
         // 绑定媒体元素的原生事件到Player类的相应事件
-        Player.mediaElement = document.createElement("video");
 
         Player.mediaElement.addEventListener(
             "timeupdate",
             this.onTimeUpdate.bind(this)
         );
-        // 创建 Streamer 类
-        this._streamer = new Streamer();
-
-        Player._eventEmitter = new EventEmitter();
 
         Player.mediaElement.addEventListener(
             "durationchange",
             this.onDurationChange.bind(this)
         );
 
+        // 初始化监听事件
         this._initPlayerEvents();
     }
 
@@ -59,7 +43,7 @@ export class Player extends EventTarget {
 
     private _initMediaElement() {
         Player.mediaElement.src = URL.createObjectURL(
-            this._streamer.mediaSourceObject
+            this.streamer.mediaSourceObject
         );
         Player.mediaElement.autoplay = true;
         Player.mediaElement.controls = true;
@@ -67,11 +51,11 @@ export class Player extends EventTarget {
     }
 
     // video 标签的时间更新事件
-    private onTimeUpdate() {
+    public onTimeUpdate() {
         Player.emit(PlayerEventType.TimeUpdate, {
             type: PlayerEventType.TimeUpdate,
             target: this,
-            value: Player.currentTime, // 将时间更新事件传递给播放器
+            value: this.streamer.currentSegment, // 将时间更新事件传递给播放器
         });
     }
 
@@ -84,10 +68,9 @@ export class Player extends EventTarget {
     }
 
     public appendSegments(segments: MediaSegment[]) {
-        this._streamer.appendSegments(segments);
+        this.streamer.appendSegments(segments);
         this._initMediaElement();
         this.duration = segments[0].duration * segments.length;
-        this.fragDuration = segments[0].duration;
     }
 
     static play() {
