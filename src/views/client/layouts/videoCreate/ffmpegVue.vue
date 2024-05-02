@@ -1,33 +1,81 @@
    <template>
-  <div>
-    <div>
-      {{
-        imgList.length === 0
-          ? "loading..."
-          : `耗时：${cost}s，关键帧数：${imgList.length}`
-      }}
-    </div>
-    <br />
-    <input type="file" name="" id="file-input" @change="start" />
-    <div class="flex flex-wrap">
-      <div v-for="item in imgList" :key="item.ts">
-        <div class="text-center">{{ (item.ts / 1e6).toFixed(2) }}s</div>
-        <img :src="item.img" alt="video-frame" />
+  <el-dialog
+    v-model="props.dialogVisible"
+    title="封面设定"
+    width="50%"
+  >
+    <!-- <div>
+      <div>
+        {{
+          imgList.length === 0
+            ? "loading..."
+            : `耗时：${cost}s，关键帧数：${imgList.length}`
+        }}
+      </div>
+      <br />
+      <input type="file" name="" id="file-input" @change="start" />
+      <div class="flex flex-wrap">
+        <div v-for="item in imgList" :key="item.ts">
+          <div class="text-center">{{ (item.ts / 1e6).toFixed(2) }}s</div>
+          <img :src="item.img" alt="video-frame" />
+        </div>
+      </div>
+    </div> -->
+    <div class="changecoverMain">
+      <p class="titleAnalysis">
+        拖拽选框裁剪
+      </p>
+      <div class="photoCoverSelect">
+        <div class="photoCoverSelected">
+          <img src='@/assets/images/userPhoto/userphotojpg.jpg' alt="">
+
+        </div>
+        <div class="userPhotoListSelect">
+          <div class="leftBackInner">
+        </div>
+          <div class="photoList">
+            <img src='@/assets/images/userPhoto/userphotojpg.jpg' alt="">
+            <span>
+            1.00s
+          </span>
+          </div>
+          <div class="photoList">
+            <img src='@/assets/images/userPhoto/userphotojpg.jpg' alt="">
+            <span>
+            1.00s
+          </span>
+          </div>
+       
+        </div>
       </div>
     </div>
-  </div>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="toggleDialog">取消</el-button>
+        <el-button type="primary" @click="toggleDialog"
+          >确定</el-button
+        >
+      </span>
+    </template>
+  </el-dialog>
 </template>
   
   <script lang="ts" setup>
-import { ref, onMounted } from "vue";
+import { ElMessageBox } from "element-plus";
+import { ref, defineProps, defineEmits } from "vue";
 import { MP4Clip } from "@webav/av-cliper";
+const props = defineProps({
+  dialogVisible: Boolean,
+});
+const emits = defineEmits(["update:dialogVisible"]);
+
 const imgList: any = ref([]);
 const cost: any = ref(0);
 const start = async (event: any) => {
   const file = event.target.files[0];
   const blob = new Blob([file], { type: file.type }); // 创建 Blob 对象
   const url = URL.createObjectURL(blob); // 创建本地文件的 URL
-  const response = await fetch(url); // 使用 fetch 获取本地文件内容
+  const response: any = await fetch(url); // 使用 fetch 获取本地文件内容
   const clip = new MP4Clip(response.body);
   console.log(clip);
 
@@ -50,6 +98,11 @@ const start = async (event: any) => {
     })
   );
   cost.value = costValue;
+};
+const toggleDialog = () => {
+
+  const newValue =false;
+  emits("update:dialogVisible", newValue);
 };
 </script>
   

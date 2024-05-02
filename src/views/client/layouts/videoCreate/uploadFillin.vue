@@ -11,7 +11,12 @@
       status-icon
     >
       <el-form-item label="封面" prop="name">
-        <el-input v-model="ruleForm.name" />
+        <div class="fillInPhotoShow">
+          <img src="@/assets/images/userPhoto/userphotojpg.jpg" alt="" />
+          <div class="changePhoto" @click="dialogVisible=true">
+            <p>更改封面</p>
+          </div>
+        </div>
       </el-form-item>
       <el-form-item label="标题" prop="name">
         <el-input v-model="ruleForm.name" />
@@ -46,34 +51,25 @@
         <el-switch v-model="ruleForm.delivery" />
       </el-form-item>
       <el-form-item label="选择日期(15天内)" v-show="ruleForm.delivery">
-       
-          <el-form-item prop="date1">
-            <!-- <el-date-picker
-              v-model="ruleForm.date1"
-              type="date"
-              label="Pick a date"
-              placeholder="Pick a date"
-              style="width: 100%"
-            /> -->
-            <el-date-picker
-              v-model="ruleForm.date1"
-              type="datetime"
-              placeholder="请选择日期"
-              format="YYYY/MM/DD hh:mm:ss"
-              value-format="x"
-            />
-          </el-form-item>
-       
+        <el-form-item prop="date1">
+          <el-date-picker
+            v-model="ruleForm.date1"
+            type="datetime"
+            placeholder="请选择日期"
+            format="YYYY/MM/DD hh:mm:ss"
+            value-format="x"
+          />
+        </el-form-item>
       </el-form-item>
 
       <el-form-item>
         <el-button type="primary" @click="submitForm(ruleFormRef)">
-            上传
+          上传
         </el-button>
         <el-button @click="resetForm(ruleFormRef)">重置</el-button>
       </el-form-item>
     </el-form>
-    <ffmpegVue/>
+    <ffmpegVue :dialogVisible="dialogVisible" @update:dialogVisible="handleDialogVisibleUpdate"/>
   </div>
 </template>
 
@@ -93,7 +89,7 @@ interface RuleForm {
   resource: string;
   desc: string;
 }
-
+const dialogVisible = ref<boolean>(false);
 const formSize = ref<ComponentSize>("default");
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive<RuleForm>({
@@ -196,6 +192,9 @@ const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.resetFields();
 };
+const handleDialogVisibleUpdate = (value: boolean) => {
+      dialogVisible.value = value;
+    };
 </script>
 
 <style>
