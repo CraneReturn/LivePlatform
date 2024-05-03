@@ -97,6 +97,10 @@
   display: inline-block;
 }
 
+.adminUse:hovers {
+  display: inline-block;
+}
+
 .el-menu-vertical-demo {
   cursor: pointer;
   height: 92vh !important;

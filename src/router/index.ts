@@ -27,6 +27,10 @@ const router = createRouter({
           component: () => import("@/components/huh-player/index.vue"),
         },
         {
+          path: "/history",
+          component: () => import("@/views/client/watchHistory.vue"),
+        },
+        {
           path: '/video-createBefore',
           component: () => import("@/views/client/viedoCreater.vue"),
           redirect: "/video-createBefore/analysis",
