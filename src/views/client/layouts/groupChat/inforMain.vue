@@ -3,7 +3,7 @@
     <div class="inforTop">
       <div class="groupName">柒总没有钱</div>
       <span
-        ><svg
+        ><svg @click="exendMation()"
           t="1714641807092"
           class="icon"
           viewBox="0 0 1024 1024"
@@ -43,6 +43,7 @@
             <span>群公告</span>
             <span
               ><svg
+              @click="exendAffiche()"
                 t="1714652077129"
                 class="icon"
                 viewBox="0 0 1024 1024"
@@ -88,7 +89,7 @@
             ></span>
           </div>
           <div class="search" v-if="isearch">
-            <input type="text" name="" id="" />
+            <input type="text" v-model="searchname" @input="inputChange" name="" id="" />
             <svg
               t="1714653715024"
               class="sericon"
@@ -105,7 +106,7 @@
                 p-id="7951"
               ></path>
             </svg>
-            <svg
+            <svg @click="reinput()"
               v-if="isput"
               t="1714654685810"
               class="canicon"
@@ -133,7 +134,9 @@
           </ul>
         </div>
       </div>
+      <mation :maexend="maexend" />
     </div>
+    <affiche :isexend="isexend" @close-affiche="closeAffiche" />
   </div>
 </template>
 
@@ -143,42 +146,77 @@ export default {
     return {
       isearch: false,
       isput: false,
+      isexend:false,
+      maexend:false,
+      searchname:""
     };
   },
   methods: {
     research() {
       this.isearch = true;
     },
+    reinput(){
+        this.isput = false;
+        this.searchname="";
+    },
     cansearch() {
-      // 点击文档时执行的操作
       const member = this.$el.querySelector(".member");
       if (!(member && member.contains(event.target))) {
-        // 点击的不是输入框以外的地方
         this.isearch = false;
+        this.isput = false;
       }
     },
+    closeMation() {
+      const member = this.$el.querySelector(".mation");
+      const btn = this.$el.querySelector(".icon");
+      if (!(member && member.contains(event.target))&& !(btn && btn.contains(event.target))) {
+        this.maexend = false;
+      }
+    },
+    inputChange() {
+      if (event.target.value.trim() === "") {
+        this.isput = false;
+      } else {
+        this.isput = true;
+      }
+    },
+    exendAffiche(){
+      this.isexend=true;
+    },
+    closeAffiche(){
+      this.isexend=false;
+    },
+    exendMation(){
+      this.maexend = !this.maexend;
+    }
   },
   mounted() {
     document.addEventListener("click", this.cansearch);
+    document.addEventListener("click", this.closeMation);
   },
   beforeDestroy() {
     document.removeEventListener("click", this.cansearch);
+    document.removeEventListener("click", this.closeMation);
   },
 };
 </script>
 <script lang="ts" setup>
+import affiche from "./affiche.vue";
+import mation from './mation.vue';
 </script>
 
 <style lang="scss">
 .inforMax {
-  background-color: #ffffff;
+  background-color: #fff;
   width: 80%;
   height: 100vh;
+  overflow: hidden;
   border-left: 1px #d1efe2 solid;
   .inforTop {
     width: 80%;
     display: flex;
     padding: 20px;
+    z-index: 1000;
     justify-content: space-between;
     border-bottom: 1px #d1efe2 solid;
     position: fixed;
@@ -202,6 +240,7 @@ export default {
   .inforMain {
     height: 100%;
     width: 100%;
+    position: relative;
     display: flex;
     .chatmain {
       width: 75%;
