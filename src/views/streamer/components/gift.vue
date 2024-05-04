@@ -18,8 +18,8 @@
       </div>
       <div class="foot">
         <div class="oprateUser">
-          <p>200joker</p>
-          <div class="donate"><el-button>赠送</el-button></div>
+          <p class="cost">200joker</p>
+          <div class="donate"><button>赠送</button></div>
         </div>
       </div>
     </div>
@@ -97,10 +97,9 @@ let radio4 = ref("1");
   height: 65px;
   padding: 10px;
   align-items: center;
-  background-color: var(--el-color-success-light-5);
+  background-color: transparent;
   cursor: pointer;
   border-radius: var(--el-border-radius-base);
-  box-shadow: var(--el-box-shadow);
   .svg {
     width: 100%;
     display: flex;
@@ -118,6 +117,22 @@ let radio4 = ref("1");
 
 .oprateUser {
   display: flex;
+  align-items: end;
   justify-content: space-between;
+  .cost {
+    font-size: 12px;
+    font-family: cursive;
+    color: gold;
+  }
+  button {
+    height: 25px;
+    line-height: 25px;
+    cursor: pointer;
+    border: none;
+    width: 50px;
+    border-radius: 2px;
+    color: #fff;
+    background-color: var(--el-color-success-light-3);
+  }
 }
 </style>
