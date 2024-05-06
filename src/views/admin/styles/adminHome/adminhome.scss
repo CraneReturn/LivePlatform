@@ -1,0 +1,72 @@
+.adminMagerHome {
+    padding-left: calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding)* 2);
+    padding-top: 60px;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    background-color: #f5f5f5;
+}
+
+.paddingAdminHome {
+    padding-left: 210px !important;
+}
+
+.adminMagerHomeMain {
+    width: 98%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+
+    .adminMagerHomeLeft {
+        width: 30%;
+    }
+
+    .adminMagerHomeRight {
+        width: 65%;
+    }
+}
+
+.leftTopAdminMessage {
+    width: 100%;
+    padding: 6px 12px;
+    background-color: white;
+    margin-top: 10px;
+    border-radius: 6px;
+
+}
+
+.leftTopAdminMessageCenter {
+    width: 100%;
+    justify-content: space-around;
+    display: flex;
+    margin-top: 10px;
+    padding-bottom: 10px;
+}
+
+.leftTopAdminMessagetitle {
+    width: 50%;
+}
+
+.leftTopAdminMessageTime {
+    width: 40%;
+}
+.leftTopAdminMessageTime{
+    color: rgb(148, 145, 145);
+}
+.rightMainaHomeAdmin{
+    width: 100%;
+    margin-top: 10px;
+    background-color: white;
+    height: 300px;
+    video{
+        position: relative;
+        z-index: 6;
+        width: 100%;
+        height:100%;
+    }
+}
+.adminUserEchars{
+    width: 100%!important;
+    height: 400px!important;
+    overflow: hidden;
+}

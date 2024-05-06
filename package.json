@@ -11,9 +11,11 @@
     "type-check": "vue-tsc --build --force"
   },
   "dependencies": {
+    "@ffmpeg/core": "^0.12.6",
     "@ffmpeg/ffmpeg": "^0.12.10",
     "@ffmpeg/util": "^0.12.1",
     "@vue/runtime-core": "^3.4.21",
+    "@webav/av-cliper": "^0.8.0",
     "animate.css": "^4.1.1",
     "dayjs": "^1.11.10",
     "echarts": "^5.5.0",

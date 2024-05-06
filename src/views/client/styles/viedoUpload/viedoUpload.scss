@@ -1,26 +1,30 @@
-.viedouploadMain{
+.viedouploadMain {
     width: 50%;
     margin: 0 auto;
-    .viedoUploadMaincenter{
+
+    .viedoUploadMaincenter {
         width: 100%;
         height: 300px;
         position: relative;
         border: 2px dotted var(--el-color-primary);
     }
 }
-.viedoCreaterMainCenter{
+
+.viedoCreaterMainCenter {
     padding-top: 20px;
 }
-.viedoUploadIcon{
+
+.viedoUploadIcon {
     width: 50%;
     height: 150px;
     position: absolute;
-  
+
     top: 50%;
     left: 50%;
     text-align: center;
-    transform: translate(-50%,-50%);
-    button{
+    transform: translate(-50%, -50%);
+
+    button {
         border: none;
         padding: 9px 12px;
         color: white;
@@ -28,43 +32,51 @@
         background-color: var(--el-color-opcatiy);
     }
 }
-.fileUpload{
+
+.fileUpload {
     position: absolute;
     top: 50%;
     left: 50%;
     margin-top: 50px;
     margin-left: 50px;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     opacity: 0;
 }
-.uploadViedoList{
+
+.uploadViedoList {
     width: 100%;
-    .topListViedoShowCenter{
+
+    .topListViedoShowCenter {
         width: 90%;
         margin: 10px auto;
         padding: 6px 12px;
         border-radius: 6px;
         overflow: hidden;
         background-color: #eeeeef;
-        .onceUploadFiles{
+
+        .onceUploadFiles {
             float: left;
             background-color: white;
             width: 20%;
             border-radius: 6px;
             margin-left: 15px;
-            .onceUploadFileCenter{
+
+            .onceUploadFileCenter {
                 width: 90%;
                 margin: 0 auto;
                 overflow: hidden;
-                height:50px;
+                height: 50px;
                 position: relative;
-                p{
+
+                p {
                     color: rgb(121, 120, 120);
                 }
-                .uploadwordsFiles{
+
+                .uploadwordsFiles {
                     position: absolute;
                     bottom: 0px;
-                    span{
+
+                    span {
                         color: rgb(121, 120, 120);
                         font-size: 12px;
                         position: relative;
@@ -75,70 +87,83 @@
         }
     }
 }
-.deleteUploadFiles{
+
+.deleteUploadFiles {
     position: absolute;
     top: 0px;
-    right:0px;
+    right: 0px;
 }
-.deleteUploadFiles:hover{
+
+.deleteUploadFiles:hover {
     cursor: pointer;
 }
-.uploadFilesListBtn{
-    width: 10%!important;
+
+.uploadFilesListBtn {
+    width: 10% !important;
 }
-.uploadFilesListBtnCenter{
+
+.uploadFilesListBtnCenter {
     width: 100%;
     height: 50px;
     position: relative;
-    .uploadFilesListBtnMain{
+
+    .uploadFilesListBtnMain {
         height: 40px;
         position: absolute;
         top: 50%;
         width: 100%;
         text-align: center;
         left: 50%;
-        transform: translate(-50%,-50%);
-        input{
+        transform: translate(-50%, -50%);
+
+        input {
             opacity: 0;
             top: 0px;
             left: 0px;
             position: absolute;
         }
-        p{
+
+        p {
             color: #949495;
             font-size: 13px;
             transform: scale(0.9);
-            
+
         }
     }
-    
+
 }
-.fillInMessage{
+
+.fillInMessage {
     width: 90%;
     margin: 20px auto;
-    
+
 }
-.progressbarViedo{
-    margin-top:10px;
+
+.progressbarViedo {
+    margin-top: 10px;
     margin: 0 auto;
     width: 90%;
 }
-.uploadFilesIcon{
+
+.uploadFilesIcon {
     display: flex;
     padding-left: 10px;
     margin-top: 10px;
 }
-.uploadBarprogress{
+
+.uploadBarprogress {
     width: 50%;
     position: relative;
     top: 5px;
 }
-.changeViedoprogress{
+
+.changeViedoprogress {
     height: 100%;
     width: 20%;
     position: relative;
 }
-.changeViedoprogressBorder{
+
+.changeViedoprogressBorder {
 
     width: 35px;
     height: 35px;
@@ -146,29 +171,106 @@
     overflow: hidden;
     background-color: var(--el-color-opcatiy);
     text-align: center;
-    .icon{
+
+    .icon {
         position: relative;
-        top:4px;
+        top: 4px;
     }
 }
-.changeViedoprogressposition{
+
+.changeViedoprogressposition {
     width: 100%;
     position: absolute;
     top: -26px;
-    span{
+
+    span {
         font-size: 12px;
         color: #949495;
         position: relative;
         left: -8px;
     }
 }
-.onceUploadFilesflage{
+
+.onceUploadFilesflage {
     border: 2px solid var(--el-color-opcatiy);
 }
-.onceUploadFiles:hover{
+
+.onceUploadFiles:hover {
     cursor: pointer;
-    border:2px solid var(--el-color-opcatiy) ;
+    border: 2px solid var(--el-color-opcatiy);
 }
-.el-button:hover{
+
+.el-button:hover {
     background-color: var(--el-color-primary);
+}
+
+.fillInPhotoShow {
+    width: 300px;
+    height: 150px;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+
+    }
+
+    .changePhoto {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        bottom: 0px;
+        background-color: rgba(148, 148, 148, 0.5);
+
+        p {
+            color: white;
+        }
+    }
+}
+
+.changecoverMain {
+    width: 100%;
+}
+
+.photoCoverSelect {
+    width: 95%;
+    margin: 0 auto;
+
+    .photoCoverSelected {
+        width: 90%;
+        border-radius: 6px;
+        height: 300px;
+        margin-top: 10px;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+}
+
+.userPhotoListSelect {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 12px;
+
+    .photoList {
+        width: 20%;
+        text-align: center;
+        float: left;
+        img {
+            width: 100%;
+            height: 80px;
+        }
+    }
+}
+
+.photoList:hover {
+    cursor: pointer;
+
+    img {
+        transform: scale(1.2);
+    }
 }
