@@ -1,0 +1,104 @@
+.chatFileMain {
+    width: 30%;
+    margin-left: 20px;
+    position: relative;
+
+    span {
+        margin-left: 10px;
+        margin-right: 10px;
+        position: relative;
+
+        .chatFileMainwords {
+            position: absolute !important;
+            top: -40px;
+            left: -30px;
+            display: inline-block;
+            background-color: white;
+            border: 1px solid var(--el-color-primary);
+            width: 70px;
+            text-align: center;
+            display: none;
+            transition: 0.4s;
+        }
+    }
+}
+
+.inforSend {
+    display: flex
+}
+
+.picture {
+    position: relative;
+    top: -6px;
+}
+
+.chatIconFile:hover {
+    cursor: pointer;
+
+    .chatFileMainwords {
+        border-radius: 6px;
+        display: inline-block !important;
+    }
+}
+
+.emojiConten {
+    position: absolute;
+    width: 500px;
+    height: 300px;
+    z-index: 6;
+    top: -310px;
+    left: -150px;
+    background-color: white;
+    box-shadow: 1px -1px 2px 2px rgba(185, 179, 179, 0.5);
+}
+.emojiContenCenter{
+    position: relative;
+    height: 100%;
+}
+.topMainEmoji{
+    height: 100%;
+    width: 100%;
+    .iconListContenCenter{
+        width: 95%;
+        height: 88%;
+        margin: 0px auto;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        overflow-y: auto;
+        ::-webkit-scrollbar-thumb {
+            background: #c2ebda;
+            border-radius: 5px;
+        }
+    }
+    
+}
+.BottonMainEmojichange{
+    width:100%;
+    height: 40px;
+    position: absolute;
+    bottom: 0px;
+   border-top: 1px dashed var(--el-color-primary);
+   .BottonMainEmojichangebtn{
+    width: 95%;
+    margin: 0 auto;
+   }
+}
+.emojiBtnChange{
+    width:50px;
+    text-align: center;
+    float: left;
+    height: 100%;
+    margin-top: 2px;
+    .icon{
+        position: relative;
+        top: 2px;
+    }
+}
+.changeemojiBtnclass{
+    border-radius: 6px;
+    background-color:rgba(210, 205, 205,0.3);
+}
+.emojiIcon{
+    width: 10%;
+    font-size: 20px;
+}

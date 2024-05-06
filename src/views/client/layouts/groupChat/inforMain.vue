@@ -3,7 +3,8 @@
     <div class="inforTop">
       <div class="groupName">柒总没有钱</div>
       <span
-        ><svg @click="exendMation()"
+        ><svg
+          @click="exendMation()"
           t="1714641807092"
           class="icon"
           viewBox="0 0 1024 1024"
@@ -35,6 +36,7 @@
         <div class="inforList"></div>
         <div class="inforSend">
           <input placeholder="发送消息" type="text" />
+          <chatFileVue/>
         </div>
       </div>
       <div class="inforSider">
@@ -43,7 +45,7 @@
             <span>群公告</span>
             <span
               ><svg
-              @click="exendAffiche()"
+                @click="exendAffiche()"
                 t="1714652077129"
                 class="icon"
                 viewBox="0 0 1024 1024"
@@ -89,7 +91,13 @@
             ></span>
           </div>
           <div class="search" v-if="isearch">
-            <input type="text" v-model="searchname" @input="inputChange" name="" id="" />
+            <input
+              type="text"
+              v-model="searchname"
+              @input="inputChange"
+              name=""
+              id=""
+            />
             <svg
               t="1714653715024"
               class="sericon"
@@ -106,7 +114,8 @@
                 p-id="7951"
               ></path>
             </svg>
-            <svg @click="reinput()"
+            <svg
+              @click="reinput()"
               v-if="isput"
               t="1714654685810"
               class="canicon"
@@ -146,18 +155,18 @@ export default {
     return {
       isearch: false,
       isput: false,
-      isexend:false,
-      maexend:false,
-      searchname:""
+      isexend: false,
+      maexend: false,
+      searchname: "",
     };
   },
   methods: {
     research() {
       this.isearch = true;
     },
-    reinput(){
-        this.isput = false;
-        this.searchname="";
+    reinput() {
+      this.isput = false;
+      this.searchname = "";
     },
     cansearch() {
       const member = this.$el.querySelector(".member");
@@ -169,7 +178,10 @@ export default {
     closeMation() {
       const member = this.$el.querySelector(".mation");
       const btn = this.$el.querySelector(".icon");
-      if (!(member && member.contains(event.target))&& !(btn && btn.contains(event.target))) {
+      if (
+        !(member && member.contains(event.target)) &&
+        !(btn && btn.contains(event.target))
+      ) {
         this.maexend = false;
       }
     },
@@ -180,15 +192,15 @@ export default {
         this.isput = true;
       }
     },
-    exendAffiche(){
-      this.isexend=true;
+    exendAffiche() {
+      this.isexend = true;
     },
-    closeAffiche(){
-      this.isexend=false;
+    closeAffiche() {
+      this.isexend = false;
     },
-    exendMation(){
+    exendMation() {
       this.maexend = !this.maexend;
-    }
+    },
   },
   mounted() {
     document.addEventListener("click", this.cansearch);
@@ -202,7 +214,8 @@ export default {
 </script>
 <script lang="ts" setup>
 import affiche from "./affiche.vue";
-import mation from './mation.vue';
+import chatFileVue from './chatFile.vue';
+import mation from "./mation.vue";
 </script>
 
 <style lang="scss">
