@@ -188,6 +188,7 @@ export default {
     },
     exendMation(){
       this.maexend = !this.maexend;
+      this.isexend=false;
     }
   },
   mounted() {
