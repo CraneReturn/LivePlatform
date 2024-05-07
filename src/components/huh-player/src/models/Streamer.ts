@@ -1,4 +1,3 @@
-import { sliderValue } from "../player/player-event";
 import {
     StreamerEventType,
     initStreamerEvents,
@@ -6,7 +5,6 @@ import {
 import { MediaPreloader } from "../streamer/streamer-preloader";
 import { EventEmitter } from "./EventEmitter";
 import { Player } from "./Player";
-import { Queue } from "./Queue";
 
 export interface MediaSegment {
     duration: number;
@@ -97,7 +95,7 @@ export class Streamer {
 
         // 添加视频流
         const videoSourceBuffer = this.mediaSourceObject.addSourceBuffer(
-            'video/mp2t; codecs="avc1.42E01E", mp4a.40.2"'
+            'video/mp2t; codecs="avc1.42E01E"'
         );
         videoSourceBuffer.timestampOffset = -10;
         // 将视频流赋值给类属性
