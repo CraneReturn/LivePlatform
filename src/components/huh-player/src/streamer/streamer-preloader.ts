@@ -8,12 +8,14 @@ export class MediaPreloader {
     private readonly _baseURL: string;
     private readonly _maxPreLoadSize: number;
     private readonly _videoSourceBuffer: SourceBuffer;
+    private _isRunning: boolean;
     constructor(videoSourceBuffer: SourceBuffer, maxPreLoadSize: number = 2, baseURL: string) {
         this._maxPreLoadSize = maxPreLoadSize;
         this._videoSourceBuffer = videoSourceBuffer;
         this._queue = new Queue(maxPreLoadSize);
         this.cache = new Map();
         this._baseURL = baseURL;
+        this._isRunning = false;
     }
 
     public enqueueLoadTask(segmentURL: string): void {
@@ -23,10 +25,7 @@ export class MediaPreloader {
             this._videoSourceBuffer.appendBuffer(data);
         });
 
-        console.log(segmentURL);
-
         this._start();
-        
     }
 
     private dequeueLoadTask(): () => Promise<void> {
@@ -43,7 +42,6 @@ export class MediaPreloader {
     }
 
     public startPreloading(segmentURLs: string[]): void {
-        console.log(666);
         
         segmentURLs.forEach(url => {
             this.enqueueLoadTask(url, async () => await this.loadSegment(url));
@@ -71,9 +69,15 @@ export class MediaPreloader {
     }
 
     private _start(): void {
+
+        if (this._isRunning) return;
+
+        this._isRunning = true;
         this._executeTask().then(() => {
             if (!this._queue.isEmpty()) {
                 this._start();
+            } else {
+                this._isRunning = false;
             }
         })
     }

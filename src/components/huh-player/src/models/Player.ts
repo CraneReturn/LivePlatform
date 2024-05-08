@@ -33,6 +33,9 @@ export class Player {
             this.onDurationChange.bind(this)
         );
 
+        console.log(Player.mediaElement.canPlayType("video/mp2t"));
+        
+
         // 初始化监听事件
         this._initPlayerEvents();
     }
