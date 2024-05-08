@@ -136,7 +136,15 @@ const router = createRouter({
       meta: {
         title: `${projectName}`,
         requiresAuth: false,
-      },
+      }
+    },
+    {
+      path:"/push",
+      component: () => import("@/components/live-streamer/index.vue"),
+      meta: {
+        title: `${projectName}`,
+        requiresAuth: false,
+      }
     }
   ],
 });
