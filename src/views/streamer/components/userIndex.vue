@@ -1,16 +1,20 @@
 <template>
   <div class="userInfo">
     <!-- 排名 头像 等级 其他内容 -->
-    <p class="ranking" v-bind:class="rankColor()">{{ ranking }}</p>
-    <div class="mainInfo">
-      <div class="head">
-        <img
-          src="https://q1.itc.cn/q_70/images03/20240329/23a82de4541a454f85d81e71074a7141.jpeg"
-          alt="用户头像"
-        />
+    <div class="user">
+      <p class="ranking" v-bind:class="rankColor()">{{ ranking }}</p>
+      <div class="mainInfo">
+        <div class="head">
+          <img
+            src="https://q1.itc.cn/q_70/images03/20240329/23a82de4541a454f85d81e71074a7141.jpeg"
+            alt="用户头像"
+          />
+        </div>
+        <p class="name">{{ name }}</p>
       </div>
-      <p class="name">{{ name }}</p>
     </div>
+
+    <slot name="popularity"> </slot>
   </div>
 </template>
 <script setup lang="ts">
@@ -21,7 +25,6 @@ const props = defineProps({ ranking: Number, head: String, name: String });
 // 名称 name
 // 其他内容
 function rankColor() {
-  console.log(props.ranking, props.ranking == "1");
   switch (props.ranking) {
     case 1:
       return "first";
@@ -59,6 +62,11 @@ function rankColor() {
   cursor: pointer;
   gap: 20px;
   transition-duration: 0.25s;
+  .user {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
   .mainInfo {
     display: flex;
     align-items: center;
@@ -82,7 +90,7 @@ function rankColor() {
   .name {
     font-size: var(--el-font-size-base);
     font-weight: 400;
-    width: 120px;
+    width: 40%;
     white-space: nowrap;
     overflow-x: hidden;
     text-overflow: ellipsis;
@@ -90,5 +98,9 @@ function rankColor() {
 }
 .userInfo:hover {
   background-color: var(--vt-c-divider-light-2);
+}
+.ranking {
+  width: 20px;
+  text-align: center;
 }
 </style>
