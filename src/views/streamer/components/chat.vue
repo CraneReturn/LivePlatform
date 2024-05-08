@@ -15,7 +15,7 @@
         v-for="index in 5"
         :ranking="index"
         :name="'挖苦挖苦挖苦挖苦挖苦挖苦挖苦挖苦挖苦挖苦'"
-      ></userIndex>
+      ></userIndex>6 
     </div>
     <div class="chatWith">
       <!--两个部分 聊天框+输入框  -->

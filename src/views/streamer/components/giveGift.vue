@@ -49,7 +49,7 @@ import recharge from "./recharge.vue";
 .giftList {
   display: flex;
   width: 100%;
-  padding: 0 5px;
+  margin: 0 5px;
   background-color: var(--vt-c-divider-light-2);
   border-radius: var(--el-border-radius-base);
 }
