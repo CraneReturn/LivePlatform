@@ -68,7 +68,7 @@ const mute = ref(true);
 const volume = ref(0);
 const url =
   "https://112-46-0-94.bytefcdnrd.com/stage/stream-115102073443058346_or4.flv?302_type=cold_aggr&_session_id=037-20240508161115D40D1E084F247614C1FC.1715155890388.06732&abr_pts=-800&align_backward=true&align_delay=-35&cb_retry=0&domain=pull-hs-f5.flive.douyincdn.com&expire=1715760675&fp_user_url=https%3A%2F%2Fpull-hs-f5.flive.douyincdn.com%2Fstage%2Fstream-115102073443058346_or4.flv%3Fexpire%3D1715760675%26sign%3Dc920c60d986d73eb2edf26081da3c524%26volcSecret%3Dc920c60d986d73eb2edf26081da3c524%26volcTime%3D1715760675%26abr_pts%3D-800%26_session_id%3D037-20240508161115D40D1E084F247614C1FC.1715155890388.06732&manage_ip=&mir=true&node_id=&pro_type=http2&redirect_from=pod.cn-zpqe1u.oby5.nss&sign=c920c60d986d73eb2edf26081da3c524&vhost=push-rtmp-hs-f5.douyincdn.com&volcSecret=c920c60d986d73eb2edf26081da3c524&volcTime=1715760675";
-const steamer = init(url, canvasVideo);
+let steamer = init(url, canvasVideo);
 function pause() {
   setPlay(!play.value);
   play.value = !play.value;
