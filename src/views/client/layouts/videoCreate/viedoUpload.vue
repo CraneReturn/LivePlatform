@@ -25,7 +25,7 @@
       <input type="file" class="fileUpload" @change="uploadFileViedo" />
     </div>
   </div>
-  <div class="uploadViedoList">
+  <div class="uploadViedoList"  v-show="hasUploaded">
     <div class="topListViedoShowCenter">
       <div :class="{onceUploadFilesflage:index==0}" class="onceUploadFiles" v-for="(ietm,index) in hasFilesUploaded" :key="index">
         <div class="onceUploadFileCenter">
@@ -109,10 +109,15 @@
 </template>
 <script lang="ts" setup>
 import { reactive, ref, watch } from "vue";
+import { ElMessage } from 'element-plus'
 import uploadFillinVue from './uploadFillin.vue';
+import {getHash,spliceViedo} from './upload'
+import {uploadFileonce} from '@/views/client/api/uploadFile/uploadFile'
+const uploadcount=ref(0)
 const hasUploaded = ref<boolean>(false);
 const fileUpload = ref(null);
 const hasFilesUploaded=reactive([{},{},{}])
+
 watch(fileUpload, (newvalue, oldvalue) => {
   if (newvalue) {
     hasUploaded.value = true;
@@ -121,16 +126,45 @@ watch(fileUpload, (newvalue, oldvalue) => {
   }
 });
 
-const uploadFileViedo = (event:any) => {
+const uploadFileViedo =async (event:any) => {
   if (event.target.files[0]) {
     if (event.target.files[0].type != "video/mp4") {
+      ElMessage.error('请您上传视频文件')
       return;
-      //判断不是
     } else {
+      const files=event.target.files[0]
+      let maxSize=1024*1024*1
+      const{hashArr,suffix}=await getHash(files)
+      let count=Math.ceil(files.size/maxSize)
+      //有多少需要上传的文件
+      if(count>100){
+        count=100
+        maxSize=files.size/count
+      }
+     const chunk= await spliceViedo(count,files,maxSize,hashArr,suffix)
+     console.log(hashArr,suffix);
+     
+     console.log(chunk,'5555');
+     
+     for(let i=0;i<chunk.length;i++){
+      const fm = new FormData()
+      fm.append('file',chunk[i].file)
+      uploadFileonce(fm,i,hashArr,count).then((data)=>{
+        console.log(data);
+      })
+     }
+
       fileUpload.value = event.target.files[0];
     }
   }
 };
+ //判断上传是否完成
+const uploadFlagMethods=((count)=>{
+  uploadcount.value++;
+  if (uploadcount.value > count) {
+			// 完成 合并
+    }
+})
 </script>
 
 <style>
