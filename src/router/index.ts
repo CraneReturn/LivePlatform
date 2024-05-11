@@ -31,22 +31,26 @@ const router = createRouter({
           component: () => import("@/views/client/watchHistory.vue"),
         },
         {
-          path: '/video-createBefore',
+          path: "/video-createBefore",
           component: () => import("@/views/client/viedoCreater.vue"),
           redirect: "/video-createBefore/analysis",
           children: [
             {
-              path: 'analysis',
-              component: () => import("@/views/client/layouts/viedoUpload/viedoUploadhome.vue"),
+              path: "analysis",
+              component: () =>
+                import(
+                  "@/views/client/layouts/viedoUpload/viedoUploadhome.vue"
+                ),
             },
             {
-              path: 'uploadedWaiting',
-              component: () => import("@/views/client/layouts/viedoUpload/viedoManger.vue"),
+              path: "uploadedWaiting",
+              component: () =>
+                import("@/views/client/layouts/viedoUpload/viedoManger.vue"),
             },
-          ]
+          ],
         },
         {
-          path: '/video-upload',
+          path: "/video-upload",
           component: () => import("@/views/client/viedoUpload.vue"),
         },
       ],
@@ -61,7 +65,7 @@ const router = createRouter({
     },
     {
       path: "/admin",
-      redirect:"/admin/home",
+      redirect: "/admin/home",
       component: () => import("@/views/admin/index.vue"),
       meta: {
         title: `${projectName} - 管理员`,
@@ -70,7 +74,8 @@ const router = createRouter({
       children: [
         {
           path: "home",
-          component: () => import("@/views/admin/layouts/adminHome/adminHome.vue"),
+          component: () =>
+            import("@/views/admin/layouts/adminHome/adminHome.vue"),
           meta: {
             title: "首页",
             requiresAuth: true,
@@ -124,7 +129,24 @@ const router = createRouter({
     },
     {
       path: "/send",
-      component: () => import("@/views/streamer/send.vue"),
+      component: () => import("@/views/streamer/components/videoPlayer.vue"),
+      meta: {
+        title: `${projectName}`,
+        requiresAuth: false,
+      },
+    },
+    {
+      path: "/classDetails",
+      component: () =>
+        import("@/views/client/layouts/classifyDetails/index.vue"),
+      meta: {
+        title: `${projectName}`,
+        requiresAuth: false,
+      },
+    },
+    {
+      path: "/rank",
+      component: () => import("@/views/client/layouts/rank/index.vue"),
       meta: {
         title: `${projectName}`,
         requiresAuth: false,

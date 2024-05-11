@@ -1,6 +1,7 @@
 import "@/styles/main.css";
 import "animate.css";
 import "@/styles/variables.scss";
+import { createPinia } from "pinia";
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
@@ -11,10 +12,12 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router/index";
 const app = createApp(App);
+// 创建你的 pinia 实例
+const pinia = createPinia();
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }
 
-app.use(router).use(ElementPlus, { locale: lang }).mount("#app");
+app.use(router).use(ElementPlus, { locale: lang }).use(pinia).mount("#app");
 
 export {};
