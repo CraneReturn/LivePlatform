@@ -45,6 +45,6 @@
 </template>
 
 <script lang="ts" setup></script>
-<style lang="scss">
+<style lang="scss" scope>
 @import "@/views/client/styles/groupChat/userList.scss";
 </style>
