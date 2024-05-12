@@ -144,13 +144,16 @@ const uploadFileViedo =async (event:any) => {
      const chunk= await spliceViedo(count,files,maxSize,hashArr,suffix)
      console.log(hashArr,suffix);
      
-     console.log(chunk,'5555');
-     
      for(let i=0;i<chunk.length;i++){
       const fm = new FormData()
       fm.append('file',chunk[i].file)
-      uploadFileonce(fm,i,hashArr,count).then((data)=>{
-        console.log(data);
+      uploadFileonce(fm,i,hashArr,count).then((data:any)=>{
+        if(data.code==20000){
+          uploadFlagMethods(chunk.length);
+        }else{
+          ElMessage.error('上传失败清重试')
+          fileUpload.value=null
+        }
       })
      }
 
@@ -159,10 +162,13 @@ const uploadFileViedo =async (event:any) => {
   }
 };
  //判断上传是否完成
-const uploadFlagMethods=((count)=>{
+const uploadFlagMethods=((count: number)=>{
   uploadcount.value++;
-  if (uploadcount.value > count) {
+  if (uploadcount.value >= count) {
 			// 完成 合并
+      
+      ElMessage.success('文件上传成功')
+
     }
 })
 </script>
