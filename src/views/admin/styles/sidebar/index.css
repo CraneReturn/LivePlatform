@@ -12,7 +12,6 @@
   position: relative;
   width: 80%;
 }
-
 .topIconLiverTitle p {
   position: absolute;
   top: 50%;
@@ -40,11 +39,10 @@
   display: flex;
   background-color: #ecf5ff;
 }
-
 .topNailAdmnin .adminChangeWithBtn {
   padding-top: 15px;
   margin-left: 10px;
-  padding-left: calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding)* 2);
+  padding-left: calc(var(--el-menu-icon-width) + var(--el-menu-base-level-padding) * 2);
 }
 
 .paddingCollapse {
@@ -57,14 +55,12 @@
   width: 100px;
   top: 6px;
 }
-
 .topNailadminPhoto .topNailadminPhotouser {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   overflow: hidden;
 }
-
 .topNailadminPhoto .topNailadminPhotouser img {
   width: 100%;
   height: 100%;
@@ -81,14 +77,12 @@
   background-color: white;
   box-shadow: 1px -1px 2px 2px rgba(185, 179, 179, 0.5);
 }
-
 .adminUse .adminUseCenter {
   cursor: pointer;
   border: 1px solid var(--el-color-opcatiy);
   padding: 6px 10px;
   text-align: center;
 }
-
 .adminUse .adminUseCenter p {
   font-size: 14px;
 }
@@ -111,4 +105,4 @@
   background-color: white;
   height: 400px;
   margin-top: 20px;
-}
+}/*# sourceMappingURL=index.css.map */

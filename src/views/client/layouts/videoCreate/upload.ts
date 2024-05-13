@@ -29,5 +29,4 @@ export async function spliceViedo(count:number,file:File,maxSize: number,HASH: a
         index++;
     }
     return chunks
-
 }

@@ -2,26 +2,22 @@
   width: 80%;
   margin: 20px auto;
 }
-
 .centerViedo .centerViedoshow {
   height: 700px;
   width: 100%;
   position: relative;
 }
-
 .centerViedo .centerViedoshow ul {
   height: 100%;
   position: absolute;
   width: 100%;
 }
-
 .centerViedo .centerViedoshow ul .listShow {
   width: 90%;
   position: absolute;
   height: 700px;
   transition: transform 0.5s ease;
 }
-
 .centerViedo .centerViedoshow ul .listShow .listFlgur {
   width: 100%;
   height: 100%;
@@ -70,7 +66,6 @@
   border-radius: 50%;
   background-color: rgba(240, 248, 255, 0.4);
 }
-
 .arrowRadius .arrowIcon {
   position: relative;
   top: 15px;
@@ -96,8 +91,7 @@
     transform: translateX(-2%);
   }
 }
-
 .listOther {
   transform: scale(0.9);
   opacity: 0.8;
-}
+}/*# sourceMappingURL=centerViedo.css.map */
