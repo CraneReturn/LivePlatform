@@ -16,7 +16,6 @@ const service = axios.create({
     // axios中请求配置有baseURL选项，表示请求URL公共部分
     baseURL: "http://81.70.144.36:8083",
     // 超时
-    timeout: 40000
 })
 service.interceptors.request.use(config => {
     //是否需要设置token

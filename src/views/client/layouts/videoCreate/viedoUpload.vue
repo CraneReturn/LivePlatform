@@ -27,9 +27,14 @@
   </div>
   <div class="uploadViedoList">
     <div class="topListViedoShowCenter">
-      <div :class="{onceUploadFilesflage:index==0}" class="onceUploadFiles" v-for="(item,index) in hasFilesUploaded" :key="index">
+      <div
+        :class="{ onceUploadFilesflage: index == 0 }"
+        class="onceUploadFiles"
+        v-for="(item, index) in hasFilesUploaded"
+        :key="index"
+      >
         <div class="onceUploadFileCenter">
-          <p>{{item.name}}</p>
+          <p>{{ item.name }}</p>
           <div class="uploadwordsFiles">
             <div class="uploadFilesSucess">
               <svg
@@ -73,36 +78,60 @@
       </div>
       <div class="onceUploadFiles uploadFilesListBtn" v-loading="loading">
         <div class="uploadFilesListBtnCenter">
-            <div class="uploadFilesListBtnMain">
-                <svg t="1714034077479" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6334" width="15" height="15"><path d="M930.133 465.067H554.667V89.6c0-19.115-15.019-34.133-34.134-34.133S486.4 70.485 486.4 89.6v375.467H110.933c-19.114 0-34.133 15.018-34.133 34.133s15.019 34.133 34.133 34.133H486.4V908.8c0 19.115 15.019 34.133 34.133 34.133s34.134-15.018 34.134-34.133V533.333h375.466c19.115 0 34.134-15.018 34.134-34.133s-15.019-34.133-34.134-34.133z" p-id="6335" fill="#bfbfbf"></path></svg>
-                <input type="file" @change="uploadFileViedo">
-                <p>
-                    添加视频
-                </p>
-            </div>
+          <div class="uploadFilesListBtnMain">
+            <svg
+              t="1714034077479"
+              class="icon"
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              p-id="6334"
+              width="15"
+              height="15"
+            >
+              <path
+                d="M930.133 465.067H554.667V89.6c0-19.115-15.019-34.133-34.134-34.133S486.4 70.485 486.4 89.6v375.467H110.933c-19.114 0-34.133 15.018-34.133 34.133s15.019 34.133 34.133 34.133H486.4V908.8c0 19.115 15.019 34.133 34.133 34.133s34.134-15.018 34.134-34.133V533.333h375.466c19.115 0 34.134-15.018 34.134-34.133s-15.019-34.133-34.134-34.133z"
+                p-id="6335"
+                fill="#bfbfbf"
+              ></path>
+            </svg>
+            <input type="file" @change="uploadFileViedo" />
+            <p>添加视频</p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="progressbarViedo">
-    </div>
-    <uploadFillinVue :hasFilesUploaded="hasFilesUploaded" :nowtimeUploadFile="nowtimeUploadFile"/>
+    <div class="progressbarViedo"></div>
+    <uploadFillinVue
+      :hasFilesUploaded="hasFilesUploaded"
+      :nowtimeUploadFile="nowtimeUploadFile"
+    />
   </div>
 </template>
 <script lang="ts" setup>
-import { reactive, ref, watch,toRefs } from "vue";
-import { ElMessage } from 'element-plus'
-import uploadFillinVue from './uploadFillin.vue';
+import { reactive, ref, watch, toRefs } from "vue";
+import { PromisePool } from "./promisePool";
+import { ElMessage } from "element-plus";
+import uploadFillinVue from "./uploadFillin.vue";
 import { MP4Clip } from "@webav/av-cliper";
-import {getHash,spliceViedo} from './upload'
-import {uploadFileonce,mergerFiles} from '@/views/client/api/uploadFile/uploadFile'
-const uploadcount=ref(0)
+import { getHash, spliceViedo } from "./upload";
+import {
+  uploadFileonce,
+  mergerFiles,
+  getrestStarIndexArr,
+} from "@/views/client/api/uploadFile/uploadFile";
+const uploadcount = ref(0);
 const hasUploaded = ref<boolean>(false);
 const fileUpload = ref(null);
-const loading = ref(false)
-let hasFilesUploaded = reactive<{
-name: any; [key: number]: any 
-}[]>([]);
-const nowtimeUploadFile=ref(0)
+const loading = ref(false);
+let hasFilesUploaded = reactive<
+  {
+    name: any;
+    [key: number]: any;
+  }[]
+>([]);
+const nowtimeUploadFile = ref(0);
+let restFilesIndexarr = reactive([]);
 watch(fileUpload, (newvalue, oldvalue) => {
   if (newvalue) {
     hasUploaded.value = true;
@@ -110,70 +139,108 @@ watch(fileUpload, (newvalue, oldvalue) => {
     hasUploaded.value = false;
   }
 });
-const uploadFileViedo =async (event:any) => {
+const uploadFileViedo = async (event: any) => {
+  
   if (event.target.files[0]) {
     if (event.target.files[0].type != "video/mp4") {
-      ElMessage.error('请您上传视频文件')
+      ElMessage.error("请您上传视频文件");
       return;
     } else {
-      const files=event.target.files[0]
-      let maxSize=1024*1024*1
-      const{hashArr,suffix}=await getHash(files)
-      let count=Math.ceil(files.size/maxSize)
+      const files = event.target.files[0];
+      let maxSize = 1024 * 1024 * 1;
+      const { hashArr, suffix } = await getHash(files);
+      let count = Math.ceil(files.size / maxSize);
       //有多少需要上传的文件
-      if(count>100){
-        count=100
-        maxSize=files.size/count
+      if (count > 100) {
+        count = 100;
+        maxSize = files.size / count;
       }
-     const chunk= await spliceViedo(count,files,maxSize,hashArr,suffix)
+      const chunk = await spliceViedo(count, files, maxSize, hashArr, suffix);
 
-     for(let i=0;i<chunk.length;i++){
-      const fm = new FormData()
-      fm.append('file',chunk[i].file)
-      uploadFileonce(fm,i,hashArr,count).then((data:any)=>{
-        if(data.code==20000){
-          uploadFlagMethods(chunk.length,files.name,hashArr,files);
-        }else{
-          ElMessage.error('上传失败请重试')
-          fileUpload.value=null
-        }
-      })
-     }
-     loading.value=true
+      const restArr = await getrestStarIndexArr(hashArr);
+      const restFilesIndexarr = restArr.data;
+
+      //  for(let i=0;i<chunk.length;i++){
+      //   const fm = new FormData()
+      //   fm.append('file',chunk[i].file)
+      //   uploadFileonce(fm,i,hashArr,count).then((data:any)=>{
+      //     if(data.code==20000){
+      //       uploadFlagMethods(chunk.length,files.name,hashArr,files);
+      //     }else{
+      //       ElMessage.error('上传失败请重试')
+      //       fileUpload.value=null
+      //     }
+      //   })
+      //  }
+      console.log(restFilesIndexarr);
+
+      const asyncFunctions = chunk.map((file, index) => {
+        return async () => {
+          const fm = new FormData();
+          fm.append("file", chunk[index].file);
+          if (
+            restFilesIndexarr &&
+            restFilesIndexarr.length != 0 &&
+            restFilesIndexarr !== null
+          ) {
+            if (restFilesIndexarr.includes(index)) {
+              return uploadFileonce(fm, index, hashArr, count);
+            }
+          } else {
+            return uploadFileonce(fm, index, hashArr, count);
+          }
+        };
+      });
+
+      // // 创建PromisePool实例
+      const pool = new PromisePool(asyncFunctions, 5);
+
+      // // 执行上传任务
+      try {
+        const results = await pool.exec();
+        results.forEach((result: any) => {
+          if (result.code == !20000) {
+            ElMessage.error("您上传的文件没有成功,请重试");
+            return;
+          }
+        });
+        uploadFlagMethods(files.name, hashArr, files);
+        // 处理上传结果
+      } catch (error) {
+        // 处理执行过程中的错误
+      }
+      loading.value = true;
       fileUpload.value = event.target.files[0];
     }
   }
 };
- //判断上传是否完成
-const uploadFlagMethods=((count: number,name: any,md5: any,files: any)=>{
-  uploadcount.value++;
-  if (uploadcount.value >= count) {
-			// 完成 合并
-      mergerFiles(name,md5).then(async (data:any)=>{ 
-        
-        if(data.code===20000){
-          ElMessage.success('文件上传成功')
-          loading.value=false
-          //截取视频帧数
-          const list=await splicePhotoList(files)
-          const obj={
-            md5:md5,
-            url:data.data,
-            name:name,
-            list:list
-          }
-          hasFilesUploaded.push(obj)
-        }else{
-          ElMessage.error('文件上传失败')
-          loading.value=false
-        }
-        uploadcount.value=0
-      }).catch((err)=>{
-        console.log(err);
-        
-      })
-    }
-})
+//判断上传是否完成
+const uploadFlagMethods = (name: any, md5: any, files: any) => {
+  // 完成 合并
+  mergerFiles(name, md5)
+    .then(async (data: any) => {
+      if (data.code === 20000) {
+        ElMessage.success("文件上传成功");
+        loading.value = false;
+        //截取视频帧数
+        const list = await splicePhotoList(files);
+        const obj = {
+          md5: md5,
+          url: data.data,
+          name: name,
+          list: list,
+        };
+        hasFilesUploaded.push(obj);
+      } else {
+        ElMessage.error("文件上传失败");
+        loading.value = false;
+      }
+      uploadcount.value = 0;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 const splicePhotoList = async (file: any) => {
   const blob = new Blob([file], { type: file.type }); // 创建 Blob 对象
   const url = URL.createObjectURL(blob); // 创建本地文件的 URL
@@ -186,14 +253,13 @@ const splicePhotoList = async (file: any) => {
     end: file.lastModified,
     step: 1e6,
   });
-  // const costValue = ((performance.now() - t) / 1000).toFixed(2);
   const imgaeListReturn = imgListData.map(
     (it: { ts: any; img: Blob | MediaSource }) => ({
       ts: it.ts,
       img: URL.createObjectURL(it.img),
     })
   );
-return imgaeListReturn
+  return imgaeListReturn;
 };
 </script>
 
@@ -205,7 +271,10 @@ return imgaeListReturn
   margin-bottom: 15px;
   max-width: 600px;
 }
-.changePhoto:hover{
+.changePhoto:hover {
   cursor: pointer;
+}
+.fillInPhotoShow {
+  border: 1px dashed var(--el-color-primary);
 }
 </style>
