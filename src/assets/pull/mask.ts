@@ -2,6 +2,7 @@
 import type { Ref } from "vue";
 import * as bodySegmentation from "@tensorflow-models/body-segmentation";
 const model = bodySegmentation.SupportedModels.MediaPipeSelfieSegmentation;
+let Time: number | undefined;
 const segmenterConfig: bodySegmentation.MediaPipeSelfieSegmentationMediaPipeModelConfig =
   {
     runtime: "mediapipe",
@@ -16,8 +17,10 @@ const segmenter = await bodySegmentation.createSegmenter(
 const worker = new Worker("/src/assets/pull/worker.ts");
 export async function detect(
   videoEl: HTMLVideoElement,
-  canvas: Ref<HTMLCanvasElement>
+  canvas: Ref<HTMLCanvasElement>,
+  barrage: Ref<HTMLDivElement>
 ): Promise<void> {
+  clearTimeout(Time);
   // 只在offscreen为undefined时创建新的OffscreenCanvas
   let offscreen = new OffscreenCanvas(canvas.value.width, canvas.value.height);
   const segmentation = await segmenter.segmentPeople(videoEl);
@@ -25,12 +28,14 @@ export async function detect(
   worker.postMessage({ canvas: offscreen, mask: mask }, [offscreen]);
   worker.onmessage = function (event) {
     if (event.data.msgType === "mask") {
-      const img = new Image();
-      img.src = event.data.val;
+      let img = new Image(); // 创建一个新的图像对象
+      img.src = event.data.val; // 设置图像的源为 imgStr
+      console.log(event.data.val);
+
       img.onload = function () {
-        canvas.value.style.maskImage = `url(${event.data.val})`;
+        barrage.value.style.maskImage = `url(${img.src})`; // 设置遮罩图像
       };
     }
   };
-  window.setTimeout(() => detect(videoEl, canvas), 66);
+  Time = window.setTimeout(() => detect(videoEl, canvas, barrage), 66);
 }

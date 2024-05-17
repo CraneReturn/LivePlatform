@@ -5,6 +5,7 @@ self.onmessage = function (event) {
   const context = offscreen.getContext("2d");
   const reader = new FileReaderSync();
   context.clearRect(0, 0, offscreen.width, offscreen.height);
+
   context.drawImage(
     // 经验证 即使出现多人，也只有一个 segmentation
     mask,
@@ -19,6 +20,7 @@ self.onmessage = function (event) {
   context.fillRect(0, 0, offscreen.width, offscreen.height);
   // 导出Mask图片，需要的是轮廓，图片质量设为最低
   // 从事件数据中获取文件
+
   offscreen
     .convertToBlob({
       type: "image/png",

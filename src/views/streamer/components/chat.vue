@@ -15,11 +15,11 @@
         v-for="index in 5"
         :ranking="index"
         :name="'挖苦挖苦挖苦挖苦挖苦挖苦挖苦挖苦挖苦挖苦'"
-      ></userIndex>6 
+      ></userIndex>
     </div>
+    <div class="chatFrame"></div>
     <div class="chatWith">
       <!--两个部分 聊天框+输入框  -->
-      <div class="chatFrame"></div>
       <div class="inputFrame">
         <div class="chatInput">
           <textarea
@@ -27,7 +27,7 @@
             @input="rows($event)"
             class="chatArea"
             maxlength="50"
-            placeholder="善言结善语，恶语伤人心~~"
+            placeholder="善言结善语，恶语伤人心"
           ></textarea>
           <div class="emoji"><i class="iconfont icon-Emoji"></i></div>
           <div class="sendMessage"><button class="send">发送</button></div>
@@ -51,6 +51,8 @@ function rows(event) {
   font-size: 25px;
 }
 .chat {
+  position: relative;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -69,16 +71,16 @@ function rows(event) {
     font-size: var(--el-font-size-base);
   }
 }
-.chatWith {
-  height: 350px;
-}
 .chatFrame {
-  height: 280px;
+  height: 100%;
   width: 100%;
   background-color: lawngreen;
 }
 .inputFrame {
   padding: 10px;
+}
+.ranking {
+  max-height: 270px;
 }
 .chatInput {
   height: 100%;

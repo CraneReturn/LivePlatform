@@ -17,7 +17,15 @@
         <button class="share"><i class="iconfont icon-zhuanfa"></i></button>
       </div>
     </div>
-    <canvas ref="canvasVideo" class="canvasVideo"></canvas>
+    <div class="showTable">
+      <div class="barrage" ref="barrage"></div>
+      <canvas
+        ref="canvasVideo"
+        class="canvasVideo"
+        width="920"
+        height="1280"
+      ></canvas>
+    </div>
     <div class="footer">
       <div class="left">
         <button class="pause" @click="pause">
@@ -58,17 +66,20 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { useFlvPlay } from "@/assets/pull";
 const { setMuted, setVolume, setPlay, init, destroyFlv } = useFlvPlay();
 const canvasVideo = ref<HTMLCanvasElement>(null);
+const barrage = ref<HTMLDivElement>(null);
+onMounted(() => {
+  init(url, canvasVideo, barrage);
+});
 let prevVolume = 50;
 const play = ref(true);
 const mute = ref(true);
 const volume = ref(0);
 const url =
-  "https://111-42-202-35.bytefcdnrd.com/gamereplay/stream-115124827769275056_ld.flv?302_type=cold_aggr&_session_id=037-2024051216551771102B9256D88BFFDCCC.1715504132028.68663&abr_pts=-800&cb_retry=0&domain=pull-hs-f5.flive.douyincdn.com&fp_user_url=https%3A%2F%2Fpull-hs-f5.flive.douyincdn.com%2Fgamereplay%2Fstream-115124827769275056_ld.flv%3Fabr_pts%3D-800%26_session_id%3D037-2024051216551771102B9256D88BFFDCCC.1715504132028.68663&manage_ip=&node_id=&pro_type=http2&redirect_from=pod.cn-zpqe1u.qxv9.nss&vhost=push-rtmp-hs-f5.douyincdn.com";
-let steamer = init(url, canvasVideo);
+  "https://pull-flv-spe-l11.douyincdn.com/fantasy/stream-403377428305019574_sd.flv?_neptune_token=MIGlBAzTANLPp53OECCsUh4EgYKiJ1Smfns8MPipNGbyX1zge9X75Z3DYhnS_u338pyZMGWPBHbZyNb1GkUuQ8JowwnnFyCbZYx-knnCx7Deizgtvg0z3jeLOjugOOvBIS0t_a4mgyxUq6YFEArLrDvTaQxnSiN4OoiaZbAIFZCNRFxwkazBVnua-z0c-vcDObXDirsbBBDSHZboQqkHXZHcDDcQ35la&expire=1716023199&sign=40a09c36feb7624b93dd4f5ae3e52a99&abr_pts=-800&_session_id=037-20240517170638717712A412934402BCFC.1715936813106.56363";
 function pause() {
   setPlay(!play.value);
   play.value = !play.value;
@@ -113,10 +124,23 @@ function refresh() {
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
+  .showTable {
+    height: 80vh;
+    max-width: 90%;
+    margin: 0 auto;
+    mask-size: cover;
+    .barrage {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+  }
   .canvasVideo {
-    max-width: 100%;
     height: 100%;
-    object-fit: cover;
+    margin: 0 auto;
+    /* object-fit: cover; */
   }
   .top {
     min-height: 75px;
@@ -126,6 +150,7 @@ function refresh() {
     display: flex;
     justify-content: space-between;
     top: -75px;
+    z-index: 100;
     transition-duration: 0.5s;
   }
   .anchorInfo {
@@ -181,7 +206,6 @@ function refresh() {
       }
     }
   }
-  /* overflow: hidden; */
   .footer {
     position: absolute;
     transition-duration: 0.5s;
