@@ -18,7 +18,9 @@
       </div>
     </div>
     <div class="showTable">
-      <div class="barrage" ref="barrage"></div>
+      <div class="barrage" ref="barrage">
+      <!-- 弹幕 -->
+      </div>
       <canvas
         ref="canvasVideo"
         class="canvasVideo"
@@ -41,6 +43,7 @@
           <!-- 当前清晰度 -->
           <p class="correct">标清</p>
         </div>
+
         <button class="barrage">
           <i class="iconfont icon-danmushezhi"></i>
         </button>
