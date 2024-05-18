@@ -18,7 +18,9 @@
       </div>
     </div>
     <div class="showTable">
-      <div class="barrage" ref="barrage"></div>
+      <div class="barrage" ref="barrage">
+      <!-- 弹幕 -->
+      </div>
       <canvas
         ref="canvasVideo"
         class="canvasVideo"
