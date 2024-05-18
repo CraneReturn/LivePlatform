@@ -37,7 +37,7 @@ import videoPlayer from "./components/videoPlayer.vue";
   display: flex;
   background-color: var(--el-color-success-light-9);
   .chatPart {
-    min-width: 300px;
+    min-width: 350px;
     padding: 5px;
     overflow: hidden;
   }

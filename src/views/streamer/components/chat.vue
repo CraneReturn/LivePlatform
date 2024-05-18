@@ -29,6 +29,9 @@
             maxlength="50"
             placeholder="善言结善语，恶语伤人心"
           ></textarea>
+          <div class="textSet">
+            <i class="iconfont icon-fuwenbenbianjiqi_zitiyanse"></i>
+          </div>
           <div class="emoji"><i class="iconfont icon-Emoji"></i></div>
           <div class="sendMessage"><button class="send">发送</button></div>
         </div>
@@ -45,7 +48,7 @@ function rows(event) {
 }
 </script>
 <style lang="scss" scoped>
-@import "http://at.alicdn.com/t/c/font_4515498_29jo7wuow4.css";
+@import "http://at.alicdn.com/t/c/font_4515498_x1t0sazzfdj.css";
 .icon-xitong_zaixianyonghu {
   color: var(--el-color-success-light-3);
   font-size: 25px;
@@ -98,7 +101,7 @@ function rows(event) {
     width: 100%;
     resize: none;
     line-height: 22px;
-    padding: 11px 100px 11px 8px;
+    padding: 11px 100px 11px 35px;
     overflow: hidden;
     background-color: transparent;
     transition-duration: 0.25s;
@@ -117,6 +120,17 @@ function rows(event) {
       font-size: 25px;
       line-height: 35px;
       cursor: pointer;
+    }
+  }
+  .textSet {
+    position: absolute;
+    top: 0;
+    left: 8px;
+    cursor: pointer;
+    .iconfont {
+      font-size: 23px;
+      line-height: 42px;
+      color: var(--vt-c-divider-dark-2);
     }
   }
   .sendMessage {
