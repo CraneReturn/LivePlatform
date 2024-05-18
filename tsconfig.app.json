@@ -14,7 +14,7 @@
     "lib": [
       "webworker",
       "dom",
-      "es6"
+      "ES2016"
     ],
     "baseUrl": ".",
     "paths": {
