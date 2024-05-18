@@ -1,5 +1,5 @@
 const sessionCache = {
-    set (key: string | null, value: string | null) {
+    set (key: string | null, value: any) {
       if (!sessionStorage) {
         return
       }
@@ -16,7 +16,7 @@ const sessionCache = {
       }
       return sessionStorage.getItem(key)
     },
-    setJSON (key: string | null, jsonValue: null) {
+    setJSON (key: string | null, jsonValue: any) {
       if (jsonValue != null) {
         this.set(key, JSON.stringify(jsonValue))
       }

@@ -2,8 +2,7 @@ import { ref, onUnmounted, type Ref, watch } from "vue";
 import flvjs from "flv.js";
 import { createVideo } from "./play";
 import { useStreamerStore } from "@/store/streamer/play";
-import * as tf from "@tensorflow/tfjs";
-import * as bodyPix from "@tensorflow-models/body-pix";
+import { detect } from "./mask";
 
 // 使用flv进行视频拉流
 export function useFlvPlay() {
@@ -90,14 +89,17 @@ export function useFlvPlay() {
       }
     }
   );
-  function init(source: string, canvas: Ref<HTMLCanvasElement>) {
+  function init(
+    source: string,
+    canvas: Ref<HTMLCanvasElement>,
+    container: Ref<HTMLDivElement>
+  ) {
     return new Promise((resolve) => {
       async function main() {
-        // 加载抠图模型
-        const net = await bodyPix.load();
         const ctx = canvas.value?.getContext("2d");
 
         if (flvjs.isSupported()) {
+          // 创建flv拉流
           flvPlayer.value = flvjs.createPlayer(
             {
               type: "flv",
@@ -120,24 +122,20 @@ export function useFlvPlay() {
               cancelAnimationFrame(animationFrameId);
               return;
             }
-            // 进行人体分割
-            const segmentation = await net.segmentPerson(videoElement);
-
-            // 生成遮罩，将人物与背景分开
-            const mask = bodyPix.toMask(
-              segmentation,
-              { r: 0, g: 0, b: 0, a: 0 },
-              { r: 0, g: 0, b: 0, a: 0 }
+            ctx.drawImage(
+              videoElement,
+              0,
+              0,
+              canvas.value.width,
+              canvas.value.height
             );
 
-            // 应用遮罩到视频帧，得到只有人物的图像
-            bodyPix.drawMask(canvas.value, videoElement, mask);
             // 计划下一帧的更新
             animationFrameId = requestAnimationFrame(drawVideoFrame);
           }
-
+          drawVideoFrame();
           videoElement.addEventListener("canplay", () => {
-            drawVideoFrame();
+            detect(videoElement, canvas,container);
             flvIsPlaying.value = true;
             setMuted(videoStates.muted);
             setVolume(videoStates.volume);

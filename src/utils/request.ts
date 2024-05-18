@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { tansParams } from './comment'
-import { Notification, MessageBox, Message, Loading } from 'element-ui'
-import cache from '@/plugins/cache'
+import { ElMessageBox, ElMessage,ElNotification } from 'element-plus'
+import cache from './cache'
 const baseApiUrl = import.meta.env.VITE_APP_CONTEXT_PATH
 const errorCode: { [key: string]: string } = {
     '401': '认证失败，无法访问系统资源',
@@ -14,9 +14,8 @@ export let isRelogin = { show: false };
 
 const service = axios.create({
     // axios中请求配置有baseURL选项，表示请求URL公共部分
-    baseURL: "http://152.136.161.44:8080",
+    baseURL: "http://81.70.144.36:8083",
     // 超时
-    timeout: 10000
 })
 service.interceptors.request.use(config => {
     //是否需要设置token
@@ -38,7 +37,7 @@ service.interceptors.request.use(config => {
             data: typeof config.data == 'object' ? JSON.stringify(config.data) : config.data,
             time: new Date().getTime()
         }
-        const sessionObj = cache.session.getJSON('sessionObj', requestObj)
+        const sessionObj = cache.session.getJSON('sessionObj')
         if (sessionObj == undefined || sessionObj == null || sessionObj == '') {
             cache.session.setJSON('sessionObj', requestObj)
         } else {
@@ -63,7 +62,7 @@ service.interceptors.request.use(config => {
 
 })
 service.interceptors.response.use(res => {
-    const code = res.data.code || 200
+    const code = res.data.code || 20000
     //获取错误信息
     const codeStr = String(code);
     const msg = errorCode[code] || res.data.msg || errorCode['default']
@@ -73,39 +72,42 @@ service.interceptors.response.use(res => {
     if (code === 401) {
         if (!isRelogin.show) {
             isRelogin.show = true;
-            MessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', { confirmButtonText: '重新登录', cancelButtonText: '取消', type: 'warning' }).then(() => {
+            ElMessageBox.confirm('登录状态已过期，您可以继续留在该页面，或者重新登录', '系统提示', { confirmButtonText: '重新登录', cancelButtonText: '取消', type: 'warning' }).then(() => {
                 isRelogin.show = false;
                 // store.dispatch('LogOut').then(() => {
                 //     location.href = process.env.VUE_APP_CONTEXT_PATH + "index";
                 // })
-                location.href=baseApiUrl
+                location.href = baseApiUrl
             }).catch(() => {
                 isRelogin.show = false;
             });
         }
-    }else if(code==500){
-        Message({message:msg,type:"error"})
+    } else if (code == 500) {
+        ElMessage({ message: msg, type: "error" })
         return Promise.reject(new Error(msg))
     } else if (code === 601) {
-      Message({ message: msg, type: 'warning' })
-      return Promise.reject('error')
-    } else if (code !== 200) {
-      Notification.error({ title: msg })
-      return Promise.reject('error')
+        ElMessage({ message: msg, type: 'warning' })
+        return Promise.reject('error')
+    } else if (code !== 20000) {
+        ElNotification({
+            title: msg,
+            type: 'error',
+        })
+        return Promise.reject('error')
     } else {
-      return res.data
+        return res.data
     }
-},error => {
+}, error => {
     console.log('err' + error)
     let { message } = error;
     if (message == "Network Error") {
-      message = "后端接口连接异常";
+        message = "后端接口连接异常";
     } else if (message.includes("timeout")) {
-      message = "系统接口请求超时";
+        message = "系统接口请求超时";
     } else if (message.includes("Request failed with status code")) {
-      message = "系统接口" + message.substr(message.length - 3) + "异常";
+        message = "系统接口" + message.substr(message.length - 3) + "异常";
     }
-    Message({ message: message, type: 'error', duration: 5 * 1000 })
+    ElMessage({ message: message, type: 'error', duration: 5 * 1000 })
     return Promise.reject(error)
-  })
-  export default service
+})
+export default service
