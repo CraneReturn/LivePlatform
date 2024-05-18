@@ -41,6 +41,7 @@
           <!-- 当前清晰度 -->
           <p class="correct">标清</p>
         </div>
+        <el-switch></el-switch>
         <button class="barrage">
           <i class="iconfont icon-danmushezhi"></i>
         </button>
@@ -57,7 +58,9 @@
             <i v-else class="iconfont icon-shengyin"></i>
           </button>
         </div>
-
+        <button class="fullScreen">
+          <i class="iconfont icon-shezhi"></i>
+        </button>
         <button class="fullScreen">
           <i class="iconfont icon-quanping"></i>
         </button>
@@ -107,11 +110,11 @@ function muted() {
 }
 function refresh() {
   destroyFlv();
-  steamer = init(url, canvasVideo);
+  steamer = init(url, canvasVideo, barrage);
 }
 </script>
 <style lang="scss" scoped>
-@import url("http://at.alicdn.com/t/c/font_4515498_7hzpu4sfpru.css");
+@import url("http://at.alicdn.com/t/c/font_4515498_2kbo3q7jzl.css");
 .el-popover {
   max-width: 100px;
 }
@@ -222,13 +225,14 @@ function refresh() {
       cursor: pointer;
     }
     .iconfont {
-      font-size: 17px;
+      font-size: 23px;
       color: #fff;
     }
     .right,
     .left {
       display: flex;
       gap: 20px;
+      align-items: center;
     }
     .correct {
       font-size: 12px;
