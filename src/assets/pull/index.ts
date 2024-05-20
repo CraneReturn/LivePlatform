@@ -6,84 +6,84 @@ import { detect } from "./mask";
 
 // 使用flv进行视频拉流
 export function useFlvPlay() {
-    let animationFrameId: any; // 用于存储 requestAnimationFrame 返回的 ID，这样我们就可以取消它
-    const videoStates = useStreamerStore();
-    const flvPlayer = ref<flvjs.Player>();
-    const retryTimer = ref(); //定时器
-    const virtualVideo = ref<HTMLVideoElement>();
-    const retry = ref(false); //是否需要重新加载
-    const flvIsPlaying = ref(false); // flv当前状态
-    //   取消挂载时（用户关闭直播/浏览器）
-    onUnmounted(() => {
-        // 销毁flv
-        destroyFlv();
-    });
-    function destroyFlv() {
-        if (flvPlayer.value) {
-            flvPlayer.value.destroy();
-            flvPlayer.value = undefined;
-        }
-        virtualVideo.value?.remove();
-        virtualVideo.value = undefined;
-        //  清除定时
-        clearInterval(retryTimer.value);
-        cancelAnimationFrame(animationFrameId);
+  let animationFrameId: any; // 用于存储 requestAnimationFrame 返回的 ID，这样我们就可以取消它
+  const videoStates = useStreamerStore();
+  const flvPlayer = ref<flvjs.Player>();
+  const retryTimer = ref(); //定时器
+  const virtualVideo = ref<HTMLVideoElement>();
+  const retry = ref(false); //是否需要重新加载
+  const flvIsPlaying = ref(false); // flv当前状态
+  //   取消挂载时（用户关闭直播/浏览器）
+  onUnmounted(() => {
+    // 销毁flv
+    destroyFlv();
+  });
+  function destroyFlv() {
+    if (flvPlayer.value) {
+      flvPlayer.value.destroy();
+      flvPlayer.value = undefined;
     }
-    // 对视频文件设置静音
-    function setMuted(val: boolean) {
-        if (virtualVideo.value) {
-            virtualVideo.value.muted = val;
-        }
-        if (flvPlayer.value) {
-            flvPlayer.value.muted = val;
-        }
+    virtualVideo.value?.remove();
+    virtualVideo.value = undefined;
+    //  清除定时
+    clearInterval(retryTimer.value);
+    cancelAnimationFrame(animationFrameId);
+  }
+  // 对视频文件设置静音
+  function setMuted(val: boolean) {
+    if (virtualVideo.value) {
+      virtualVideo.value.muted = val;
     }
-    function setVolume(val: number) {
-        if (virtualVideo.value) {
-            virtualVideo.value.volume = val / 100;
-        }
-        if (flvPlayer.value) {
-            flvPlayer.value.volume = val / 100;
-        }
+    if (flvPlayer.value) {
+      flvPlayer.value.muted = val;
     }
-    function setPlay(val: boolean) {
-        if (val) {
-            try {
-                virtualVideo.value?.play();
-                flvPlayer.value?.play();
-            } catch (error) {
-                console.error("flv播放失败");
-                console.log(error);
-            }
-        } else {
-            try {
-                virtualVideo.value?.pause();
-                flvPlayer.value?.pause();
-            } catch (error) {
-                console.error("flv暂停失败");
-                console.log(error);
-            }
-        }
+  }
+  function setVolume(val: number) {
+    if (virtualVideo.value) {
+      virtualVideo.value.volume = val / 100;
     }
-    watch(
-        () => videoStates.muted,
-        newVal => {
-            setMuted(newVal);
-        }
-    );
+    if (flvPlayer.value) {
+      flvPlayer.value.volume = val / 100;
+    }
+  }
+  function setPlay(val: boolean) {
+    if (val) {
+      try {
+        virtualVideo.value?.play();
+        flvPlayer.value?.play();
+      } catch (error) {
+        console.error("flv播放失败");
+        console.log(error);
+      }
+    } else {
+      try {
+        virtualVideo.value?.pause();
+        flvPlayer.value?.pause();
+      } catch (error) {
+        console.error("flv暂停失败");
+        console.log(error);
+      }
+    }
+  }
+  watch(
+    () => videoStates.muted,
+    (newVal) => {
+      setMuted(newVal);
+    }
+  );
 
-    watch(
-        () => videoStates.volume,
-        newVal => {
-            setVolume(newVal);
-        }
-    );
+  watch(
+    () => videoStates.volume,
+    (newVal) => {
+      setVolume(newVal);
+    }
+  );
 
-    watch(
-        () => videoStates.playing,
-        newVal => {
-            if (newVal) {
-                console.log(newVal);
+  watch(
+    () => videoStates.playing,
+    (newVal) => {
+      if (newVal) {
+        console.log(newVal);
 
         setPlay(newVal);
       }
@@ -122,24 +122,20 @@ export function useFlvPlay() {
               cancelAnimationFrame(animationFrameId);
               return;
             }
-            // 进行人体分割
-            const segmentation = await net.segmentPerson(videoElement);
-
-            // 生成遮罩，将人物与背景分开
-            const mask = bodyPix.toMask(
-              segmentation,
-              { r: 0, g: 0, b: 0, a: 0 },
-              { r: 0, g: 0, b: 0, a: 0 }
+            ctx.drawImage(
+              videoElement,
+              0,
+              0,
+              canvas.value.width,
+              canvas.value.height
             );
 
-            // 应用遮罩到视频帧，得到只有人物的图像
-            bodyPix.drawMask(canvas.value, videoElement, mask);
             // 计划下一帧的更新
             animationFrameId = requestAnimationFrame(drawVideoFrame);
           }
-
+          drawVideoFrame();
           videoElement.addEventListener("canplay", () => {
-            drawVideoFrame();
+            detect(videoElement, canvas,container);
             flvIsPlaying.value = true;
             setMuted(videoStates.muted);
             setVolume(videoStates.volume);
