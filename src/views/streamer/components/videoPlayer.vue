@@ -17,7 +17,17 @@
         <button class="share"><i class="iconfont icon-zhuanfa"></i></button>
       </div>
     </div>
-    <canvas ref="canvasVideo" class="canvasVideo" style="width: 100%!important;height:100%!important"></canvas>
+    <div class="showTable">
+      <div class="barrage" ref="barrage">
+        <!-- 弹幕 -->
+      </div>
+      <canvas
+        ref="canvasVideo"
+        class="canvasVideo"
+        width="920"
+        height="1280"
+      ></canvas>
+    </div>
     <div class="footer">
       <div class="left">
         <button class="pause" @click="pause">
@@ -33,9 +43,12 @@
           <!-- 当前清晰度 -->
           <p class="correct">标清</p>
         </div>
+
         <button class="barrage">
           <i class="iconfont icon-danmushezhi"></i>
+          <contenShowdesigned/>
         </button>
+
         <button class="gift">
           <i class="iconfont icon-liwu"></i>
         </button>
@@ -58,17 +71,21 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
+import contenShowdesigned from './barrage/contenShowdesigned.vue'
 import { useFlvPlay } from "@/assets/pull";
 const { setMuted, setVolume, setPlay, init, destroyFlv } = useFlvPlay();
 const canvasVideo = ref<HTMLCanvasElement>(null);
+const barrage = ref<HTMLDivElement>(null);
+onMounted(() => {
+  init(url, canvasVideo, barrage);
+});
 let prevVolume = 50;
 const play = ref(true);
 const mute = ref(true);
 const volume = ref(0);
 const url =
-  "http://localhost:8080/live/livestream.flv";
-const steamer = init(url, canvasVideo);
+  "https://pull-flv-spe-l11.douyincdn.com/fantasy/stream-403377428305019574_sd.flv?_neptune_token=MIGlBAzTANLPp53OECCsUh4EgYKiJ1Smfns8MPipNGbyX1zge9X75Z3DYhnS_u338pyZMGWPBHbZyNb1GkUuQ8JowwnnFyCbZYx-knnCx7Deizgtvg0z3jeLOjugOOvBIS0t_a4mgyxUq6YFEArLrDvTaQxnSiN4OoiaZbAIFZCNRFxwkazBVnua-z0c-vcDObXDirsbBBDSHZboQqkHXZHcDDcQ35la&expire=1716023199&sign=40a09c36feb7624b93dd4f5ae3e52a99&abr_pts=-800&_session_id=037-20240517170638717712A412934402BCFC.1715936813106.56363";
 function pause() {
   setPlay(!play.value);
   play.value = !play.value;
@@ -113,10 +130,23 @@ function refresh() {
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
+  .showTable {
+    height: 80vh;
+    max-width: 90%;
+    margin: 0 auto;
+    mask-size: cover;
+    .barrage {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+  }
   .canvasVideo {
-    max-width: 100%;
     height: 100%;
-    object-fit: cover;
+    margin: 0 auto;
+    /* object-fit: cover; */
   }
   .top {
     min-height: 75px;
@@ -126,6 +156,7 @@ function refresh() {
     display: flex;
     justify-content: space-between;
     top: -75px;
+    z-index: 100;
     transition-duration: 0.5s;
   }
   .anchorInfo {
@@ -181,7 +212,6 @@ function refresh() {
       }
     }
   }
-  /* overflow: hidden; */
   .footer {
     position: absolute;
     transition-duration: 0.5s;

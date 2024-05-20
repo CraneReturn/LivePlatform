@@ -1,20 +1,20 @@
 <template>
   <div class="userInfo">
-    <!-- 排名 头像 等级 其他内容 -->
-    <div class="user">
-      <p class="ranking" v-bind:class="rankColor()">{{ ranking }}</p>
-      <div class="mainInfo">
-        <div class="head">
-          <img
-            src="https://q1.itc.cn/q_70/images03/20240329/23a82de4541a454f85d81e71074a7141.jpeg"
-            alt="用户头像"
-          />
+    <div class="Info">
+      <div class="user">
+        <p class="ranking" v-bind:class="rankColor()">{{ ranking }}</p>
+        <div class="mainInfo">
+          <div class="head">
+            <img
+              src="https://q1.itc.cn/q_70/images03/20240329/23a82de4541a454f85d81e71074a7141.jpeg"
+              alt="用户头像"
+            />
+          </div>
+          <p class="name">{{ name }}</p>
         </div>
-        <p class="name">{{ name }}</p>
       </div>
+      <slot name="popularity"></slot>
     </div>
-
-    <slot name="popularity"> </slot>
   </div>
 </template>
 <script setup lang="ts">
@@ -41,7 +41,7 @@ function rankColor() {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .first {
   color: #ff2935;
 }
@@ -55,6 +55,7 @@ function rankColor() {
   color: rgb(47 48 53 / 40%);
 }
 .userInfo {
+  width: 100%;
   padding: 5px;
   display: flex;
   align-items: center;
@@ -66,6 +67,7 @@ function rankColor() {
     display: flex;
     gap: 10px;
     align-items: center;
+    transition-duration: 0.25s;
   }
   .mainInfo {
     display: flex;
@@ -74,6 +76,8 @@ function rankColor() {
   }
   .ranking {
     font-weight: 700;
+    width: 20px;
+    text-align: center;
     font-size: var(--el-font-size-base);
     font-style: oblique;
   }
@@ -98,9 +102,5 @@ function rankColor() {
 }
 .userInfo:hover {
   background-color: var(--vt-c-divider-light-2);
-}
-.ranking {
-  width: 20px;
-  text-align: center;
 }
 </style>

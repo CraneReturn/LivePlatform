@@ -12,8 +12,8 @@
     >
       <el-form-item label="封面" prop="name">
         <div class="fillInPhotoShow">
-          <img src="@/assets/images/userPhoto/userphotojpg.jpg" alt="" />
-          <div class="changePhoto" @click="dialogVisible=true">
+          <img :src="spliceImgList[0].img" alt="" v-if="spliceImgList" ref="changefaceImgshowphoto"/>
+          <div class="changePhoto" @click="dialogVisible = true">
             <p>更改封面</p>
           </div>
         </div>
@@ -69,14 +69,43 @@
         <el-button @click="resetForm(ruleFormRef)">重置</el-button>
       </el-form-item>
     </el-form>
-    <ffmpegVue :dialogVisible="dialogVisible" @update:dialogVisible="handleDialogVisibleUpdate"/>
+    <ffmpegVue
+      :dialogVisible="dialogVisible"
+      @update:dialogVisible="handleDialogVisibleUpdate"
+      :spliceImgList="spliceImgList"
+      @update:changeFaceImgshow="changeFaceImgshowupdate"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, defineProps, watch } from "vue";
 import ffmpegVue from "./ffmpegVue.vue";
 import type { ComponentSize, FormInstance, FormRules } from "element-plus";
+const spliceImgList = ref();
+const changefaceImgshowphoto=ref()
+const props = defineProps({
+  hasFilesUploaded: {
+    type: Array as () => any[],
+    required: true,
+  },
+  nowtimeUploadFile: {
+    type: Number,
+  },
+});
+//监听
+watch(
+  () => props.hasFilesUploaded,
+  (newValue) => {
+    if (newValue.length != 0 && props.nowtimeUploadFile != undefined) {
+      spliceImgList.value = newValue[props.nowtimeUploadFile].list;
+    }
+  },
+  {
+    immediate: true, // 立即执行一次监听函数,
+    deep: true,
+  }
+);
 interface RuleForm {
   name: string;
   region: string;
@@ -193,8 +222,11 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
 };
 const handleDialogVisibleUpdate = (value: boolean) => {
-      dialogVisible.value = value;
-    };
+  dialogVisible.value = value;
+};
+const changeFaceImgshowupdate= (value:any) => {
+  changefaceImgshowphoto.value.src=value
+};
 </script>
 
 <style>

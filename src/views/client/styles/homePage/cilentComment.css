@@ -8,14 +8,12 @@
 .leftCommentList {
   width: 55%;
 }
-
 .leftCommentList .leftCommentMain {
   width: 100%;
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
 }
-
 .leftCommentList .leftCommentMain .leftLeftMain {
   transition: 0.4s;
   box-shadow: 1px -1px 2px 2px rgba(185, 179, 179, 0.5);
@@ -24,7 +22,6 @@
   height: 600px;
   position: relative;
 }
-
 .leftCommentList .leftCommentMain .leftLeftMain img {
   padding: 5px;
   width: 100%;
@@ -32,7 +29,6 @@
   transition: 0.4s;
   cursor: pointer;
 }
-
 .leftCommentList .leftCommentMain .leftLeftMain video {
   padding: 5px;
   width: 100%;
@@ -40,21 +36,17 @@
   height: 100%;
   transition: 0.4s;
 }
-
 .leftCommentList .leftCommentMain .leftrightCommenMain {
   width: 30%;
   height: 500px;
 }
-
 .leftCommentList .leftCommentMain .leftrightCommenMain .leftrightCommenMainList {
   width: 100%;
   height: 500px;
 }
-
 .leftCommentList .leftCommentMain .leftrightCommenMain .leftrightCommenMainList ul {
   width: 100%;
 }
-
 .leftCommentList .leftCommentMain .leftrightCommenMain .leftrightCommenMainList ul li {
   width: 100%;
   height: 100px;
@@ -64,14 +56,12 @@
   transition: 0.4s;
   box-shadow: 1px -1px 2px 2px rgba(185, 179, 179, 0.5);
 }
-
 .leftCommentList .leftCommentMain .leftrightCommenMain .leftrightCommenMainList ul li video {
   padding: 5px;
   width: 100%;
   transition: 0.4s;
   height: 100%;
 }
-
 .leftCommentList .leftCommentMain .leftrightCommenMain .leftrightCommenMainList ul li img {
   width: 100%;
   transition: 0.4s;
@@ -85,7 +75,6 @@
   overflow-x: hidden;
   position: relative;
 }
-
 .rightCommentList .rightCommentListConten {
   width: 100%;
   overflow-x: hidden;
@@ -95,19 +84,16 @@
   height: 600px;
   box-shadow: 1px -1px 2px 2px rgba(185, 179, 179, 0.5);
 }
-
 .rightCommentList .rightCommentListConten ul {
   overflow-x: hidden;
   background-color: var(--el-color-opcatiy);
 }
-
 .rightCommentList .rightCommentListConten ul li {
   width: 100%;
   height: 100px;
   padding-top: 10px;
   border-bottom: 1px solid var(--el-color-primary);
 }
-
 .rightCommentList .rightCommentListConten ul li .mainShowuser {
   width: 95%;
   padding-top: 10px;
@@ -119,19 +105,16 @@
   background-color: white;
   height: 80px;
 }
-
 .rightCommentList .rightCommentListConten ul li .mainShowuser .leftuserPhoto {
   width: 10%;
   margin-left: 30px;
   margin-top: 5px;
 }
-
 .rightCommentList .rightCommentListConten ul li .mainShowuser .leftuserPhoto img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
-
 .rightCommentList .rightCommentListConten ul li .mainShowuser .middleuserConten {
   text-align: center;
   width: 40%;
@@ -140,9 +123,8 @@
   margin-top: 5px;
   font-size: 14px;
   margin-left: 10px;
-  color: #515050;
+  color: rgb(81, 80, 80);
 }
-
 .rightCommentList .rightCommentListConten ul li .mainShowuser .middleuserConten p {
   width: 100%;
   transform: translate(-50%, -80%);
@@ -150,19 +132,16 @@
   left: 50%;
   top: 50%;
 }
-
 .rightCommentList .rightCommentListConten ul li .mainShowuser .rightContenFire {
   width: 10%;
   margin-left: 10px;
   position: relative;
 }
-
 .rightCommentList .rightCommentListConten ul li .mainShowuser .rightContenFire .fireConten {
   position: absolute;
   top: 50%;
   transform: translate(0%, -70%);
 }
-
 .rightCommentList .rightCommentListConten ul li .mainShowuser .rightContenFire span {
   font-size: 12px;
   transform: scale(0.9);
@@ -183,13 +162,11 @@
   top: 70%;
   left: 10%;
 }
-
 .leftTitleCommentMain .titleMain {
   font-size: 25px;
   color: white;
   text-shadow: 1px -1px 2px rgba(52, 49, 49, 0.5);
 }
-
 .leftTitleCommentMain .authMain {
   font-size: 20px;
   color: white;
@@ -213,7 +190,6 @@
   position: relative;
   width: 20px;
 }
-
 .fireContensvg .icon {
   position: absolute;
   top: 20%;
@@ -232,7 +208,6 @@
     top: -90px;
   }
 }
-
 .showFixed {
   display: none;
 }
@@ -253,4 +228,4 @@
 
 .jumptopShow {
   transition: 0.4s;
-}
+}/*# sourceMappingURL=cilentComment.css.map */

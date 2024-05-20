@@ -9,7 +9,7 @@
         }
     ],
     "compilerOptions": {
-        // ...
+        "lib": ["webworker"],
         "types": ["element-plus/global"]
     }
 }

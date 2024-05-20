@@ -16,7 +16,6 @@ import { initPlayer } from "./src/player";
 import ToggleButton from "./src/components/toggle-button.vue";
 import { Player } from "./src/models/Player";
 import ProgressSlider from "./src/components/progress-slider.vue";
-
 const huhPlayer = ref<HTMLCanvasElement | null>(null);
 const section = ref<HTMLCanvasElement | null>(null);
 
