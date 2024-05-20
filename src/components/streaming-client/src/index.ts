@@ -1,6 +1,6 @@
 
 
-export async function startPush() {
+export async function startPush(video) {
     const pc = new RTCPeerConnection();
 
     navigator.mediaDevices
@@ -26,8 +26,11 @@ export async function startPush() {
                     "Content-type": "application/sdp",
                 },
                 body: offer.sdp,
-            }).then(res => {
-                console.log(res);
+            }).then(async res => {
+                const sdp = await res.text();
+                await pc.setRemoteDescription(
+                    new RTCSessionDescription({type: 'answer', sdp: sdp})
+                );
                 
             });
         });
