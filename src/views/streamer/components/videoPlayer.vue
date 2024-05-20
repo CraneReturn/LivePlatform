@@ -46,9 +46,13 @@
 
         <button class="barrage">
           <i class="iconfont icon-danmushezhi"></i>
-          <contenShowdesigned/>
+          
         </button>
-
+        
+        <button class="barrage">
+          <contenShowdesigned/>
+          
+        </button>
         <button class="gift">
           <i class="iconfont icon-liwu"></i>
         </button>
