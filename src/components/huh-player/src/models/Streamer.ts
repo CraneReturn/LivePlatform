@@ -2,7 +2,7 @@ import {
     StreamerEventType,
     initStreamerEvents,
 } from "../streamer/streamer-events";
-import { MediaPreloader } from "../streamer/streamer-preloader";
+import { MediaPreloader } from "../streamer/streamer-loader";
 import { EventEmitter } from "./EventEmitter";
 import { Player } from "./Player";
 
@@ -86,7 +86,7 @@ export class Streamer {
             sourceBuffer.appendBuffer(segmentData);
         } else {
             const data = await this.mediaPreLoader.loadSegment(segment.uri);
-            sourceBuffer.appendBuffer(data);
+            data && sourceBuffer.appendBuffer(data);
         }
     }
 

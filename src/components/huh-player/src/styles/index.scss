@@ -1,7 +1,10 @@
 .huh-player {
-    width: 600px;
-    height: 400px;
+    width: 60%;
+    height: 0;
+    padding-bottom: 33.75%;
+    box-sizing: border-box;
     position: relative;
+    margin: 0 auto;
 
     .canvas {
         position: absolute;

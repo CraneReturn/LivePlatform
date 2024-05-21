@@ -3,13 +3,13 @@ import { EventEmitter } from "./EventEmitter";
 import { Streamer, type MediaSegment } from "./Streamer";
 
 export class Player {
-    public streamer: Streamer = new Streamer();
-    public duration: number = 0;
+    private static _dragging: boolean = false;
+    private static _eventEmitter: EventEmitter = new EventEmitter();
     public static canvasElement: HTMLCanvasElement;
     public static mediaElement: HTMLMediaElement =
         document.createElement("video");
-    private static _dragging: boolean = false;
-    private static _eventEmitter: EventEmitter = new EventEmitter();
+    public streamer: Streamer = new Streamer();
+    public duration: number = 0;
 
     public static get dragging() {
         return Player._dragging;
@@ -33,9 +33,6 @@ export class Player {
             this.onDurationChange.bind(this)
         );
 
-        console.log(Player.mediaElement.canPlayType("video/mp2t"));
-        
-
         // 初始化监听事件
         this._initPlayerEvents();
     }
@@ -51,6 +48,7 @@ export class Player {
         Player.mediaElement.autoplay = true;
         Player.mediaElement.controls = true;
         Player.mediaElement.muted = true;
+        Player.mediaElement.style.display = "none";
     }
 
     // video 标签的时间更新事件

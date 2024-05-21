@@ -4,9 +4,7 @@
         <ToggleButton></ToggleButton>
         <ProgressSlider></ProgressSlider>
     </section>
-    
-    <video class="local" controls></video>
-    <video class="remote controls"></video>
+
 
 </template>
 

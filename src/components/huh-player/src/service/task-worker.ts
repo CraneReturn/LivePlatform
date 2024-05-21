@@ -10,6 +10,5 @@ export function initWorker() {
     worker.onerror = (event) => {
 
     };
-
     
 }
