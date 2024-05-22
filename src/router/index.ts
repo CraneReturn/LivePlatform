@@ -153,6 +153,14 @@ const router = createRouter({
         requiresAuth: false,
       },
     },
+    {
+      path:"/groupChat",
+      component: () => import("@/views/client/groupChat.vue"),
+      meta: {
+        title: `${projectName}`,
+        requiresAuth: false,
+      },
+    }
   ],
 });
 

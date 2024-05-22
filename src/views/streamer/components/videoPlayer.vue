@@ -18,7 +18,9 @@
       </div>
     </div>
     <div class="showTable">
-      <div class="barrage" ref="barrage"></div>
+      <div class="barrage" ref="barrage">
+        <!-- 弹幕 -->
+      </div>
       <canvas
         ref="canvasVideo"
         class="canvasVideo"
@@ -41,9 +43,15 @@
           <!-- 当前清晰度 -->
           <p class="correct">标清</p>
         </div>
-        <el-switch></el-switch>
+
         <button class="barrage">
           <i class="iconfont icon-danmushezhi"></i>
+          
+        </button>
+        
+        <button class="barrage">
+          <contenShowdesigned/>
+          
         </button>
         <button class="gift">
           <i class="iconfont icon-liwu"></i>
@@ -58,9 +66,7 @@
             <i v-else class="iconfont icon-shengyin"></i>
           </button>
         </div>
-        <button class="fullScreen">
-          <i class="iconfont icon-shezhi"></i>
-        </button>
+
         <button class="fullScreen">
           <i class="iconfont icon-quanping"></i>
         </button>
@@ -70,6 +76,7 @@
 </template>
 <script setup lang="ts">
 import { ref, watch, onMounted } from "vue";
+import contenShowdesigned from './barrage/contenShowdesigned.vue'
 import { useFlvPlay } from "@/assets/pull";
 const { setMuted, setVolume, setPlay, init, destroyFlv } = useFlvPlay();
 const canvasVideo = ref<HTMLCanvasElement>(null);
@@ -110,11 +117,11 @@ function muted() {
 }
 function refresh() {
   destroyFlv();
-  steamer = init(url, canvasVideo, barrage);
+  steamer = init(url, canvasVideo);
 }
 </script>
 <style lang="scss" scoped>
-@import url("http://at.alicdn.com/t/c/font_4515498_2kbo3q7jzl.css");
+@import url("http://at.alicdn.com/t/c/font_4515498_7hzpu4sfpru.css");
 .el-popover {
   max-width: 100px;
 }
@@ -227,14 +234,13 @@ function refresh() {
       cursor: pointer;
     }
     .iconfont {
-      font-size: 23px;
+      font-size: 17px;
       color: #fff;
     }
     .right,
     .left {
       display: flex;
       gap: 20px;
-      align-items: center;
     }
     .correct {
       font-size: 12px;

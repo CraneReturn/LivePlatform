@@ -6,7 +6,6 @@
   box-shadow: 1px -1px 2px 2px rgba(185, 179, 179, 0.5);
   background-color: white;
 }
-
 .anchorpersonMain .anChorPersonTranslate {
   width: 98%;
   margin: 0 auto;
@@ -22,7 +21,6 @@
   width: 100%;
   overflow: hidden;
 }
-
 .topAnchorPerson ul li {
   float: left;
   position: relative;
@@ -35,12 +33,10 @@
   border-radius: 12px;
   display: flex;
 }
-
 .topAnchorPerson ul li .personPhoto {
   width: 30px;
   height: 30px;
 }
-
 .topAnchorPerson ul li .personPhoto img {
   margin-top: 5px;
   margin-left: 5px;
@@ -48,7 +44,6 @@
   height: 30px;
   border-radius: 50%;
 }
-
 .topAnchorPerson ul li .personName {
   text-align: center;
   max-width: 150px;
@@ -56,21 +51,18 @@
   margin-left: 10px;
   margin-top: 5px;
   font-size: 15px;
-  color: #fbf9f9;
+  color: rgb(251, 249, 249);
 }
-
 .topAnchorPerson ul li .personLover {
   margin-top: 7px;
   margin-left: 10px;
   height: 100%;
   position: relative;
 }
-
 .topAnchorPerson ul li .personLover .icon {
   position: absolute;
   top: -4px;
 }
-
 .topAnchorPerson ul li .personLover p {
   position: absolute;
   bottom: 6px;
@@ -90,4 +82,4 @@
 
 .opcatityAnchorPersonshow {
   opacity: 1;
-}
+}/*# sourceMappingURL=anchorPerson.css.map */

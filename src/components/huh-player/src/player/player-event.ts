@@ -66,7 +66,7 @@ export function initPlayerEvents(this: Player): void {
 
         const buffered = this.streamer.videoSourceBuffer.buffered;
         const lastIndex = buffered.length - 1;
-
+        
         if (Player.mediaElement.currentTime >= buffered.end(lastIndex) - 5) {
             this.streamer.mediaPreLoader.startPreloading([this.streamer.mediaSegments[this.streamer.currentSegment + 1].uri]);
         }
