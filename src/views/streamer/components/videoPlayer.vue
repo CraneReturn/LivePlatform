@@ -82,7 +82,7 @@ const play = ref(true);
 const mute = ref(true);
 const volume = ref(0);
 const url =
-  "https://pull-flv-spe-l11.douyincdn.com/fantasy/stream-403377428305019574_sd.flv?_neptune_token=MIGlBAzTANLPp53OECCsUh4EgYKiJ1Smfns8MPipNGbyX1zge9X75Z3DYhnS_u338pyZMGWPBHbZyNb1GkUuQ8JowwnnFyCbZYx-knnCx7Deizgtvg0z3jeLOjugOOvBIS0t_a4mgyxUq6YFEArLrDvTaQxnSiN4OoiaZbAIFZCNRFxwkazBVnua-z0c-vcDObXDirsbBBDSHZboQqkHXZHcDDcQ35la&expire=1716023199&sign=40a09c36feb7624b93dd4f5ae3e52a99&abr_pts=-800&_session_id=037-20240517170638717712A412934402BCFC.1715936813106.56363";
+  "https://pull-flv-l1.douyincdn.com/third/stream-115170160615882790.flv?keeptime=00093a80&wsSecret=e3bd83517a12fc07be68c71ab86fec88&wsTime=664ab276&abr_pts=-800&_session_id=037-20240520101621F456268324E7B4BF2541.1716171403473.47864";
 function pause() {
   setPlay(!play.value);
   play.value = !play.value;
@@ -129,7 +129,8 @@ function refresh() {
   overflow: hidden;
   .showTable {
     height: 80vh;
-    max-width: 90%;
+    max-width: 95%;
+    width: 100%;
     margin: 0 auto;
     mask-size: cover;
     .barrage {
@@ -143,6 +144,7 @@ function refresh() {
   .canvasVideo {
     height: 100%;
     margin: 0 auto;
+    width: 100%;
     /* object-fit: cover; */
   }
   .top {

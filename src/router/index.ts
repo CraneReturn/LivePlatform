@@ -82,8 +82,9 @@ const router = createRouter({
           },
         },
         {
-          path: "gift",
-          component: () => import("@/views/admin/layouts/giftManage/gift.vue"),
+          path: "userManage",
+          component: () => 
+            import("@/views/admin/layouts/userManage/index.vue"),
         },
       ],
     },
