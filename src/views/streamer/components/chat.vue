@@ -13,6 +13,7 @@
       <!-- 排名 头像 名称 -->
       <userIndex
         v-for="index in 5"
+        :key="index"
         :ranking="index"
         :name="'挖苦挖苦挖苦挖苦挖苦挖苦挖苦挖苦挖苦挖苦'"
       ></userIndex>
@@ -30,7 +31,7 @@
             placeholder="善言结善语，恶语伤人心"
           ></textarea>
           <div class="textSet">
-            <i class="iconfont icon-fuwenbenbianjiqi_zitiyanse"></i>
+            <barrageText />
           </div>
           <div class="emoji"><i class="iconfont icon-Emoji"></i></div>
           <div class="sendMessage"><button class="send">发送</button></div>
@@ -41,13 +42,14 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
+import barrageText from "./barrage/barrageText.vue";
 import userIndex from "./userIndex.vue";
-function rows(event) {
+function rows(event: any) {
   event.target.style.height = "auto";
   event.target.style.height = event.target.scrollHeight + "px";
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "http://at.alicdn.com/t/c/font_4515498_x1t0sazzfdj.css";
 .icon-xitong_zaixianyonghu {
   color: var(--el-color-success-light-3);
@@ -149,5 +151,10 @@ function rows(event) {
       border-radius: var(--el-border-radius-base);
     }
   }
+}
+.hiddenSettingText {
+  position: relative;
+  left: -10px;
+  opacity: 0 !important;
 }
 </style>
