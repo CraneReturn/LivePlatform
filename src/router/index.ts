@@ -159,6 +159,17 @@ const router = createRouter({
         title: `${projectName}`,
         requiresAuth: false,
       },
+      redirect: "/mainMation",
+      children:[
+        {
+          path: "/mainMation",
+          component: () => import("@/views/client/layouts/groupChat/mainMation.vue"),
+        },
+        {
+          path: "/membersList",
+          component: () => import("@/views/client/layouts/groupChat/membersList.vue"),
+        },
+      ]
     }
   ],
 });

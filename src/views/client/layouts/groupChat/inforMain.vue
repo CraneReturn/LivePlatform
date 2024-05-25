@@ -3,7 +3,7 @@
     <div class="inforTop">
       <div class="groupName">柒总没有钱</div>
       <span
-        ><svg
+      ><svg
           @click="exendMation()"
           t="1714641807092"
           class="icon"
@@ -183,6 +183,7 @@ export default {
         !(btn && btn.contains(event.target))
       ) {
         this.maexend = false;
+        this.$router.push('/mainMation');
       }
     },
     inputChange() {
@@ -200,6 +201,7 @@ export default {
     },
     exendMation() {
       this.maexend = !this.maexend;
+      this.$router.push('/mainMation');
       this.isexend=false;
     },
   },
