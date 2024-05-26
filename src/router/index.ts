@@ -83,8 +83,7 @@ const router = createRouter({
         },
         {
           path: "userManage",
-          component: () => 
-            import("@/views/admin/layouts/userManage/index.vue"),
+          component: () => import("@/views/admin/layouts/userManage/index.vue"),
         },
       ],
     },
@@ -107,6 +106,15 @@ const router = createRouter({
     {
       path: "/login",
       component: () => import("@/views/client/login.vue"),
+      meta: {
+        title: `${projectName}`,
+        requiresAuth: false,
+      },
+    },
+    {
+      path: "/kefu",
+      component: () =>
+        import("@/views/client/layouts/customeService/index.vue"),
       meta: {
         title: `${projectName}`,
         requiresAuth: false,
@@ -154,13 +162,13 @@ const router = createRouter({
       },
     },
     {
-      path:"/groupChat",
+      path: "/groupChat",
       component: () => import("@/views/client/groupChat.vue"),
       meta: {
         title: `${projectName}`,
         requiresAuth: false,
       },
-    }
+    },
   ],
 });
 

@@ -17,12 +17,12 @@ const segmenter = await bodySegmentation.createSegmenter(
 const worker = new Worker("/src/assets/pull/worker.ts");
 export async function detect(
   videoEl: HTMLVideoElement,
-  canvas: Ref<HTMLCanvasElement>,
-  barrage: Ref<HTMLDivElement>
+  canvas: HTMLCanvasElement,
+  barrage: HTMLDivElement
 ): Promise<void> {
   clearTimeout(Time);
   // 只在offscreen为undefined时创建新的OffscreenCanvas
-  let offscreen = new OffscreenCanvas(canvas.value.width, canvas.value.height);
+  let offscreen = new OffscreenCanvas(canvas.width, canvas.height);
   const segmentation = await segmenter.segmentPeople(videoEl);
   const mask = await segmentation[0].mask.toCanvasImageSource();
   worker.postMessage({ canvas: offscreen, mask: mask }, [offscreen]);
@@ -30,12 +30,10 @@ export async function detect(
     if (event.data.msgType === "mask") {
       let img = new Image(); // 创建一个新的图像对象
       img.src = event.data.val; // 设置图像的源为 imgStr
-      console.log(event.data.val);
-
       img.onload = function () {
-        barrage.value.style.maskImage = `url(${img.src})`; // 设置遮罩图像
+        barrage.style.maskImage = `url(${img.src})`; // 设置遮罩图像
       };
     }
   };
-  Time = window.setTimeout(() => detect(videoEl, canvas, barrage), 66);
+  Time = window.setTimeout(() => detect(videoEl, canvas, barrage), 33);
 }

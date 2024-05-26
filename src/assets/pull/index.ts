@@ -91,13 +91,12 @@ export function useFlvPlay() {
   );
   function init(
     source: string,
-    canvas: Ref<HTMLCanvasElement>,
-    container: Ref<HTMLDivElement>
+    canvas: HTMLCanvasElement,
+    container: HTMLDivElement
   ) {
     return new Promise((resolve) => {
       async function main() {
-        const ctx = canvas.value?.getContext("2d");
-
+        const ctx = canvas.getContext("2d");
         if (flvjs.isSupported()) {
           // 创建flv拉流
           flvPlayer.value = flvjs.createPlayer(
@@ -122,21 +121,15 @@ export function useFlvPlay() {
               cancelAnimationFrame(animationFrameId);
               return;
             }
-            ctx.drawImage(
-              videoElement,
-              0,
-              0,
-              canvas.value.width,
-              canvas.value.height
-            );
+            ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
 
             // 计划下一帧的更新
             animationFrameId = requestAnimationFrame(drawVideoFrame);
           }
-          drawVideoFrame();
           videoElement.addEventListener("canplay", () => {
-            detect(videoElement, canvas,container);
+            // detect(videoElement, canvas, container);
             flvIsPlaying.value = true;
+            drawVideoFrame();
             setMuted(videoStates.muted);
             setVolume(videoStates.volume);
             resolve(flvPlayer);
