@@ -1,8 +1,6 @@
 <template>
-    <section class="huh-player">
-        <canvas class="canvas" ref="huhPlayer" width="640" height="360"></canvas>
-        <ToggleButton></ToggleButton>
-        <ProgressSlider></ProgressSlider>
+    <section class="huh-player" ref="huhPlayer">
+        <canvas class="canvas" width="1280" height="720"></canvas>
     </section>
 
 
@@ -10,22 +8,14 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { initPlayer } from "./src/player";
-import ToggleButton from "./src/components/toggle-button.vue";
-import { Player } from "./src/models/Player";
-import ProgressSlider from "./src/components/progress-slider.vue";
+import { HuhDecoder } from "./src/models/HuhDecoder";
 const huhPlayer = ref<HTMLCanvasElement | null>(null);
 const section = ref<HTMLCanvasElement | null>(null);
 
 onMounted(async () => {
     
-    const canvas = huhPlayer.value;
-
-    if (canvas) {
-        const player = await initPlayer(canvas);
-        Player.play();
-    }
-
+    const decoder = new HuhDecoder();
+    
 });
 </script>
 

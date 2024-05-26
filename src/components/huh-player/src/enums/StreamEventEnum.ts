@@ -1,6 +1,3 @@
-export enum StreamerEventEnum {
-    SegmentUpdate = "segmentUpdate",
-    SourceOpen = "sourceOpen",
-    BufferUpdateEnd = "bufferUpdateEnd",
-
+export enum StreamEventEnum {
+    ChunkReady = 'ChunkReady'
 }
