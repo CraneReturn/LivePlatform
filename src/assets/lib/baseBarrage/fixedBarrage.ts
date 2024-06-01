@@ -13,6 +13,7 @@ export default class FixedBarrage extends BaseBarrage{
         this.barrageType=barrageType
         this.duration=duration
         this.endTime=duration+this.time
+        this.calFixedBarrageLeft()
     }
     calFixedBarrageLeft(){
         this.left=(this.br.canvaSize.width-this.width)/2

@@ -1,5 +1,13 @@
 <template>
- 
+    <div id="container">
+        <video
+          ref="video"
+          id="video"
+          controls
+          autoplay
+          src="@/assets/viedo/test.mp4"
+        />
+      </div>
   <div class="inputFrame">
         <div class="chatInput">
           <textarea
@@ -66,9 +74,10 @@
 </template>
 
 <script lang="ts" setup>
+import BarrageRenderer from '@/assets/lib/index'
 import { useSendBarrage } from "@/assets/barrage/sendBarrage.ts";
-import { ref } from "vue";
-const barrageRenderer = ref();
+import { onMounted, ref } from "vue";
+const barrageRenderer = ref<BarrageRenderer>();
 const video = ref();
 const {
   barrageText,

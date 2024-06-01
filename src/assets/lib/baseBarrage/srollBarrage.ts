@@ -7,7 +7,7 @@ export default class SrollBarrage extends BaseBarrage{
     readonly barrageType: BarrageType='scroll' ;
     originalLeft!:number
     originalRright!:number
-    show!:boolean
+    show=true
     grade!:number
     constructor(srolloptions:ScrollBarrageOptions,barrageRender:BarrageRenderer){
         super(srolloptions,barrageRender)

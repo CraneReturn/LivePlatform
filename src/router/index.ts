@@ -159,7 +159,15 @@ const router = createRouter({
         title: `${projectName}`,
         requiresAuth: false,
       },
-    }
+    },
+    {
+      path: "/haha",
+      component: () => import("@/views/client/haha.vue"),
+      meta: {
+        title: `${projectName}`,
+        requiresAuth: false,
+      },
+    },
   ],
 });
 

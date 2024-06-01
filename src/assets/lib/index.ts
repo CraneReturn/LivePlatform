@@ -42,6 +42,7 @@ export default class BarrageRenderer {
     lastScalcTime = 0
     //布局计算器
     barrageLayoutCalculate = new BarrageLayoutCalculate({ barrageRenderer: this, })
+    offscreenCanvasCtx: any;
     constructor({
         container,
         video,
@@ -66,14 +67,12 @@ export default class BarrageRenderer {
         this.setDom(this.container,this.canvas,this.ctx)
         //设置弹幕数据
         this.setBarrage(barrages)
-        this.devConfig
     }
     setDevConfig(devConfig: Partial<DevConfig>) {
 		Object.assign(this.devConfig, devConfig);
 	}
     //弹幕是否被打开
     private setRenderConfigInternal(renderConfig: any, init = false) {
-
         //获取弹幕渲染配置属性
         const renderCofigKeys = Object.keys(renderConfig)
         const isSpeedChange = renderCofigKeys.includes('speed') && renderConfig.speed !== this.renderConfig.speed;
@@ -82,7 +81,22 @@ export default class BarrageRenderer {
         const isAvoidOverlapChange = renderCofigKeys.includes('avoidOverlap') && renderConfig.avoidOverlap !== this.renderConfig.avoidOverlap;
         const isMinSpaceChange = renderCofigKeys.includes('minSpace') && renderConfig.minSpace !== this.renderConfig.minSpace;
         Object.assign(this.renderConfig, renderConfig)
-
+        if (!init && (isSpeedChange || isHeightReduceChange || isRenderRegionChange || isAvoidOverlapChange)) {
+			// 高度缩减需要重新处理 DOM
+			if (isHeightReduceChange) this.setDom(this.container, this.canvas, this.ctx);
+			this.barrageLayoutCalculate.renderConfigChange(
+				isSpeedChange,
+				isHeightReduceChange,
+				isRenderRegionChange,
+				isAvoidOverlapChange,
+				isMinSpaceChange,
+			);
+		}
+		// 触发一帧的渲染
+		if (!this.animationHandle && !init) {
+            this.renderShow();
+            
+        }
     }
     setRenderConfig(renderConfig: any) {
         this.setRenderConfigInternal(renderConfig)
@@ -98,15 +112,37 @@ export default class BarrageRenderer {
         canvas.width=container.clientWidth
         canvas.height=container.clientHeight-(this.renderConfig.heightReduce|0)
         container.appendChild(canvas)
+        this.handleHighDprVague(canvas, ctx);
+		
+		// 需要同步处理离屏 canvas
+		this.offscreenCanvans.width = container.clientWidth;
+		this.offscreenCanvans.height = container.clientHeight - (this.renderConfig.heightReduce ?? 0);
+		this.handleHighDprVague(this.offscreenCanvans, this.offerscreenCtx);
     }
     //设置弹幕数据
     setBarrage(barrage?:BarrageOptions[]){
         if(!barrage) return
         //判断弹幕是不是合规的
-
         barrage=barrage.filter(barrage=>{return this.deleteNoRulues(barrage)==true})
+        this.barrageLayoutCalculate.setBarrages(barrage);
+        this.lastContainerHeight = {
+			width: this.container?.clientWidth || 0,
+			height: this.container?.clientHeight || 0,
+		}
     }
+    private handleHighDprVague(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
+		const logicalWidth = canvas.width;
+		const logicalHeight = canvas.height;
+		canvas.width = logicalWidth * this.dpr;
+		canvas.height = logicalHeight * this.dpr;
+		canvas.style.width = logicalWidth + 'px';
+		canvas.style.height = logicalHeight + 'px';
+		
+		ctx.scale(this.dpr, this.dpr);
+		ctx.textBaseline = 'hanging';
+	}
     //判断弹幕是否合法 还有高级 已经error返回的具体形式没写
+    
     private deleteNoRulues(barrage:BarrageOptions){
         if(barrage.barrageType=='top'|| barrage.barrageType=='bottom'){
             if(barrage.duration<=0){
@@ -155,20 +191,25 @@ export default class BarrageRenderer {
     }
     private renderShow(){
         if(!this.isOpen) return
-        let renderBarrages=this.barrageLayoutCalculate.getRenderBarrage(this.progress)
+        let renderBarrages=this.barrageLayoutCalculate.getRenderBarrages(this.progress)
+
         if(this.renderConfig.barrageFilter){
-            renderBarrages=renderBarrages.filter((barrage:BarrageOptions)=>this.renderConfig.barrageFilter!(barrage))
-        }
+            renderBarrages=renderBarrages.filter(barrage=>this.renderConfig.barrageFilter!(barrage))
+        } 
         this.offerscreenCtx.clearRect(0,0,this.offscreenCanvans.width,this.offscreenCanvans.height)
         this.offerscreenCtx.globalAlpha=this.renderConfig.opacity
-        renderBarrages.forEach((barrage:BaseBarrage) => {
+        renderBarrages.forEach((barrage:BaseBarrage) => {            
             barrage.render(this.offerscreenCtx)
         });
         if(this.devConfig.isRenderFPS) this.renderFPS()
-        this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height)
-        this.offscreenCanvans.width && this.ctx.drawImage(
-            this.offscreenCanvans,0,0,this.offscreenCanvans.width,this.offscreenCanvans.height,
-            0,0,this.canvas.width/this.dpr,this.canvas.height/this.dpr)
+       
+		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		this.offscreenCanvans.width && this.ctx.drawImage(
+			this.offscreenCanvans,
+			0, 0, this.offscreenCanvans.width, this.offscreenCanvans.height,
+			0, 0, this.canvas.width / this.dpr, this.canvas.height / this.dpr,
+		);
+
             if(this.animationHandle){
                 requestAnimationFrame(()=>this.renderShow())
             }
@@ -199,10 +240,11 @@ export default class BarrageRenderer {
     }
     private createAnimation(){
         if(!this.animationHandle && this.isOpen){
-            this.animationHandle=requestAnimationFrame(()=>{this.renderShow()})
+            this.animationHandle=requestAnimationFrame(()=>
+            {this.renderShow()})
         }
     }
-    play(){
+    play(){        
         this.createAnimation()
     }
     pause() {
@@ -215,6 +257,30 @@ export default class BarrageRenderer {
             height:this.canvas.height/this.dpr
         }
     }
+    getRenderBarrages(time: number): BaseBarrage[] {
+        // 获取需要渲染的滚动弹幕
+        const renderScrollBarrages = this.getRenderBarrages(time);
+        // 获取需要渲染的固定弹幕
+        const renderFixedBarrages = this.getRenderBarrages(time);
+        // 获取需要渲染的高级弹幕
+        const renderSeniorBarrages = this.getRenderBarrages(time);
+        // 整合排序
+        return [
+          ...renderScrollBarrages,
+          ...renderFixedBarrages,
+          ...renderSeniorBarrages,
+        ].sort((a, b) => {
+          if (a.prior !== b.prior) {
+            // 如果 a 的 prior 为 true，则返回 1，否则返回 -1
+            // 这意味着 true 的值会在最后面
+            return a.prior ? 1 : -1;
+          } else {
+            // 如果 prior 属性相同，则按照 time 属性排序
+            return a.time - b.time;
+          }
+        });
+      }
+
 
 }
 export type RenderConfig = {
