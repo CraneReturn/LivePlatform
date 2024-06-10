@@ -126,7 +126,7 @@ const play = ref(true);
 const mute = ref(true);
 const volume = ref(0);
 const url =
-  "https://pull-flv-f26.douyincdn.com/media/stream-691661137678959276_hd.flv?abr_pts=-800&_session_id=037-202405251714143108BD2B40AB90D2CCD8.1716628470377.41019";
+  "https://pull-flv-l6.douyincdn.com/third/stream-115258744786124839_or4.flv?k=b5cb22c8a970928e&t=1718096905&abr_pts=-800&_session_id=037-202406041708251147AF184F457E084F16.1717492124345.75357";
 function pause() {
   setPlay(!play.value);
   play.value = !play.value;

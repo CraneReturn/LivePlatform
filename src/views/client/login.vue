@@ -18,9 +18,55 @@
           />
         </svg>
       </div>
+
       <div class="loginMain">
-        <Password @code="changeCodeLogin" v-if="passwordLogin" @forget="forgetPassword"></Password>
-        <Code @password="changePasswordLogin" v-if="codeLogin"></Code>
+        <div class="mian">
+          <Password
+            @code="changeCodeLogin"
+            v-if="passwordLogin"
+            @forget="forgetPassword"
+          ></Password>
+          <Code @password="changePasswordLogin" v-if="codeLogin"></Code>
+        </div>
+        <div class="loginOther">
+          <p class="loginTitle">其他方式登录</p>
+          <div class="loginPick">
+            <el-popover
+              ref="popover"
+              placement="top"
+              :width="200"
+              trigger="focus"
+              @before-enter="getWechatCode"
+            >
+              <div class="content">
+                <p class="title">使用微信扫码登录</p>
+                <canvas ref="wechat" @click="getWechatCode"></canvas>
+              </div>
+
+              <template #reference>
+                <button class="wechatLogin">
+                  <i class="iconfont icon-weixin"></i>
+                  <p>微信登录</p>
+                </button>
+              </template>
+            </el-popover>
+
+            <el-popover
+              ref="popover"
+              placement="right"
+              :width="200"
+              trigger="focus"
+            >
+              <p>使用微信扫码登录</p>
+              <template #reference>
+                <button class="wechatLogin">
+                  <i class="iconfont icon-zhifubao"></i>
+                  <p>支付宝登录</p>
+                </button>
+              </template>
+            </el-popover>
+          </div>
+        </div>
       </div>
     </div>
     <div class="loginFoot">
@@ -31,21 +77,41 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
+import * as QRCode from "qrcode";
 import Code from "./layouts/login/code.vue";
 import Password from "./layouts/login/password.vue";
+import { wechatCode } from "@/views/client/api/login/login";
 let passwordLogin = ref(true);
 let codeLogin = ref(false);
-function changeCodeLogin(value) {
+let url = ref(null);
+let key = ref(null);
+function getWechatCode() {
+  const wechat = ref(null);
+  wechatCode().then((response:{ code: number; url: string; key: string }) => {
+    if (response.code == 20000) {
+      url.value = response.url;
+      key.value = response.key;
+      QRCode.toCanvas(wechat.value, url.value, function (error: any) {
+        if (error) console.error(error);
+        console.log("成功生成二维码!");
+      });
+    }
+  });
+}
+
+function changeCodeLogin(value: boolean) {
   passwordLogin.value = value;
   codeLogin.value = !value;
 }
-function changePasswordLogin(value) {
+function changePasswordLogin(value: boolean) {
   codeLogin.value = value;
   passwordLogin.value = !value;
 }
 </script>
 <style lang="scss" scoped>
-@import "http://at.alicdn.com/t/c/font_4515498_og2qxp99w8d.css";
+@import "http://at.alicdn.com/t/c/font_4515498_ytesvywtn9.css";
+import QRCode from '@types/qrcode';
+import getWechatCode from '@/views/client/api/login';
 
 .login {
   min-width: 645px;
@@ -79,6 +145,48 @@ function changePasswordLogin(value) {
     grid-template-columns: 7fr 10fr;
     .loginMain {
       padding: 0 30px;
+      .loginOther {
+        .loginTitle {
+          text-align: center;
+          color: #aeaeae;
+          font-size: 14px;
+        }
+        .loginPick {
+          display: flex;
+          justify-content: space-around;
+          margin-top: 5px;
+
+          .wechatLogin {
+            border: none;
+            display: flex;
+            background-color: white;
+            transition-duration: 0.25s;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border-radius: 3px;
+            padding: 5px 20px;
+            p {
+              font-size: 13px;
+              color: #aeaeae;
+            }
+            .title {
+              text-align: center;
+            }
+          }
+          .wechatLogin:hover {
+            background-color: rgba(124, 168, 109, 0.2);
+          }
+          .icon-weixin {
+            color: #28c445;
+            font-size: 25px;
+          }
+          .icon-zhifubao {
+            color: #00a0ea;
+            font-size: 25px;
+          }
+        }
+      }
     }
   }
   .logo {
