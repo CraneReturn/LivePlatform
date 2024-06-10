@@ -87,15 +87,17 @@ let url = ref(null);
 let key = ref(null);
 function getWechatCode() {
   const wechat = ref(null);
-  wechatCode().then((response:{ code: number; url: string; key: string }) => {
-    if (response.code == 20000) {
-      url.value = response.url;
-      key.value = response.key;
-      QRCode.toCanvas(wechat.value, url.value, function (error: any) {
-        if (error) console.error(error);
-        console.log("成功生成二维码!");
-      });
-    }
+  wechatCode().then((response) => {
+    console.log(response);
+
+    // if (response.code == 20000) {
+    //   url.value = response.url;
+    //   key.value = response.key;
+    //   QRCode.toCanvas(wechat.value, url.value, function (error: any) {
+    //     if (error) console.error(error);
+    //     console.log("成功生成二维码!");
+    //   });
+    // }
   });
 }
 
@@ -110,8 +112,6 @@ function changePasswordLogin(value: boolean) {
 </script>
 <style lang="scss" scoped>
 @import "http://at.alicdn.com/t/c/font_4515498_ytesvywtn9.css";
-import QRCode from '@types/qrcode';
-import getWechatCode from '@/views/client/api/login';
 
 .login {
   min-width: 645px;

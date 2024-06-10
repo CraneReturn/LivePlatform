@@ -1,7 +1,7 @@
 import service from "@/utils/request";
 export function wechatCode() {
   return service({
-    url: `/oauth/getWxcode`,
+    url: `/oauth/getWxCode`,
     method: "get",
   });
 }
