@@ -1,5 +1,25 @@
 <template>
-  <el-popover
+    <div id="container">
+        <video
+          ref="video"
+          id="video"
+          controls
+          autoplay
+          src="@/assets/viedo/test.mp4"
+        />
+      </div>
+  <div class="inputFrame">
+        <div class="chatInput">
+          <textarea
+            rows="1"
+            @input="rows($event)"
+            class="chatArea"
+            maxlength="50"
+            placeholder="善言结善语，恶语伤人心"
+            v-model="barrageText"
+          ></textarea>
+          <div class="textSet">
+            <el-popover
     placement="top"
     :width="320"
     :show-arrow="false"
@@ -43,12 +63,21 @@
       <i class="iconfont icon-fuwenbenbianjiqi_zitiyanse"> </i>
     </template>
   </el-popover>
+          </div>
+          <div class="emoji"><i class="iconfont icon-Emoji"></i></div>
+          <div class="sendMessage">
+            <button class="send" 
+            :class="{sendBarragrBtnstyle:barrageText!=''}" @click="sendbarrageMethods">发送
+          {{ barrageText!='' }}</button></div>
+        </div>
+      </div>
 </template>
 
 <script lang="ts" setup>
+import BarrageRenderer from '@/assets/lib/index'
 import { useSendBarrage } from "@/assets/barrage/sendBarrage.ts";
-import { ref } from "vue";
-const barrageRenderer = ref();
+import { onMounted, ref } from "vue";
+const barrageRenderer = ref<BarrageRenderer>();
 const video = ref();
 const {
   barrageText,
@@ -57,11 +86,17 @@ const {
   barrageModes,
   currentBarrageMode,
   barrageColors,
-  currentBarrageColor
+  currentBarrageColor,
+  sendbarrageMethods
   
 } = useSendBarrage(barrageRenderer, video);
+const rows=(event: any)=>{
+  event.target.style.height = "auto";
+  event.target.style.height = event.target.scrollHeight + "px";
+}
 </script>
 <style lang="scss" scoped>
+@import "@/styles/variables.scss";
 .colors {
   display: grid;
   grid-template-rows: repeat(2, 1fr);
@@ -78,5 +113,8 @@ const {
     border: 1px solid white;
     box-sizing: border-box;
   }
+}
+.sendBarragrBtnstyle{
+  background-color: var(--el-color-opcatiy)!important;
 }
 </style>

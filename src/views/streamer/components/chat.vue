@@ -21,22 +21,7 @@
     <div class="chatFrame"></div>
     <div class="chatWith">
       <!--两个部分 聊天框+输入框  -->
-      <div class="inputFrame">
-        <div class="chatInput">
-          <textarea
-            rows="1"
-            @input="rows($event)"
-            class="chatArea"
-            maxlength="50"
-            placeholder="善言结善语，恶语伤人心"
-          ></textarea>
-          <div class="textSet">
-            <barrageText />
-          </div>
-          <div class="emoji"><i class="iconfont icon-Emoji"></i></div>
-          <div class="sendMessage"><button class="send">发送</button></div>
-        </div>
-      </div>
+      <barrageText/>
     </div>
   </div>
 </template>
@@ -44,10 +29,6 @@
 import { ref } from "vue";
 import barrageText from "./barrage/barrageText.vue";
 import userIndex from "./userIndex.vue";
-function rows(event: any) {
-  event.target.style.height = "auto";
-  event.target.style.height = event.target.scrollHeight + "px";
-}
 </script>
 <style lang="scss">
 @import "http://at.alicdn.com/t/c/font_4515498_x1t0sazzfdj.css";
