@@ -6,8 +6,7 @@ export function generateBarrageData(videoId: number, config: generateBarrageConf
       isFixed, isScroll, isSenior, isSpecial,
       fixedNum, scrollNum, seniorNum, specialNum,
     } = config;
-    console.log(videoId);
-  
+    //在这里接收到viedoid发送请求做预处理
     const textSections = [
       `读书不觉已春深`,
       `一寸光阴一寸金`,
@@ -30,21 +29,7 @@ export function generateBarrageData(videoId: number, config: generateBarrageConf
       `继续努力`,
       `这泰裤辣`,
       `恭喜发财`,
-    ];
-  
-    const blessingTextSections = [
-      `新年快乐`,
-      `灯笼起飞`,
-      `不错`,
-      `妙啊`,
-      `希望所有人都梦想成真`,
-      `阖家欢乐`,
-      `太棒啦`,
-      `前途似锦`,
-      `考上好的大学`,
-      `恭喜发财`,
-    ];
-  
+    ];  
     const colors = [
       '#FFFFFF',
       '#FE0302',
@@ -92,7 +77,6 @@ export function generateBarrageData(videoId: number, config: generateBarrageConf
           barrageType: 'scroll',
           time,
           text: `${textSections[Math.floor(Math.random() * textSections.length)]}` ,
-          // text: textSections[Math.floor(Math.random() * textSections.length)],
           fontSize: Math.random() < 0.1 ? 24 : 34,
           lineHeight: 1.2,
           color: colors[Math.floor(Math.random() * colors.length)],
@@ -103,90 +87,6 @@ export function generateBarrageData(videoId: number, config: generateBarrageConf
       }
     }
   
-    // // 自动生成高级弹幕
-    // if (isSenior) {
-    //   for(let i = 0; i < seniorNum;i++) {
-    //     barrages.push({
-    //       id: uuid4(),
-    //       barrageType: 'senior',
-    //       time: Math.random() * 211 * 1000,
-    //       text: `[${barrageImages[Math.floor(Math.random() * barrageImages.length)].id}]` + textSections[Math.floor(Math.random() * textSections.length)] + `[${barrageImages[Math.floor(Math.random() * barrageImages.length)].id}]`,
-    //       // text: textSections[Math.floor(Math.random() * textSections.length)],
-    //       fontSize: getRandomInt(20, 50),
-    //       lineHeight: 1.1,
-    //       color: colors[Math.floor(Math.random() * colors.length)],
-    //       seniorBarrageConfig: {
-    //         startLocation: {
-    //           type: 'PERCENT',
-    //           x: Math.random(),
-    //           y: Math.random(),
-    //         },
-    //         endLocation: {
-    //           type: 'PERCENT',
-    //           x: Math.random(),
-    //           y: Math.random(),
-    //         },
-    //         totalDuration: 6000,
-    //         delay: 2000,
-    //         motionDuration: 2000,
-    //       },
-    //       addition: {
-    //         grade: getRandomInt(1, 10),
-    //       }
-    //     });
-    //   }
-    // }
-  
-    // // 生成自定义渲染弹幕
-    // if (isSpecial) {
-    //   for(let i = 0; i < specialNum;i++) {
-    //     // 0.1 ~ 0.9
-    //     const startLocationX = Math.random() * 0.8 + 0.1;
-    //     const text = blessingTextSections[Math.floor(Math.random() * blessingTextSections.length)];
-    //     const fontSize = 20;
-    //     const lineHeight = 1.2;
-    //     const lanternWidth = 80;
-    //     const lanternHeight = 80;
-    //     const shifting = Math.random() * 0.1 + 0.1;
-    //     barrages.push({
-    //       id: uuid4(),
-    //       barrageType: 'senior',
-    //       time: Math.random() * 211 * 1000,
-    //       text,
-    //       fontSize,
-    //       lineHeight,
-    //       color: colors[Math.floor(Math.random() * colors.length)],
-    //       addition: {
-    //         grade: getRandomInt(1, 10),
-    //         lanternUrl: originPath + '/icons/custom/001.png',
-    //         lanternWidth,
-    //         lanternHeight,
-    //       },
-    //       customRender: {
-    //         width: 0,
-    //         height: 0,
-    //         renderFn: blessingRenderFn,
-    //       },
-    //       seniorBarrageConfig: {
-    //         startLocation: {
-    //           type: 'PERCENT',
-    //           x: startLocationX,
-    //           y: 1,
-    //         },
-    //         endLocation: {
-    //           type: 'PERCENT',
-    //           x: Math.random() > 0.5 ? startLocationX + shifting : startLocationX - shifting,
-    //           y: 0,
-    //           offsetY: - (lanternHeight + text.length * (fontSize * lineHeight)),
-    //         },
-    //         totalDuration: 20000,
-    //         delay: 0,
-    //         motionDuration: 20000,
-    //       },
-    //     });
-    //   }
-    // }
-  
     return barrages;
   }
   export type generateBarrageConfig = {
@@ -194,7 +94,6 @@ export function generateBarrageData(videoId: number, config: generateBarrageConf
     isScroll: boolean;
     isSenior: boolean;
     isSpecial: boolean;
-  
     fixedNum: number;
     scrollNum: number;
     seniorNum: number;
