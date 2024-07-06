@@ -86,7 +86,6 @@ export default abstract class BaseBarrage {
         if(this.prior){
             
             if(this.br.renderConfig.priorBorderCustomRender){
-                
                 this.br.renderConfig.priorBorderCustomRender({
                     ctx,barrage:this,br:this.br})
             }else{
@@ -97,7 +96,7 @@ export default abstract class BaseBarrage {
         this.setCtxFont(ctx)
         ctx.fillStyle=this.color
         
-        this.sections.forEach( section => {
+        this.sections.forEach(section => {
               ctx.fillText(section.text, this.left + section.leftOffset, this.top + section.topOffset);
           })
 
@@ -117,9 +116,7 @@ export default abstract class BaseBarrage {
             // 设置好文本状态后，进行文本的测量
             this.setCtxFont(this.br.ctx);
             const textWidth = this.br.ctx?.measureText(sectionObject.value).width || 0;
-            const textHeight = this.fontSize * this.lineHeight;
-            // console.log(this.lineHeight,'1111111');
-            
+            const textHeight = this.fontSize * this.lineHeight;        
             totalWidth += textWidth;
             maxHeight = maxHeight < textHeight ? textHeight : maxHeight;
             
@@ -132,7 +129,7 @@ export default abstract class BaseBarrage {
             }));
 
         })
-        console.log(totalWidth);
+        console.log(totalWidth,'999988888');
         this.sections = sections;
 
         // 设置当前弹幕的宽高，如果自定义中定义了的话，则取自定义中的 width 和 height，因为弹幕实际呈现出来的 width 和 height 是由渲染方式决定的
@@ -212,7 +209,7 @@ export default abstract class BaseBarrage {
         return finalSegments;
     }
     setCtxFont(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D) {
-       ctx.font = `${this.br.renderConfig.fontWeight} ${this.fontSize}px`;       
+       ctx.font = `${this.br.renderConfig.fontWeight} ${this.fontSize}px ${this.br.renderConfig.fontFamily}`;       
     }
 
 }
