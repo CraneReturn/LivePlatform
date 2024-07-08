@@ -125,8 +125,7 @@ let prevVolume = 50;
 const play = ref(true);
 const mute = ref(true);
 const volume = ref(0);
-const url =
-  "https://pull-flv-l6.douyincdn.com/third/stream-115258744786124839_or4.flv?k=b5cb22c8a970928e&t=1718096905&abr_pts=-800&_session_id=037-202406041708251147AF184F457E084F16.1717492124345.75357";
+const url = "@/assets/viedo/flvVideo - 2024-06-13T090703.748.flv";
 function pause() {
   setPlay(!play.value);
   play.value = !play.value;

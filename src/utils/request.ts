@@ -14,7 +14,7 @@ export let isRelogin = { show: false };
 
 const service = axios.create({
     // axios中请求配置有baseURL选项，表示请求URL公共部分
-    baseURL: "http://81.70.144.36:8083",
+    baseURL: "http://47.109.85.211:8080/",
     // 超时
 })
 service.interceptors.request.use(config => {

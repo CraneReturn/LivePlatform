@@ -34,13 +34,19 @@
             <el-popover
               ref="popover"
               placement="top"
-              :width="200"
+              :width="225"
               trigger="focus"
-              @before-enter="getWechatCode"
             >
               <div class="content">
                 <p class="title">使用微信扫码登录</p>
-                <canvas ref="wechat" @click="getWechatCode"></canvas>
+                <div class="canvasCode">
+                  <canvas
+                    ref="wechat"
+                    @click="getWechatCode"
+                    width="200px"
+                    height="200px"
+                  ></canvas>
+                </div>
               </div>
 
               <template #reference>
@@ -76,31 +82,40 @@
   <div class="shadow"></div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import * as QRCode from "qrcode";
 import Code from "./layouts/login/code.vue";
 import Password from "./layouts/login/password.vue";
-import { wechatCode } from "@/views/client/api/login/login";
+import { wechatCode, getToken } from "@/views/client/api/login/login";
 let passwordLogin = ref(true);
 let codeLogin = ref(false);
-let url = ref(null);
+let url = ref("");
 let key = ref(null);
-function getWechatCode() {
-  const wechat = ref(null);
-  wechatCode().then((response) => {
-    console.log(response);
 
-    // if (response.code == 20000) {
-    //   url.value = response.url;
-    //   key.value = response.key;
-    //   QRCode.toCanvas(wechat.value, url.value, function (error: any) {
-    //     if (error) console.error(error);
-    //     console.log("成功生成二维码!");
-    //   });
-    // }
+let wechat = ref(<HTMLCanvasElement | null>null);
+async function getWechatCode() {
+  let response = await wechatCode();
+  url.value = response.data.url;
+  key.value = response.data.key;
+  QRCode.toCanvas(wechat.value, url.value, function (error: any) {
+    if (error) console.error(error);
+    console.log("成功生成二维码!");
+    console.log(key.value);
+
+    if (key.value) getUserToken(key.value);
   });
 }
-
+// 长轮询当前用户是否扫码
+function getUserToken(key: string) {
+  if (!key) return;
+  getToken(key)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 function changeCodeLogin(value: boolean) {
   passwordLogin.value = value;
   codeLogin.value = !value;
@@ -109,10 +124,22 @@ function changePasswordLogin(value: boolean) {
   codeLogin.value = value;
   passwordLogin.value = !value;
 }
+
+onMounted(() => {
+  getWechatCode();
+});
 </script>
 <style lang="scss" scoped>
 @import "http://at.alicdn.com/t/c/font_4515498_ytesvywtn9.css";
-
+.canvasCode {
+  width: 200px;
+  height: 200px;
+  canvas {
+    width: 200px !important;
+    height: 200px !important;
+    aspect-ratio: 200/200;
+  }
+}
 .login {
   min-width: 645px;
   padding: 0 20px;
