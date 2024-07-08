@@ -21,15 +21,16 @@
       </div>
     </div>
     <div class="showTable">
-      <div class="barrage" ref="barrage">
+      <canvas class="barrage" ref="barrage">
         <!-- 弹幕 -->
-      </div>
-      <canvas
+      </canvas>
+      <video
+        autoplay
         ref="canvasVideo"
         class="canvasVideo"
         width="920"
         height="1280"
-      ></canvas>
+      ></video>
     </div>
     <div class="footer">
       <div class="left">
@@ -96,8 +97,8 @@ import { ref, watch, onMounted, onBeforeUnmount } from "vue";
 import contenShowdesigned from "./barrage/contenShowdesigned.vue";
 import { useFlvPlay } from "@/assets/pull";
 const { setMuted, setVolume, setPlay, init, destroyFlv } = useFlvPlay();
-const canvasVideo = ref<HTMLCanvasElement | null>(null);
-const barrage = ref<HTMLDivElement | null>(null);
+const canvasVideo = ref<HTMLVideoElement | null>(null);
+const barrage = ref<HTMLCanvasElement | null>(null);
 const videoPlayer = ref<HTMLDivElement | null>(null);
 let elm: HTMLDivElement | null;
 onMounted(() => {
@@ -125,7 +126,7 @@ let prevVolume = 50;
 const play = ref(true);
 const mute = ref(true);
 const volume = ref(0);
-const url = "@/assets/viedo/flvVideo - 2024-06-13T090703.748.flv";
+const url = "http://118.31.245.3/live?port=1935&app=live&stream=stream";
 function pause() {
   setPlay(!play.value);
   play.value = !play.value;
