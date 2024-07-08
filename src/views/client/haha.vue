@@ -1,7 +1,7 @@
 <template>
-   <div class="main">
+  <div class="main">
     <div class="player"> <div id="container">
-        <video
+      <!-- <video
           ref="video"
           id="video"
           controls
@@ -9,184 +9,209 @@
           autoplay
           @play="videoPlay"
           @pause="videoPause"
-        />
+        /> -->
+        <videoPlayer @video-play="handleVideoPlay" 
+        @video-pause="handleVideoPause" />
       </div>
    </div>
    </div>
-  <div class="inputFrame">
-        <div class="chatInput">
-          <textarea
-            rows="1"
-            @input="rows($event)"
-            class="chatArea"
-            maxlength="50"
-            placeholder="善言结善语，恶语伤人心"
-            v-model="barrageText"
-          ></textarea>
-          <div class="textSet">
-            <el-popover
-    placement="top"
-    :width="320"
-    :show-arrow="false"
-    :offset="10"
-    popper-class="barrage-setting"
-    trigger="hover"
-  >
-    <div class="barrage-setting-inner">
-      <div class="setting-type">字号</div>
-      <el-radio-group v-model="currentFontsize" size="small" class="mg-10">
-        <el-radio-button v-for="item in fontSizes" 
-        :label="item.value"
-        :key="item.value"
-        >
-          {{ item.label }}
-        </el-radio-button>
-      </el-radio-group>
-      <div class="setting-type">模式</div>
-      <el-radio-group v-model="currentBarrageMode" size="small" class="mg-10">
-        <el-radio-button v-for="item in barrageModes" 
-        :label="item.value"
-        :key="item.value">
-          {{ item.label }}
-        </el-radio-button>
-      </el-radio-group>
-      <div class="setting-type">颜色</div>
-      <div class="colors mg-10">
-        <div
-          v-for="color in barrageColors"
-          :key="color"
-          :class="[
-            'color-item',
-            { 'color-active': color === currentBarrageColor },
-          ]"
-          :style="`background:${color}`"
-          @click="currentBarrageColor = color"
-        ></div>
-      </div>
-    </div>
-    <template #reference>
-      <i class="iconfont icon-fuwenbenbianjiqi_zitiyanse"> </i>
-    </template>
-  </el-popover>
-          </div>
-          <div class="emoji"><i class="iconfont icon-Emoji"></i></div>
-          <div class="sendMessage">
-            <button class="send" 
-            :class="{sendBarragrBtnstyle:barrageText!=''}" @click="sendbarrageMethods">发送
-          {{ barrageText!='' }}</button></div>
-        </div>
-      </div>
-<div style="background-color: aqua;">
+<div class="centerBarrageShow">
+  <div class="centerBarrageShowswitch">
+    <span>
+      弹幕
+    </span>
+    <el-switch v-model="barrageOpen" 
+    class="openBarrageBtn"
+     @change="barrageOpenChange" />
+    <span>
+      设置
+    </span>
+    <div class="designBarrage">
     <el-popover
-    placement="top"
-    :width="320"
-    :show-arrow="false"
-    :offset="10"
-    popper-class="barrage-setting"
-    trigger="hover"
-  >
-    <div class="barrage-setting-inner">
-      <div class="setting-type">按类型屏蔽</div>
-      <div class="barrage-render-list">
-        <el-checkbox
-          v-for="item in barrageRenderList"
-          v-model="item.value"
-          :label="item.label"
-          :key="item.key"
-          size="9"
+      placement="top"
+      :width="320"
+      :show-arrow="false"
+      :offset="10"
+      popper-class="barrage-setting"
+      trigger="hover"
+    >
+      <div class="barrage-setting-inner">
+        <div class="setting-type">按类型屏蔽</div>
+        <div class="barrage-render-list">
+          <el-checkbox
+            v-for="item in barrageRenderList"
+            v-model="item.value"
+            :label="item.label"
+            :key="item.key"
+            size="9"
+          />
+        </div>
+        <div class="setting-type" style="margin-top: 10px">不透明度</div>
+        <el-slider v-model="opacity" :min="0" :max="100" size="small" />
+        <div class="setting-type">显示区域</div>
+        <el-radio-group
+          v-model="currentRenderRegions"
+          size="small"
+          style="margin-top: 10px"
+          @change="isRenderRegionChange"
+        >
+          <el-radio-button
+            v-for="item in regionsShow"
+            :label="item.value"
+            :key="item.label"
+          >
+            {{ item.label }}
+          </el-radio-button>
+        </el-radio-group>
+        <div class="setting-type" style="margin-top: 10px">
+          弹幕速度（像素/每秒）
+        </div>
+        <el-radio-group
+          v-model="currentSpeed"
+          size="small"
+          style="margin-top: 10px"
+          @change="speendChange"
+        >
+          <el-radio-button
+            v-for="item in userSpeedlist"
+            :label="item.value"
+            :key="item.label"
+          >
+            {{ item.label }}
+          </el-radio-button>
+        </el-radio-group>
+        <div class="setting-type" style="margin-top: 10px">弹幕禁止重叠</div>
+        <el-switch
+          v-model="avoidFlag"
+          class="barrage-switch"
+          @change="changeAvoidOver"
         />
       </div>
-      <div class="setting-type">智能云屏蔽</div>
-      <el-slider
-        v-model="shieldGrade"
-        :step="1"
-        :min="1"
-        :max="10"
-        show-stops
-        show-input
-        size="small"
-      />
-      <el-button
-        type="primary"
-        size="small"
-        style="margin-top: 10px"
-        @click="isOpenDrawer = true"
-        >添加屏蔽词
-      </el-button>
-      <div class="setting-type" style="margin-top: 10px">不透明度</div>
-      <el-slider v-model="opacity" :min="0" :max="100" size="small" />
-      <div class="setting-type">显示区域</div>
-      <el-radio-group
-        v-model="currentRenderRegions"
-        size="small"
-        style="margin-top: 10px"
-        @change="isRenderRegionChange"
-      >
-        <el-radio-button
-          v-for="item in regionsShow"
-          :label="item.value"
-          :key="item.label"
+      <template #reference>
+        <el-icon
+        class="designIconBarrage"
+          :size="25"
+          style="cursor: pointer; font-size: 19px"
         >
-          {{ item.label }}
-        </el-radio-button>
-      </el-radio-group>
-      <div class="setting-type" style="margin-top: 10px">
-        弹幕速度（像素/每秒）
+          <Setting />
+        </el-icon>
+      </template>
+    </el-popover>
+  </div>
+  </div>
+  <div class="inputFrame">
+    <div class="chatInput">
+      <textarea
+        rows="1"
+        @input="rows($event)"
+        class="chatArea"
+        maxlength="50"
+        placeholder="善言结善语，恶语伤人心"
+        v-model="barrageText"
+      ></textarea>
+      <div class="textSet">
+        <el-popover
+          placement="top"
+          :width="320"
+          :show-arrow="false"
+          :offset="10"
+          popper-class="barrage-setting"
+          trigger="hover"
+        >
+          <div class="barrage-setting-inner">
+            <div class="setting-type">字号</div>
+            <el-radio-group
+              v-model="currentFontsize"
+              size="small"
+              class="mg-10"
+            >
+              <el-radio-button
+                v-for="item in fontSizes"
+                :label="item.value"
+                :key="item.value"
+              >
+                {{ item.label }}
+              </el-radio-button>
+            </el-radio-group>
+            <div class="setting-type">模式</div>
+            <el-radio-group
+              v-model="currentBarrageMode"
+              size="small"
+              class="mg-10"
+            >
+              <el-radio-button
+                v-for="item in barrageModes"
+                :label="item.value"
+                :key="item.value"
+              >
+                {{ item.label }}
+              </el-radio-button>
+            </el-radio-group>
+            <div class="setting-type">颜色</div>
+            <div class="colors mg-10">
+              <div
+                v-for="color in barrageColors"
+                :key="color"
+                :class="[
+                  'color-item',
+                  { 'color-active': color === currentBarrageColor },
+                ]"
+                :style="`background:${color}`"
+                @click="currentBarrageColor = color"
+              ></div>
+            </div>
+          </div>
+          <template #reference>
+            <i class="iconfont icon-fuwenbenbianjiqi_zitiyanse"> </i>
+          </template>
+        </el-popover>
       </div>
-      <el-radio-group
-        v-model="currentSpeed"
-        size="small"
-        style="margin-top: 10px"
-        @change="speendChange"
-      >
-        <el-radio-button v-for="item in userSpeedlist" :label="item.value" :key="item.label">
-          {{ item.label }}
-        </el-radio-button>
-      </el-radio-group>
-      <div class="setting-type" style="margin-top: 10px">弹幕禁止重叠</div>
-      <el-switch
-        v-model="avoidFlag"
-        class="barrage-switch"
-        @change="changeAvoidOver"
-      />
+      <div class="emoji"><i class="iconfont icon-Emoji"></i></div>
+      <div class="sendMessage">
+        <button
+          class="send"
+          :class="{ sendBarragrBtnstyle: barrageText != '' }"
+          @click="sendbarrageMethods"
+        >
+          发送
+        </button>
+      </div>
     </div>
-    <template #reference>
-      <el-icon
-        :size="25"
-        style="cursor: pointer; color: white; font-size: 19px"
-      >
-        <Setting />
-      </el-icon>
-    </template>
-  </el-popover>
+  </div>
 </div>
+  <div>
+    
+  </div>
 </template>
 
 <script lang="ts" setup>
-import BarrageRenderer from '@/assets/lib/index'
+import BarrageRenderer from "@/assets/lib/index";
 import { useSendBarrage } from "@/assets/barrage/sendBarrage.ts";
-import { onMounted, ref } from "vue";
+import { inject, onMounted, ref } from "vue";
 import { useDisable } from "@/assets/barrage/disable";
 import { useOpacity } from "@/assets/barrage/opacity";
 import { useRenderRegion } from "@/assets/barrage/renderRegion.ts";
-import {userSpeed} from '@/assets/barrage/speed.ts'
-import {avoidOverlap} from '@/assets/barrage/aviodOver.ts'
-import type BaseBarrage from '@/assets/lib/baseBarrage/barrageClass';
-import {generateBarrageData} from "@/assets/data/index"
-import useResize from '@/assets/barrage/resize';
+import { userSpeed } from "@/assets/barrage/speed.ts";
+import { avoidOverlap } from "@/assets/barrage/aviodOver.ts";
+import type BaseBarrage from "@/assets/lib/baseBarrage/barrageClass";
+import { generateBarrageData } from "@/assets/data/index";
+import useResize from "@/assets/barrage/resize";
+import { useBarrageOpen } from "@/assets/barrage/open";
+import videoPlayer from './videoPlayer.vue'
 //弹幕------
+let viedoplayerdom=ref<HTMLVideoElement>()
 const barrageRenderer = ref<BarrageRenderer>();
-const { barrageRenderList, shieldGrade, isOpenDrawer } = useDisable();
+const { barrageRenderList, shieldGrade, isOpenDrawer,disableJudges } = useDisable();
 //透明度
 const { opacity } = useOpacity(barrageRenderer);
 //显示区域
 const { regionsShow, currentRenderRegions, isRenderRegionChange } =
   useRenderRegion(barrageRenderer);
 // 弹幕速度
-const { userSpeedlist, speendChange, currentSpeed } = userSpeed(barrageRenderer);
+const { userSpeedlist, speendChange, currentSpeed } =
+  userSpeed(barrageRenderer);
 //重复
-const{avoidFlag,changeAvoidOver}=avoidOverlap(barrageRenderer)
-const video = ref();
+const { avoidFlag, changeAvoidOver } = avoidOverlap(barrageRenderer);
 const {
   barrageText,
   fontSizes,
@@ -195,31 +220,30 @@ const {
   currentBarrageMode,
   barrageColors,
   currentBarrageColor,
-  sendbarrageMethods
-  
-} = useSendBarrage(barrageRenderer, video);
-const barrageOpen=ref(true)
-const rows=(event: any)=>{
+  sendbarrageMethods,
+} = useSendBarrage(barrageRenderer, viedoplayerdom);
+
+const { barrageOpen, barrageOpenChange } = useBarrageOpen(barrageRenderer)
+const rows = (event: any) => {
   event.target.style.height = "auto";
   event.target.style.height = event.target.scrollHeight + "px";
-}
-const videoPause = () => {
-  // console.log('app pause');
-  barrageRenderer.value?.pause();
 };
-onMounted(()=>{
-  barrageRenderer.value=new BarrageRenderer({
-    container:"container",
-    video:video.value,
+onMounted(() => {
+  viedoplayerdom.value=document.getElementById('video')
+  barrageRenderer.value = new BarrageRenderer({
+    container: "container",
+    video: viedoplayerdom.value,
     renderConfig: {
       heightReduce: 60,
       speed: currentSpeed.value,
-      renderRegion:1,
+      renderRegion: currentRenderRegions.value,
       fontWeight: "bold",
       opacity: opacity.value / 100,
       avoidOverlap: avoidFlag.value,
       barrageFilter: (barrage: BaseBarrage) => {
         // 弹幕类型的过滤
+        if (disableJudges.value.some((disableJudge) => disableJudge(barrage)))
+          return false;
         // 弹幕等级过滤
         if (barrage.addition?.grade < shieldGrade.value) return false;
         // 其他情况，不过滤
@@ -227,7 +251,6 @@ onMounted(()=>{
       },
       priorBorderCustomRender: ({ ctx, barrage }) => {
         ctx.save();
-
         // 设定矩形左上角的偏移量
         const leftOffset = 6;
         const topOffset = 2;
@@ -252,13 +275,13 @@ onMounted(()=>{
       },
     },
     devConfig: {
-      isRenderFPS: true,
+      isRenderFPS: false,
       isRenderBarrageBorder: false,
       isLogKeyData: true,
     },
-  })
-  generateBarrageDataSet()
-})
+  });
+  generateBarrageDataSet();
+});
 const generateBarrageDataSet = () => {
   // 获取弹幕数据
   const barrages = generateBarrageData(1, {
@@ -272,27 +295,27 @@ const generateBarrageDataSet = () => {
     seniorNum: 0,
     specialNum: 200,
   });
-  barrageRenderer.value?.setBarrage(barrages);
-//   console.log();
   
-  barrageRenderer.value?.renderFrame()
+  barrageRenderer.value?.setBarrage(barrages);
+  barrageRenderer.value?.renderFrame();
 };
-// console.log();
-// setInterval(()=>{
-//     barrageRenderer.value?.renderFrame()
-// },10000)
-useResize(barrageRenderer)
+useResize(barrageRenderer);
 const renderFrame = () => {
   barrageRenderer.value?.renderFrame();
 };
-const videoPlay = () => {
+const handleVideoPlay = () => {
   // console.log('app play');
   barrageRenderer.value?.play();
 };
-
+const handleVideoPause = () => {
+  // console.log('app pause');
+  barrageRenderer.value?.pause();
+};
 </script>
 <style lang="scss" scoped>
+@import "http://at.alicdn.com/t/c/font_4515498_x1t0sazzfdj.css";
 @import "@/styles/variables.scss";
+@import "@/views/client/styles/clientPull/barrage/index.scss";
 .colors {
   display: grid;
   grid-template-rows: repeat(2, 1fr);
@@ -308,9 +331,6 @@ const videoPlay = () => {
     border: 1px solid white;
     box-sizing: border-box;
   }
-}
-.sendBarragrBtnstyle{
-  background-color: var(--el-color-opcatiy)!important;
 }
 .main {
   height: 100vh;
@@ -536,8 +556,5 @@ const videoPlay = () => {
     border: 1px solid white;
     box-sizing: border-box;
   }
-}
-.sendBarragrBtnstyle{
-  background-color: var(--el-color-opcatiy)!important;
 }
 </style>

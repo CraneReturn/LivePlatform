@@ -19,10 +19,11 @@ export default class BarrageRenderer {
         renderRegion: 1,
         avoidOverlap: true,
         minSpace: 10,
-        fontWeight:"normal",
+        fontWeight: "normal",
         barrageFilter: function (barrage: BaseBarrage): boolean {
             throw new Error("Function not implemented.");
-        }
+        },
+        fontFamily: undefined
     }
     defalurtDeviceConfig: DevConfig = {
         isRenderFPS: false,
@@ -31,7 +32,7 @@ export default class BarrageRenderer {
     }
     devConfig:DevConfig=this.defalurtDeviceConfig
     renderConfig: RenderConfig = this.defalutRenderConfig
-    isOpen = true
+    isOpen=true
     animationHandle?: number;
     lastContainerHeight = { width: 0, height: 0 }
     offscreenCanvans!: HTMLCanvasElement
@@ -280,10 +281,23 @@ export default class BarrageRenderer {
           }
         });
       }
-
+      switch(isOpen: boolean) {
+		this.isOpen = isOpen;
+		if (isOpen) {
+			// 进行打开操作，根据当前是不是播放状态进行不同的处理
+			this.viedoStatus.playing ? this.createAnimation() : this.renderShow();
+		} else {
+			// 进行关闭操作
+			this.animationHandle && cancelAnimationFrame(this.animationHandle);
+			this.animationHandle = undefined;
+			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		}
+	}
 
 }
+
 export type RenderConfig = {
+    fontFamily: any;
     barrageFilter: (barrage: BaseBarrage) => boolean
     priorBorderCustomRender?: RenderFn;
     heightReduce: number;
