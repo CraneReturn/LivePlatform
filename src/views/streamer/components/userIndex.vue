@@ -18,7 +18,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import defineProps from "vue";
+import {defineProps} from "vue";
 const props = defineProps({ ranking: Number, head: String, name: String });
 // 排名信息 index
 // 头像信息 head

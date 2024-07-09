@@ -82,8 +82,8 @@ const router = createRouter({
           },
         },
         {
-          path: "gift",
-          component: () => import("@/views/admin/layouts/giftManage/gift.vue"),
+          path: "userManage",
+          component: () => import("@/views/admin/layouts/userManage/index.vue"),
         },
       ],
     },
@@ -112,8 +112,25 @@ const router = createRouter({
       },
     },
     {
+      path: "/kefu",
+      component: () =>
+        import("@/views/client/layouts/customeService/index.vue"),
+      meta: {
+        title: `${projectName}`,
+        requiresAuth: false,
+      },
+    },
+    {
       path: "/forget",
       component: () => import("@/views/client/layouts/login/forget.vue"),
+      meta: {
+        title: `${projectName}`,
+        requiresAuth: false,
+      },
+    },
+    {
+      path: "/user",
+      component: () => import("@/views/client/person.vue"),
       meta: {
         title: `${projectName}`,
         requiresAuth: false,
@@ -153,7 +170,7 @@ const router = createRouter({
       },
     },
     {
-      path:"/groupChat",
+      path: "/groupChat",
       component: () => import("@/views/client/groupChat.vue"),
       meta: {
         title: `${projectName}`,
