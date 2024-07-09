@@ -129,6 +129,14 @@ const router = createRouter({
       },
     },
     {
+      path: "/user",
+      component: () => import("@/views/client/person.vue"),
+      meta: {
+        title: `${projectName}`,
+        requiresAuth: false,
+      },
+    },
+    {
       path: "/page",
       component: () => import("@/views/admin/layouts/giftManage/index.vue"),
       meta: {

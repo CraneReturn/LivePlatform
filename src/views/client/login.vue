@@ -7,6 +7,7 @@
     </div>
     <div class="loginTable">
       <div class="logo">
+        <div></div>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 261.76 226.69">
           <path
             d="M161.096.001l-30.225 52.351L100.647.001H-.005l130.877 226.688L261.749.001z"
@@ -17,17 +18,6 @@
             fill="#34495e"
           />
         </svg>
-      </div>
-
-      <div class="loginMain">
-        <div class="mian">
-          <Password
-            @code="changeCodeLogin"
-            v-if="passwordLogin"
-            @forget="forgetPassword"
-          ></Password>
-          <Code @password="changePasswordLogin" v-if="codeLogin"></Code>
-        </div>
         <div class="loginOther">
           <p class="loginTitle">其他方式登录</p>
           <div class="loginPick">
@@ -73,6 +63,15 @@
             </el-popover>
           </div>
         </div>
+      </div>
+
+      <div class="loginMain">
+        <Password
+          @code="changeCodeLogin"
+          v-if="passwordLogin"
+          @forget="forgetPassword"
+        ></Password>
+        <Code @password="changePasswordLogin" v-if="codeLogin"></Code>
       </div>
     </div>
     <div class="loginFoot">
@@ -131,6 +130,7 @@ onMounted(() => {
 </script>
 <style lang="scss" scoped>
 @import "http://at.alicdn.com/t/c/font_4515498_ytesvywtn9.css";
+
 .canvasCode {
   width: 200px;
   height: 200px;
@@ -141,7 +141,8 @@ onMounted(() => {
   }
 }
 .login {
-  min-width: 645px;
+  min-width: 550px;
+  height: 395px;
   padding: 0 20px;
   border-radius: 5px;
   background-color: #fff;
@@ -167,68 +168,70 @@ onMounted(() => {
     }
   }
   .loginTable {
-    padding: 20px 0;
+    min-height: 300px;
+    padding-top: 20px;
     display: grid;
     grid-template-columns: 7fr 10fr;
     .loginMain {
       padding: 0 30px;
-      .loginOther {
-        .loginTitle {
-          text-align: center;
-          color: #aeaeae;
-          font-size: 14px;
-        }
-        .loginPick {
-          display: flex;
-          justify-content: space-around;
-          margin-top: 5px;
-
-          .wechatLogin {
-            border: none;
-            display: flex;
-            background-color: white;
-            transition-duration: 0.25s;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            border-radius: 3px;
-            padding: 5px 20px;
-            p {
-              font-size: 13px;
-              color: #aeaeae;
-            }
-            .title {
-              text-align: center;
-            }
-          }
-          .wechatLogin:hover {
-            background-color: rgba(124, 168, 109, 0.2);
-          }
-          .icon-weixin {
-            color: #28c445;
-            font-size: 25px;
-          }
-          .icon-zhifubao {
-            color: #00a0ea;
-            font-size: 25px;
-          }
-        }
-      }
     }
   }
   .logo {
     border-right: 1px solid rgba(228, 230, 235, 0.7);
     text-align: center;
     display: flex;
-    justify-content: center;
+    padding: 8px;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     svg {
       width: 150px;
     }
+    .loginOther {
+      .loginTitle {
+        text-align: center;
+        color: #aeaeae;
+        font-size: 14px;
+      }
+      .loginPick {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 5px;
+
+        .wechatLogin {
+          border: none;
+          display: flex;
+          background-color: white;
+          transition-duration: 0.25s;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+          border-radius: 3px;
+          padding: 5px 10px;
+          p {
+            font-size: 13px;
+            color: #aeaeae;
+          }
+          .title {
+            text-align: center;
+          }
+        }
+        .wechatLogin:hover {
+          background-color: rgba(124, 168, 109, 0.2);
+        }
+        .icon-weixin {
+          color: #28c445;
+          font-size: 25px;
+        }
+        .icon-zhifubao {
+          color: #00a0ea;
+          font-size: 25px;
+        }
+      }
+    }
   }
   .loginFoot {
-    padding: 20px;
-    padding-top: 0;
+    padding: 6px;
 
     p {
       text-align: center;
