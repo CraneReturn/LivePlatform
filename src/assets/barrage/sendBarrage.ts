@@ -1,8 +1,13 @@
 import { type Ref, ref, reactive } from "vue";
 import BarrageRenderer from "../lib";
+import { ElMessage } from "element-plus";
+import type FixedBarrage from "../lib/baseBarrage/fixedBarrage";
+import type { FixedBarrageOptions } from "../lib/baseBarrage/fixedBarrage";
+import type { ScrollBarrageOptions } from "../lib/baseBarrage/srollBarrage";
+import { v4 as uuid4 } from 'uuid';
 
 export function useSendBarrage(BarrageRenderer:Ref<BarrageRenderer|undefined>,video:Ref<HTMLVideoElement>){
-    const barrageText=ref('');
+    const barrageText=ref("");
     const fontSizes = ref([
         { label: '小', value: 24 },
         { label: '标准', value: 34 },
@@ -24,6 +29,59 @@ export function useSendBarrage(BarrageRenderer:Ref<BarrageRenderer|undefined>,vi
         '#89D5FF', '#CC0273', '#222222',
         '#9B9B9B', '#FFFFFF',
       ]);
+      //发送弹幕
+      const sendbarrageMethods=(()=>{
+        if(barrageText.value.trim()==''){
+          ElMessage({
+            message:'请您输入弹幕内容',
+            type:"warning"
+          })
+          return
+        }
+        //构造弹幕对象
+        let barrage:FixedBarrageOptions|ScrollBarrageOptions
+        if (currentBarrageMode.value === 'scroll') {
+          // 构建滚动弹幕
+          barrage = {
+            id: uuid4(),
+            barrageType: currentBarrageMode.value,
+            time: video.value.currentTime * 1000,
+            text: barrageText.value,
+            fontSize: currentFontsize.value,
+            lineHeight: 1.2,
+            color: currentBarrageColor.value,
+          };
+        } else {
+          // 构建顶部弹幕和底部弹幕
+          barrage = {
+            id: uuid4(),
+            barrageType: currentBarrageMode.value,
+            time: video.value.currentTime * 1000,
+            text: barrageText.value,
+            fontSize: currentFontsize.value,
+            lineHeight: 1.2,
+            color: currentBarrageColor.value,
+            duration: 6000,
+          };
+        }
+        barrage.prior = true;
+        BarrageRenderer.value?.send(barrage);
+        barrageText.value = '';
+      })
+      const randomSendBarrage = () => {
+        // 构建滚动弹幕
+        const barrage: ScrollBarrageOptions = {
+          id: uuid4(),
+          barrageType: 'scroll',
+          time: video.value.currentTime * 1000,
+          text: '[0025][0024]测试[0022][0023]',
+          fontSize: currentFontsize.value,
+          lineHeight: 1.2,
+          color: currentBarrageColor.value,
+        };
+        barrage.prior = true;
+        BarrageRenderer.value?.send(barrage);
+      }
       return {
         barrageText,
         fontSizes,
@@ -31,6 +89,8 @@ export function useSendBarrage(BarrageRenderer:Ref<BarrageRenderer|undefined>,vi
         barrageModes,
         currentBarrageMode,
         barrageColors,
-        currentBarrageColor
+        currentBarrageColor,
+        sendbarrageMethods,
+        randomSendBarrage
       }
 }

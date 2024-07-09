@@ -1,0 +1,239 @@
+.inputFrame {
+  width: 700px;
+}
+
+.inputFrame .chatInput {
+  height: 100%;
+  border-radius: var(--el-border-radius-base);
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  background-color: var(--el-color-info-light-9);
+}
+
+.inputFrame .chatInput .chatArea {
+  height: 100%;
+  outline: 1.5px solid transparent;
+  border: 1px solid transparent;
+  width: 100%;
+  resize: none;
+  line-height: 22px;
+  padding: 11px 100px 11px 35px;
+  overflow: hidden;
+  background-color: transparent;
+  transition-duration: 0.25s;
+  border-radius: var(--el-border-radius-base);
+  font-family: inherit;
+}
+
+.inputFrame .chatInput .chatArea:focus {
+  border: 1px solid var(--el-color-success-light-3);
+  outline: 1.5px solid var(--el-color-success-light-5);
+}
+
+.inputFrame .chatInput .emoji {
+  position: absolute;
+  bottom: 5px;
+  right: 70px;
+}
+
+.inputFrame .chatInput .emoji .icon-Emoji {
+  font-size: 25px;
+  line-height: 35px;
+  cursor: pointer;
+}
+
+.inputFrame .chatInput .textSet {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  cursor: pointer;
+}
+
+.inputFrame .chatInput .textSet .iconfont {
+  font-size: 23px;
+  line-height: 42px;
+  color: var(--vt-c-divider-dark-2);
+}
+
+.inputFrame .chatInput .sendMessage {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 60px;
+  height: 35px;
+}
+
+.inputFrame .chatInput .sendMessage .send {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border: none;
+  background-color: var(--el-color-success-light-5);
+  color: rgba(255, 255, 255, 0.4);
+  border-radius: var(--el-border-radius-base);
+}
+
+.sendBarragrBtnstyle {
+  color: white !important;
+}
+
+.icon-xitong_zaixianyonghu {
+  color: var(--el-color-success-light-3);
+  font-size: 25px;
+}
+
+.chat {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  height: 45px;
+  line-height: 45px;
+}
+
+.top .audienceNumber {
+  display: flex;
+  gap: 5px;
+}
+
+.top p {
+  font-size: var(--el-font-size-base);
+}
+
+.chatFrame {
+  height: 100%;
+  width: 100%;
+  background-color: lawngreen;
+}
+
+.inputFrame {
+  padding: 10px;
+}
+
+.ranking {
+  max-height: 270px;
+}
+
+.chatInput {
+  height: 100%;
+  border-radius: var(--el-border-radius-base);
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  position: relative;
+  width: 100%;
+  background-color: var(--el-color-info-light-9);
+}
+
+.chatInput .chatArea {
+  height: 100%;
+  outline: 1.5px solid transparent;
+  border: 1px solid transparent;
+  width: 100%;
+  resize: none;
+  line-height: 22px;
+  padding: 11px 100px 11px 35px;
+  overflow: hidden;
+  background-color: transparent;
+  transition-duration: 0.25s;
+  border-radius: var(--el-border-radius-base);
+  font-family: inherit;
+}
+
+.chatInput .chatArea:focus {
+  border: 1px solid var(--el-color-success-light-3);
+  outline: 1.5px solid var(--el-color-success-light-5);
+}
+
+.chatInput .emoji {
+  position: absolute;
+  bottom: 5px;
+  right: 70px;
+}
+
+.chatInput .emoji .icon-Emoji {
+  font-size: 25px;
+  line-height: 35px;
+  cursor: pointer;
+}
+
+.chatInput .textSet {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  cursor: pointer;
+}
+
+.chatInput .textSet .iconfont {
+  font-size: 23px;
+  line-height: 42px;
+  color: var(--vt-c-divider-dark-2);
+}
+
+.chatInput .sendMessage {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 60px;
+  height: 35px;
+}
+
+.chatInput .sendMessage .send {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border: none;
+  background-color: var(--el-color-success-light-5);
+  color: #fff;
+  border-radius: var(--el-border-radius-base);
+}
+
+.hiddenSettingText {
+  position: relative;
+  left: -10px;
+  opacity: 0 !important;
+}
+
+.centerBarrageShow {
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+  justify-content: space-around;
+  align-items: baseline;
+}
+
+.centerBarrageShowswitch {
+  width: 200px;
+  align-items: baseline;
+  display: flex;
+  color: #747272;
+}
+
+.centerBarrageShowswitch span {
+  position: relative;
+  top: -5px;
+  padding-left: 12px;
+}
+
+.designIconBarrage {
+  color: var(--el-font-size-base);
+}
+
+.openBarrageBtn {
+  margin-left: 10px;
+}
+
+.designBarrage {
+  margin-left: 10px;
+}

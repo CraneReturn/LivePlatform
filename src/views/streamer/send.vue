@@ -2,6 +2,7 @@
   <div>
     <!-- 暂停和开始 -->
     <!-- 声音和 -->
+    
     <canvas ref="videoCanvas" width="1280" height="720"></canvas>
   </div>
 </template>

@@ -170,7 +170,15 @@ const router = createRouter({
           component: () => import("@/views/client/layouts/groupChat/membersList.vue"),
         },
       ]
-    }
+    },
+    {
+      path: "/haha",
+      component: () => import("@/views/client/haha.vue"),
+      meta: {
+        title: `${projectName}`,
+        requiresAuth: false,
+      },
+    },
   ],
 });
 
