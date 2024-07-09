@@ -1,0 +1,22 @@
+.sendNotice{
+    position: fixed;
+    width: 600px;
+    top: 10%;
+    left: 50%;
+    height:465px;
+    transform: translateY(-10%);
+    transform: translateX(-50%);
+    background-color: #fff;  
+    border: 1px solid #ccc;  
+    border-radius: 5px;
+    .topTitle{
+        font-size: 13px;   
+        border-bottom: 1px solid #ccc;
+    }
+    textarea{
+        width: 100%;
+        padding: 15px 20px;
+        border: none;
+        resize: none;
+    }
+}
