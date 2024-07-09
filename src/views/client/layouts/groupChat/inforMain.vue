@@ -145,8 +145,8 @@
       </div>
       <mation :maexend="maexend" />
     </div>
-    <affiche :isexend="isexend" @close-affiche="closeAffiche" />
-    <send-notice />
+    <affiche :isexend="isexend" @close-affiche="closeAffiche" @exend-send="exendSend" />
+    <send-notice :issend="issend" @colse-send="closeSend" />
   </div>
 </template>
 
@@ -157,6 +157,7 @@ export default {
       isearch: false,
       isput: false,
       isexend: false,
+      issend: false,
       maexend: false,
       searchname: "",
     };
@@ -199,6 +200,12 @@ export default {
     },
     closeAffiche() {
       this.isexend = false;
+    },
+    exendSend(){
+      this.issend = true;
+    },
+    closeSend(){
+      this.issend = false;
     },
     exendMation() {
       this.maexend = !this.maexend;
