@@ -1,12 +1,12 @@
 <template>
     <div id="container">
-        <video
+        <!-- <video
           ref="video"
           id="video"
           controls
           autoplay
           src="@/assets/viedo/test.mp4"
-        />
+        /> -->
       </div>
   <div class="inputFrame">
         <div class="chatInput">

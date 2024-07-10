@@ -1,6 +1,6 @@
 import { ref, onUnmounted, type Ref, watch } from "vue";
 import flvjs from "flv.js";
-import { createVideo } from "./play";
+// import { createVideo } from "./play";
 import { useStreamerStore } from "@/store/streamer/play";
 import { detect } from "./mask";
 
@@ -91,13 +91,11 @@ export function useFlvPlay() {
   );
   function init(
     source: string,
-    canvas: Ref<HTMLCanvasElement>,
-    container: Ref<HTMLDivElement>
+    video: HTMLVideoElement,
+    container: HTMLCanvasElement
   ) {
     return new Promise((resolve) => {
       async function main() {
-        const ctx = canvas.value?.getContext("2d");
-
         if (flvjs.isSupported()) {
           // 创建flv拉流
           flvPlayer.value = flvjs.createPlayer(
@@ -111,31 +109,12 @@ export function useFlvPlay() {
               stashInitialSize: 384 * 1024, // 修改缓冲区大小为 384KB
             }
           );
-          const videoElement = createVideo({});
+          const videoElement = video;
           flvPlayer.value.attachMediaElement(videoElement);
           flvPlayer.value.load();
           virtualVideo.value = videoElement;
-
-          async function drawVideoFrame() {
-            if (!ctx) {
-              // 如果 ctx 是 undefined，我们停止画图并返回
-              cancelAnimationFrame(animationFrameId);
-              return;
-            }
-            ctx.drawImage(
-              videoElement,
-              0,
-              0,
-              canvas.value.width,
-              canvas.value.height
-            );
-
-            // 计划下一帧的更新
-            animationFrameId = requestAnimationFrame(drawVideoFrame);
-          }
-          drawVideoFrame();
           videoElement.addEventListener("canplay", () => {
-            detect(videoElement, canvas,container);
+            detect(videoElement, container);
             flvIsPlaying.value = true;
             setMuted(videoStates.muted);
             setVolume(videoStates.volume);

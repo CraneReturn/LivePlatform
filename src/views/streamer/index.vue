@@ -1,5 +1,5 @@
 <template>
-  <nailTop></nailTop>
+  <!-- <nailTop></nailTop> -->
   <div class="main">
     <div class="video">
       <div class="videoTable">
@@ -15,9 +15,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
-import nailTop from "@/views/client/layouts/Nail/nailTop.vue";
-import recharge from "./components/recharge.vue";
 import giveGift from "./components/giveGift.vue";
 import chat from "./components/chat.vue";
 import videoPlayer from "./components/videoPlayer.vue";
@@ -45,5 +42,10 @@ import videoPlayer from "./components/videoPlayer.vue";
 .videoTable {
   display: flex;
   justify-content: center;
+}
+@media screen and (max-width: 1200px) {
+  .chatPart {
+    display: none;
+  }
 }
 </style>

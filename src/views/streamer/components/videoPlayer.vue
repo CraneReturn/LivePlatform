@@ -1,5 +1,8 @@
 <template>
-  <div class="videoPlayer">
+  <div
+    v-bind:class="videoClass ? 'videoPlayer' : 'videoFullScreen'"
+    ref="videoPlayer"
+  >
     <div class="top">
       <!-- 主播信息 -->
       <div class="anchorInfo">
@@ -18,15 +21,16 @@
       </div>
     </div>
     <div class="showTable">
-      <div class="barrage" ref="barrage">
+      <canvas class="barrage" ref="barrage">
         <!-- 弹幕 -->
-      </div>
-      <canvas
+      </canvas>
+      <video
+        autoplay
         ref="canvasVideo"
         class="canvasVideo"
         width="920"
         height="1280"
-      ></canvas>
+      ></video>
     </div>
     <div class="footer">
       <div class="left">
@@ -37,7 +41,20 @@
         <button class="refresh" @click="refresh">
           <i class="iconfont icon-shuaxin"></i>
         </button>
+        <div class="sendMessage">
+          <input
+            placeholder="发射弹幕~~"
+            class="message"
+            v-model="message"
+            maxlength="50"
+          />
+          <button class="textSet">
+            <i class="iconfont icon-fuwenbenbianjiqi_zitiyanse"></i>
+          </button>
+          <button class="send">发送</button>
+        </div>
       </div>
+
       <div class="right">
         <div class="definition">
           <!-- 当前清晰度 -->
@@ -46,12 +63,10 @@
 
         <button class="barrage">
           <i class="iconfont icon-danmushezhi"></i>
-          
         </button>
-        
+
         <button class="barrage">
-          <contenShowdesigned/>
-          
+          <contenShowdesigned />
         </button>
         <button class="gift">
           <i class="iconfont icon-liwu"></i>
@@ -67,40 +82,69 @@
           </button>
         </div>
 
-        <button class="fullScreen">
-          <i class="iconfont icon-quanping"></i>
+        <button class="fullScreen" @click="fullScreen">
+          <i
+            class="iconfont"
+            v-bind:class="videoClass ? 'icon-quanping' : 'icon-huanyuan'"
+          ></i>
         </button>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, watch, onMounted } from "vue";
-import contenShowdesigned from './barrage/contenShowdesigned.vue'
+import { ref, watch, onMounted, onBeforeUnmount } from "vue";
+import contenShowdesigned from "./barrage/contenShowdesigned.vue";
 import { useFlvPlay } from "@/assets/pull";
 const { setMuted, setVolume, setPlay, init, destroyFlv } = useFlvPlay();
-const canvasVideo = ref<HTMLCanvasElement>(null);
-const barrage = ref<HTMLDivElement>(null);
+const canvasVideo = ref<HTMLVideoElement | null>(null);
+const barrage = ref<HTMLCanvasElement | null>(null);
+const videoPlayer = ref<HTMLDivElement | null>(null);
+let elm: HTMLDivElement | null;
 onMounted(() => {
-  init(url, canvasVideo, barrage);
+  window.addEventListener("keydown", handleKeyDown);
+  document.addEventListener("fullscreenchange", updateFullscreenStatus);
+  updateFullscreenStatus(); // 初始检查
+  const canvas = canvasVideo.value;
+  const contaniner = barrage.value;
+  elm = videoPlayer.value;
+  if (canvas && contaniner) {
+    init(url, canvas, contaniner);
+  }
 });
+onBeforeUnmount(() => {
+  window.removeEventListener("keydown", handleKeyDown);
+  document.removeEventListener("fullscreenchange", updateFullscreenStatus);
+});
+const isFullscreen = ref(false);
+const updateFullscreenStatus = () => {
+  isFullscreen.value = document.fullscreenElement !== null;
+};
+const videoClass = ref(true);
+const message = ref("");
 let prevVolume = 50;
 const play = ref(true);
 const mute = ref(true);
 const volume = ref(0);
-const url =
-  "https://pull-flv-spe-l11.douyincdn.com/fantasy/stream-403377428305019574_sd.flv?_neptune_token=MIGlBAzTANLPp53OECCsUh4EgYKiJ1Smfns8MPipNGbyX1zge9X75Z3DYhnS_u338pyZMGWPBHbZyNb1GkUuQ8JowwnnFyCbZYx-knnCx7Deizgtvg0z3jeLOjugOOvBIS0t_a4mgyxUq6YFEArLrDvTaQxnSiN4OoiaZbAIFZCNRFxwkazBVnua-z0c-vcDObXDirsbBBDSHZboQqkHXZHcDDcQ35la&expire=1716023199&sign=40a09c36feb7624b93dd4f5ae3e52a99&abr_pts=-800&_session_id=037-20240517170638717712A412934402BCFC.1715936813106.56363";
+const url = "http://118.31.245.3/live?port=1935&app=live&stream=stream";
 function pause() {
   setPlay(!play.value);
   play.value = !play.value;
 }
 setVolume(volume.value);
 watch(volume, (newValue) => {
-  if (volume > 0) {
+  if (volume.value > 0) {
     mute.value = false;
     setMuted(mute.value);
   }
   setVolume(newValue);
+});
+watch(isFullscreen, (newValue) => {
+  if (isFullscreen.value) {
+    videoClass.value = false;
+  } else {
+    videoClass.value = true;
+  }
 });
 function muted() {
   console.log(mute.value);
@@ -117,13 +161,58 @@ function muted() {
 }
 function refresh() {
   destroyFlv();
-  steamer = init(url, canvasVideo);
+  const canvas = canvasVideo.value;
+  const contaniner = barrage.value;
+  if (canvas && contaniner) {
+    init(url, canvas, contaniner);
+  }
 }
+// 全屏显示
+let full = false;
+function fullScreen(event: any) {
+  if (elm) {
+    if (!full) {
+      if (elm.requestFullscreen) {
+        elm.requestFullscreen();
+        videoClass.value = false;
+      }
+      full = true;
+    } else {
+      // 退出全屏
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+        videoClass.value = true;
+      }
+      full = false;
+    }
+  }
+}
+const handleKeyDown = (event: {
+  keyCode: number;
+  preventDefault: () => void;
+}) => {
+  if (event.keyCode === 122) {
+    event.preventDefault();
+  }
+};
 </script>
 <style lang="scss" scoped>
-@import url("http://at.alicdn.com/t/c/font_4515498_7hzpu4sfpru.css");
+@import url("http://at.alicdn.com/t/c/font_4515498_yzard7rdqhs.css");
 .el-popover {
   max-width: 100px;
+}
+// 全屏下的样式
+.videoFullScreen {
+  @extend .videoPlayer;
+  .showTable {
+    height: 100% !important;
+  }
+  .sendMessage {
+    display: block !important;
+    input {
+      min-width: 470px !important;
+    }
+  }
 }
 .videoPlayer {
   width: 100%;
@@ -135,8 +224,9 @@ function refresh() {
   position: relative;
   overflow: hidden;
   .showTable {
-    height: 80vh;
-    max-width: 90%;
+    height: 79vh;
+    max-width: 100%;
+    width: 100%;
     margin: 0 auto;
     mask-size: cover;
     .barrage {
@@ -150,6 +240,7 @@ function refresh() {
   .canvasVideo {
     height: 100%;
     margin: 0 auto;
+    width: 100%;
     /* object-fit: cover; */
   }
   .top {
@@ -161,6 +252,7 @@ function refresh() {
     justify-content: space-between;
     top: -75px;
     z-index: 100;
+    line-height: unset;
     transition-duration: 0.5s;
   }
   .anchorInfo {
@@ -234,14 +326,51 @@ function refresh() {
     .iconfont {
       font-size: 17px;
       color: #fff;
+      pointer-events: none;
     }
     .right,
     .left {
       display: flex;
       gap: 20px;
     }
+    .sendMessage {
+      position: relative;
+      display: none;
+      input {
+        padding: 2px 30px;
+        padding-right: 55px;
+        height: 30px;
+        border-radius: 10px;
+        outline: none;
+        border: none;
+        background-color: #f0f8ffc4;
+      }
+      button {
+        position: absolute;
+      }
+      .textSet {
+        left: 0;
+        top: 4px;
+        .iconfont {
+          color: #191f1c74;
+        }
+      }
+      .send {
+        background-color: #fe2c55;
+        right: 0;
+        height: 100%;
+        border: none;
+        font-size: 13px;
+        width: 50px;
+        border-radius: 2px;
+        color: #fff;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+    }
     .correct {
       font-size: 12px;
+      width: 32px;
       color: #fff;
       font-weight: 400;
       cursor: pointer;
@@ -272,6 +401,19 @@ function refresh() {
   }
   .top {
     top: 0;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .videoPlayer {
+    .footer {
+      .sendMessage {
+        display: inline-block;
+      }
+      .left,
+      .right {
+        gap: 15px;
+      }
+    }
   }
 }
 </style>
