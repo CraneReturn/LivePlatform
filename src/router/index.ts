@@ -62,6 +62,33 @@ const router = createRouter({
         title: `${projectName}`,
         requiresAuth: false,
       },
+      children: [
+        {
+          path: "/personmessage",
+          redirect: "/personmessage/changemessage",
+          component: () =>
+            import(
+              "@/views/client/personMessage.vue"
+            ),
+            children: [
+              {
+                path: "changemessage",
+                component: () =>
+                  import(
+                    "@/views/client/layouts/person/changeMessage/changeMessage.vue"
+                  ),
+              },
+              {
+                path: "passwordset",
+                component: () =>
+                  import(
+                    "@/views/client/layouts/person/changeMessage/passwordSet.vue"
+                  ),
+              },
+            ],
+        },
+        
+      ],
     },
     {
       path: "/admin",

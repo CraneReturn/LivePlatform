@@ -27,3 +27,26 @@ a:hover {
 .el-button:hover {
   color: white !important;
 }
+
+.changeIcon {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.changeIconCover {
+  width: 150px;
+  height: 0px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 5;
+  background-color: rgba(237, 233, 233, 0.7);
+}
+
+.changeIcon:hover .changeIconCover {
+  height: 150px;
+  transition: 0.6s;
+}
