@@ -143,10 +143,10 @@
           </ul>
         </div>
       </div>
-      <mation :maexend="maexend" />
+      <mation :maexend="maexend" @exend-affiche="exendAffiche"  />
     </div>
-    <affiche :isexend="isexend" @close-affiche="closeAffiche" @exend-send="exendSend" />
-    <send-notice :issend="issend" @colse-send="closeSend" />
+    <affiche class="cov" :isexend="isexend" @close-affiche="closeAffiche" @exend-send="exendSend" />
+    <send-notice class="cov" :issend="issend" @colse-send="closeSend" />
   </div>
 </template>
 
@@ -180,9 +180,11 @@ export default {
     closeMation() {
       const member = this.$el.querySelector(".mation");
       const btn = this.$el.querySelector(".icon");
+      const cov = this.$el.querySelector(".cov");
       if (
         !(member && member.contains(event.target)) &&
-        !(btn && btn.contains(event.target))
+        !(btn && btn.contains(event.target)) &&
+        !(cov && cov.contains(event.target))
       ) {
         this.maexend = false;
         this.$router.push('/mainMation');

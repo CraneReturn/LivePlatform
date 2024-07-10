@@ -1,5 +1,5 @@
 <template>
-  <div class="affiche" v-if="isexend">
+  <div class="affiche" v-if="isexend" @click.stop>
     <div class="topact">
       <svg @click="closeAffiche()"
         t="1714654685810"

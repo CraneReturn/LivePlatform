@@ -1,15 +1,19 @@
 <template>
   <div class="mation" :class="{ aaa: maexend }">
-    <router-view></router-view>
+    <router-view @exend-affiche="exendAffiche"></router-view>
   </div>
 </template>
 <script lang="ts">
 export default {
-  props: ["maexend"],
+  props: ["maexend","isexend"],
   methods: {
     closeAffiche() {
       this.$emit("close-affiche");
     },
+    exendAffiche(){
+      this.$emit("exend-affiche");
+      console.log(778);
+    }
   },
 };
 </script>

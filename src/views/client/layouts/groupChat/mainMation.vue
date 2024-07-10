@@ -89,6 +89,7 @@
             上午集体默哀，明天群内将全体禁止发送娱乐游戏，关于明星的一切，包括照片资料视频等
           </p>
           <svg
+            @click="exendAffiche()"
             t="1714826781239"
             class="icon"
             viewBox="0 0 1024 1024"
@@ -108,7 +109,7 @@
       </div>
 
       <div class="userGroupName">
-        <p>群聊名称</p>
+        <p>我的群聊昵称</p>
         <input type="text" />
       </div>
 
@@ -116,13 +117,45 @@
         <p>群聊备注</p>
         <input type="text" placeholder="填写备注" />
       </div>
+
+      <div class="switch">
+        <span>设为置顶</span>
+        <el-switch v-model="value1" active-color="#13ce66" inactive-color="#ff4949"> </el-switch>
+      </div>
+
+      <div class="switch">
+        <span>消息免打扰</span>
+        <el-switch v-model="value2" active-color="#13ce66" inactive-color="#ff4949"> </el-switch>
+      </div>
+
+      <div class="switch">
+        <span>全员禁言</span>
+        <el-switch v-model="value3" active-color="#13ce66" inactive-color="#ff4949"> </el-switch>
+      </div>
+
+      <button>清空聊天记录</button>
+
+      <button style="color:#e82626">退出群聊</button>
+
+      <button style="color:#e82626">解散群聊</button>
+
     </div>
 </template>
 <script lang="ts">
 export default {
+  data(){
+    return{
+      value1:false,
+      value2:false,
+      value3:false
+    }
+  },
   methods: {
     navigateToList() {
       this.$router.push('/membersList');
+    },
+    exendAffiche(){
+      this.$emit("exend-affiche");
     }
   }
 };
