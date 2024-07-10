@@ -1,0 +1,185 @@
+.personMessage {
+  width: 100%;
+  height: 85vh;
+  background-color: #f2f3f5;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin: 0 auto;
+}
+
+.personMessage .topReturnMessage {
+  background-color: white;
+  width: 85%;
+  height: 50px;
+  margin: 10px;
+  margin: 0 auto;
+}
+
+.personMessage .topReturnMessage p {
+  padding-top: 12px;
+  padding-left: 60px;
+}
+
+.returntextMessage:hover {
+  color: var(--el-color-primary);
+  cursor: pointer;
+}
+
+.personMessageConten {
+  width: 85%;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.personMessageConten .leftNailPerson {
+  width: 15%;
+  background-color: white;
+  height: 600px;
+}
+
+.personMessageConten .aboutConten {
+  width: 80%;
+  background-color: white;
+}
+
+.leftNailPersonset {
+  width: 100%;
+}
+
+.leftNailPersonset ul {
+  width: 100%;
+}
+
+.leftNailPersonset ul li {
+  width: 99%;
+  position: relative;
+  left: -20px;
+  margin-top: 10px;
+  padding: 8px 12px;
+}
+
+.leftNailPersonset ul li :hover {
+  cursor: pointer;
+}
+
+.leftNailPersonset ul li span {
+  font-size: 13px;
+  padding-left: 10px;
+  position: relative;
+  top: -3px;
+  color: #636060;
+}
+
+.personNailClicked {
+  background-color: #d2eec9 !important;
+  border-radius: 6px;
+}
+
+.messageTitilePerson {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  border-bottom: 1px dashed var(--el-color-primary);
+}
+
+.messageTitilePerson p {
+  margin-left: 20px;
+}
+
+.messageBasic {
+  width: 90%;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.formPersonMessage {
+  display: flex;
+  justify-content: space-between;
+}
+
+.formPersonMessage .photoChange {
+  width: 200px;
+}
+
+.formPersonMessage .messageChangeform {
+  width: 80%;
+}
+
+.el-button:hover {
+  background-color: var(--el-color-primary) !important;
+}
+
+.photoShowChange {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.photoShowChange .radiusPhotoConten {
+  width: 150px;
+  position: relative;
+  height: 150px;
+  background-color: wheat;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.photoShowChange .radiusPhotoConten img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+}
+
+.photoShowChange .radiusPhotoConten .inputChangePhoto {
+  top: 0px;
+  left: 0px;
+  position: absolute;
+}
+
+.photoShowChange .radiusPhotoConten .inputChangePhoto input {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  opacity: 0;
+  z-index: 6;
+}
+
+.changeIconTakePhoto {
+  margin-top: 40px;
+}
+
+.changeIcon {
+  text-align: center;
+}
+
+.changePhotoTitle {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.passwordsetConten {
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--el-color-primary);
+}
+
+.passwordsetConten .passwordSetContenCenter {
+  margin-left: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.passwordsetConten .passwordSetContenCenter .titlePassword {
+  width: 60%;
+}
+
+.changeBindPassword {
+  width: 30%;
+}
+
+.changeBindPassword span {
+  color: var(--el-color-primary);
+}
