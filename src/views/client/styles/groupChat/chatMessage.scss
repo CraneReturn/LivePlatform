@@ -1,0 +1,186 @@
+.chat {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    
+    .chatPage {
+        display: flex;
+        flex-direction: column;
+
+        .chatBody {
+            width: 100%;
+            margin: 0 auto;
+            height: 76vh;
+            max-height: 76vh;
+            overflow: hidden;
+            overflow-y: auto;
+
+            &::-webkit-scrollbar {
+                width: 5px;
+            }
+    
+            &::-webkit-scrollbar-thumb {
+                background-color: #c2ebda;
+                border-radius: 10px;
+            }
+            .other {
+                padding-left: 15px;
+                padding-bottom: 15px;
+
+                .otherHead {
+                    display: flex;
+
+                    .name {
+                        padding-top: 15px;
+                        padding-left: 5px;
+                        font-size: medium;
+                        font-family: cursive;
+                        color: cadetblue;
+                    }
+
+                }
+
+                .dialogue {
+                    background-color: #F4F6F8;
+                    padding: 10px;
+                    max-width: 85%;
+                    border-radius: 5px;
+                    margin: 0 45px;
+                }
+            }
+
+            .self {
+                @extend .other;
+
+                .selfHead {
+                    display: flex;
+                    justify-content: end;
+                    flex-direction: row-reverse;
+
+                    .name {
+                        padding-top: 15px;
+                        padding-right: 5px;
+                        font-size: medium;
+                        font-family: cursive;
+                        color: rgba(59, 130, 246, .5);
+                    }
+                }
+
+                .dialogue {
+                    background-color: rgba(104, 207, 197, 0.2);
+                    ;
+                    padding: 10px;
+                    border-radius: 5px;
+                    margin-left: 90px;
+                }
+
+            }
+        }
+    }
+
+    .set {
+        min-width: 200px;
+        max-width: 200px;
+        transition-duration: .2s;
+        overflow: auto;
+        position: relative;
+        border-left: 1px solid silver;
+
+        .setBack {
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            text-align: right;
+            line-height: 30px;
+            border-radius: 50%;
+            background-color: #FFF;
+            border: 1px solid silver;
+            position: absolute;
+            top: 50%;
+            left: -15px;
+            z-index: 1;
+
+            .iconfont {
+                padding-right: 2px;
+            }
+        }
+
+        .groupInfo {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            align-items: center;
+
+            .info {
+                width: 70%;
+                font-size: 15px;
+                font-family: cursive;
+            }
+        }
+
+        .groudMember {
+            border-bottom: 1px solid silver;
+
+            .memberNumber {
+                border-top: 1px solid silver;
+                font-size: 12px;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                font-family: cursive;
+                padding: 10px 0;
+            }
+
+            li {
+                display: flex;
+                align-items: center;
+                padding: 5px 20px;
+                font-size: 15px;
+                color: cadetblue;
+                font-family: cursive;
+                gap: 5px;
+
+                img {
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+        }
+
+        .editRemark {
+            padding: 10px;
+
+            p {
+                font-size: 15px;
+            }
+
+            #remark {
+                color: rgb(59, 130, 246);
+            }
+        }
+
+        .outGroup {
+            padding: 10px;
+            padding-bottom: 30px;
+
+            button {
+                display: block;
+                background-color: rgba(#ed556a, .5);
+                border: none;
+                min-width: 50%;
+                margin: 0 auto;
+                cursor: pointer;
+                padding: 2px 5px;
+                border-radius: 5px;
+            }
+        }
+    }
+}
+.chat:hover {
+    background-color: rgba(136, 139, 143, 0.2);
+}
+img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}

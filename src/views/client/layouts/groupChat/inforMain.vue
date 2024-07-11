@@ -33,9 +33,12 @@
     </div>
     <div class="inforMain">
       <div class="chatmain">
-        <div class="inforList"></div>
+        <div class="inforList">
+          <chatMessageList/>
+        </div>
         <div class="inforSend">
           <input placeholder="发送消息" type="text" />
+          <button class="inforMainSend">发送</button>
           <chatFileVue/>
         </div>
       </div>
@@ -151,6 +154,7 @@
 </template>
 
 <script lang="ts">
+ import chatMessageList from "./chatMessageList.vue";
 export default {
   data() {
     return {

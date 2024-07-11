@@ -1,0 +1,186 @@
+.inforMax {
+  background-color: #fff;
+  width: 80%;
+  height: 100vh;
+  overflow: hidden;
+  border-left: 1px #d1efe2 solid;
+}
+
+.inforMax .inforTop {
+  width: 80%;
+  display: flex;
+  padding: 20px;
+  z-index: 1000;
+  justify-content: space-between;
+  border-bottom: 1px #d1efe2 solid;
+  position: sticky;
+  top: 0;
+}
+
+.inforMax .inforTop span {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.inforMax .inforTop span svg {
+  width: 100%;
+  height: 20px;
+}
+
+.inforMax .inforTop .groupName {
+  color: #353641;
+  height: 30px;
+  line-height: 30px;
+}
+
+.inforMax .inforMain {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.inforMax .inforMain .chatmain {
+  width: 75%;
+}
+
+.inforMax .inforMain .chatmain .inforSend {
+  width: 60%;
+  height: 60px;
+  padding: 10px;
+  position: fixed;
+  bottom: 5px;
+}
+
+.inforMax .inforMain .chatmain .inforSend input {
+  width: 660px;
+  outline: none;
+  height: 40px;
+  padding: 10px;
+  border-radius: 8px;
+  border: #71c7a2 1px solid;
+  background-color: #e8f9f2;
+}
+
+.inforMax .inforMain .inforSider {
+  width: 25%;
+  margin-top: 70px;
+  border-left: 1px #d1efe2 solid;
+}
+
+.inforMax .inforMain .inforSider .notoce {
+  border-bottom: #d1efe2 1px solid;
+  padding: 10px;
+}
+
+.inforMax .inforMain .inforSider .notoce .noticemain {
+  padding: 10px;
+  font-size: 13px;
+  color: #747477;
+}
+
+.inforMax .inforMain .inforSider .notoce .noticemain span {
+  width: 100%;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 5;
+}
+
+.inforMax .inforMain .inforSider .title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.inforMax .inforMain .inforSider .title span {
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.inforMax .inforMain .inforSider .title span svg {
+  height: 15px;
+  width: 15px;
+}
+
+.inforMax .inforMain .inforSider .member {
+  padding: 10px;
+}
+
+.inforMax .inforMain .inforSider .member .search {
+  padding: 0 10px;
+  height: 30px;
+  position: relative;
+}
+
+.inforMax .inforMain .inforSider .member .search input {
+  width: 100%;
+  height: 30px;
+  border: none;
+  position: relative;
+  background-color: #eef6f2;
+  border-radius: 5px;
+  outline: #89d6b4 1px solid;
+  padding-left: 30px;
+}
+
+.inforMax .inforMain .inforSider .member .search .sericon {
+  height: 18px;
+  width: 18px;
+  position: absolute;
+  left: 15px;
+  top: 6px;
+}
+
+.inforMax .inforMain .inforSider .member .search .canicon {
+  height: 12px;
+  width: 12px;
+  position: absolute;
+  right: 18px;
+  top: 8px;
+}
+
+.inforMax .inforMain .inforSider .member .userList {
+  width: 100%;
+  padding: 10px;
+  display: block;
+}
+
+.inforMax .inforMain .inforSider .member .userList li {
+  display: flex;
+  width: 100%;
+  margin: 5px 0;
+}
+
+.inforMax .inforMain .inforSider .member .userList li .avatar {
+  width: 25px;
+  height: 25px;
+  margin: 2px;
+}
+
+.inforMax .inforMain .inforSider .member .userList li .avatar img {
+  width: 25px;
+  border-radius: 50%;
+}
+
+.inforMax .inforMain .inforSider .member .userList li .username {
+  height: 25px;
+  line-height: 25px;
+  font-size: 13px;
+  margin-left: 8px;
+  color: #747477;
+}
+
+.inforMainSend {
+  padding: 6px 12px;
+  background-color: #bdddcf;
+  width: 70px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 6px;
+  color: #4e4e50;
+}
