@@ -5,7 +5,6 @@
   overflow: hidden;
   border-left: 1px #d1efe2 solid;
   .inforTop {
-    width: 80%;
     display: flex;
     padding: 20px;
     z-index: 1000;
@@ -36,11 +35,15 @@
     display: flex;
     .chatmain {
       width: 75%;
+      .inforList{
+        height:100%;  
+      }
       .inforSend {
         width: 60%;
         height: 60px;
         padding: 10px;
         position: fixed;
+        border-top: 1px #d1efe2 solid;
         bottom: 5px;
         input {
           width: 660px;
@@ -55,7 +58,6 @@
     }
     .inforSider {
       width: 25%;
-      margin-top: 70px;
       border-left: 1px #d1efe2 solid;
       .notoce {
         border-bottom: #d1efe2 1px solid;

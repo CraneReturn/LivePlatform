@@ -154,7 +154,6 @@
 </template>
 
 <script lang="ts">
- import chatMessageList from "./chatMessageList.vue";
 export default {
   data() {
     return {
@@ -234,6 +233,7 @@ import affiche from "./affiche.vue";
 import chatFileVue from './chatFile.vue';
 import mation from "./mation.vue";
 import sendNotice from './sendNotice.vue';
+import chatMessageList from "./chatMessageList.vue";
 </script>
 
 <style lang="scss" scope>
