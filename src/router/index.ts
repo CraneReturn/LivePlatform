@@ -70,24 +70,32 @@ const router = createRouter({
             import(
               "@/views/client/personMessage.vue"
             ),
-            children: [
-              {
-                path: "changemessage",
-                component: () =>
-                  import(
-                    "@/views/client/layouts/person/changeMessage/changeMessage.vue"
-                  ),
-              },
-              {
-                path: "passwordset",
-                component: () =>
-                  import(
-                    "@/views/client/layouts/person/changeMessage/passwordSet.vue"
-                  ),
-              },
-            ],
+          children: [
+            {
+              path: "changemessage",
+              component: () =>
+                import(
+                  "@/views/client/layouts/person/changeMessage/changeMessage.vue"
+                ),
+            },
+            {
+              path: "passwordset",
+              component: () =>
+                import(
+                  "@/views/client/layouts/person/changeMessage/passwordSet.vue"
+                ),
+            },
+          ],
         },
-        
+        {
+          path: "/put",
+          component: () =>
+            import(
+              "@/views/client/putStream.vue"
+            ),
+
+        },
+
       ],
     },
     {
