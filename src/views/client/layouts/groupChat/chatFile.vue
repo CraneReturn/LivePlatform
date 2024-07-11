@@ -136,7 +136,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import emojiVue from "./chatFile/emoji.vue";
-const emojiContenflag = ref<boolean>(true);
+const emojiContenflag = ref<boolean>(false);
 const handleupdateEmoji = (value: boolean) => {
     console.log('6666');
     emojiContenflag.value = value;

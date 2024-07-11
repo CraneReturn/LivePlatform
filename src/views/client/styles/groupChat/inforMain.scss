@@ -34,17 +34,15 @@
     position: relative;
     display: flex;
     .chatmain {
-      width: 75%;
-      .inforList{
-        height:100%;  
-      }
+      position: relative;
+      height: 100%;
       .inforSend {
-        width: 60%;
+        width: 100%;
         height: 60px;
         padding: 10px;
-        position: fixed;
+        position: absolute;
         border-top: 1px #d1efe2 solid;
-        bottom: 5px;
+        bottom: 70px;
         input {
           width: 660px;
           outline: none;
@@ -57,7 +55,7 @@
       }
     }
     .inforSider {
-      width: 25%;
+      width: 55%;
       border-left: 1px #d1efe2 solid;
       .notoce {
         border-bottom: #d1efe2 1px solid;

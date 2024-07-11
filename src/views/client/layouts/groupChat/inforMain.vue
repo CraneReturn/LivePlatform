@@ -42,7 +42,7 @@
           <chatFileVue/>
         </div>
       </div>
-      <div class="inforSider">
+      <div class="inforSider" v-if="isgroup">
         <div class="notoce">
           <div class="title">
             <span>群公告</span>
@@ -162,6 +162,7 @@ export default {
       isexend: false,
       issend: false,
       maexend: false,
+      isgroup:true,
       searchname: "",
     };
   },

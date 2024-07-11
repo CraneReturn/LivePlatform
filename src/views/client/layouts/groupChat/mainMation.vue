@@ -1,5 +1,5 @@
 <template>
-  <div class="mationmain">
+  <div class="mationmain" v-if="isgroup">
       <div class="members">
         <div class="toptitle">
           <span>群聊成员</span>
@@ -147,7 +147,8 @@ export default {
     return{
       value1:false,
       value2:false,
-      value3:false
+      value3:false,
+      isgroup:true,
     }
   },
   methods: {

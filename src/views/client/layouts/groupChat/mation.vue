@@ -29,7 +29,6 @@ li {
 }
 .mation {
   position: absolute;
-  padding-top: 70px;
   right: 0;
   width: 28%;
   height: 100%;
