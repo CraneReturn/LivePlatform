@@ -13,8 +13,8 @@
 .chat .chatPage .chatBody {
   width: 100%;
   margin: 0 auto;
-  height: 76vh;
-  max-height: 76vh;
+  height: 82vh;
+  max-height: 82vh;
   overflow: hidden;
   overflow-y: auto;
 }
@@ -170,10 +170,6 @@
   cursor: pointer;
   padding: 2px 5px;
   border-radius: 5px;
-}
-
-.chat:hover {
-  background-color: rgba(136, 139, 143, 0.2);
 }
 
 img {
