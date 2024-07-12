@@ -1,0 +1,88 @@
+.affiche {
+  width: 600px;
+  height: 465px;
+  background-color: #f5f5f5;
+  border: 1px #ccc solid;
+  border-radius: 5px;
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateY(-10%);
+  transform: translateX(-50%);
+}
+.affiche li {
+  list-style: none;
+}
+.affiche .topact {
+  height: 22px;
+  position: relative;
+}
+.affiche .topact .icon {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+}
+.affiche .toptit {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+.affiche .toptit button {
+  height: 32px;
+  width: 100px;
+  background-color: #71c7a2;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+}
+.affiche .toptit .groupname {
+  height: 32px;
+  line-height: 32px;
+}
+.affiche .afficheMain {
+  width: 100%;
+  padding: 20px;
+  max-height: 350px;
+  overflow: auto;
+  display: grid;
+  grid-row-gap: 10px;
+}
+.affiche .afficheMain li {
+  width: 100%;
+  display: block;
+  background-color: #fff;
+  font-size: 13px;
+  padding: 10px;
+  border-radius: 5px;
+}
+.affiche .afficheMain li .topoper {
+  color: #949494;
+  line-height: 18px;
+  font-size: 11px;
+  height: 18px;
+  margin-bottom: 5px;
+  display: flex;
+}
+.affiche .afficheMain li .topoper .operation {
+  display: flex;
+  height: 18px;
+  margin-left: 12px;
+}
+.affiche .afficheMain li .topoper .operation svg {
+  width: 18px;
+  margin-left: 5px;
+  height: 18px;
+}
+
+.afficheMain::-webkit-scrollbar {
+  width: 6px;
+  height: 8px;
+}
+
+.afficheMain::-webkit-scrollbar-thumb {
+  background: #c2ebda;
+  border-radius: 5px;
+}/*# sourceMappingURL=affiche.css.map */
