@@ -25,8 +25,7 @@
             }
 
             .other {
-                padding-left: 15px;
-                padding-bottom: 15px;
+                padding: 8px 15px;
 
                 .otherHead {
                     display: flex;
@@ -52,7 +51,6 @@
 
             .self {
                 @extend .other;
-
                 .selfHead {
                     display: flex;
                     justify-content: end;
