@@ -53,6 +53,10 @@ const router = createRouter({
           path: "/video-upload",
           component: () => import("@/views/client/viedoUpload.vue"),
         },
+        {
+          path: "/video",
+          component: () => import("@/views/client/video.vue"),
+        },
       ],
     },
     {

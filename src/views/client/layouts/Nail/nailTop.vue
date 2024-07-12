@@ -7,7 +7,10 @@
           <li :class="{ showStatusColor:  route.path === '/home' }">首页</li>
          </router-link>
           <li>分类</li>
-          <li>直播视频</li>
+          
+          <router-link to="/video">
+              <li >直播视频</li>
+          </router-link>
         </ul>
         <div class="searchNailInput">
           <div class="searchContainer">
