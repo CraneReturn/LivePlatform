@@ -13,6 +13,12 @@ export const useMainStore = defineStore({
             console.log(unicodeChange.unicodeChange,'111');
             this.nowText += `${unicodeChange.unicodeChange(text)}`
             console.log(this.nowText);
+        },
+        getTextnew(){
+            const returnText=this.nowText
+            return {
+                returnText
+            }
         }
     },
 });

@@ -37,8 +37,8 @@
           <chatMessageList/>
         </div>
         <div class="inforSend">
-          {{ nowText }}
-          <input placeholder="发送消息" v-model="nowText"/>
+          {{ getText }}
+          <input placeholder="发送消息" v-model="getText"/>
           <button class="inforMainSend">发送</button>
           <chatFileVue/>
         </div>
@@ -156,7 +156,7 @@
 
 <script lang="ts">
  import chatMessageList from "./chatMessageList.vue";
-import { onMounted, reactive } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 export default {
   data() {
     return {
@@ -240,7 +240,7 @@ import sendNotice from './sendNotice.vue';
 import { useMainStore } from '@/store/chat/chat.ts';
 const mainStore = useMainStore();
 const nowText=mainStore.nowText;
-
+const getText=ref(nowText)
 import chatMessageList from "./chatMessageList.vue";
 </script>
 
