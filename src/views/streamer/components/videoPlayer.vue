@@ -95,8 +95,8 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, onBeforeUnmount } from "vue";
 import contenShowdesigned from "./barrage/contenShowdesigned.vue";
-import { useFlvPlay } from "@/assets/pull";
-const { setMuted, setVolume, setPlay, init, destroyFlv } = useFlvPlay();
+import { useHlsPlay } from "@/assets/pull/play";
+const { setMuted, setVolume, setPlay, init, destroyHls } = useHlsPlay();
 const canvasVideo = ref<HTMLVideoElement | null>(null);
 const barrage = ref<HTMLCanvasElement | null>(null);
 const videoPlayer = ref<HTMLDivElement | null>(null);
@@ -126,7 +126,7 @@ let prevVolume = 50;
 const play = ref(true);
 const mute = ref(true);
 const volume = ref(0);
-const url = "http://118.31.245.3/live?port=1935&app=live&stream=stream";
+const url = "http://47.109.85.211/hls/bb.m3u8";
 function pause() {
   setPlay(!play.value);
   play.value = !play.value;
@@ -160,7 +160,7 @@ function muted() {
   mute.value = !mute.value;
 }
 function refresh() {
-  destroyFlv();
+  destroyHls();
   const canvas = canvasVideo.value;
   const contaniner = barrage.value;
   if (canvas && contaniner) {

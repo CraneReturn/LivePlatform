@@ -135,6 +135,24 @@ const router = createRouter({
         title: `${projectName}`,
         requiresAuth: false,
       },
+      children: [
+        {
+          path: "concern",
+          component: () => import("@/views/client/layouts/person/concern.vue"),
+          meta: {
+            title: `${projectName}`,
+            requiresAuth: false,
+          },
+        },
+        {
+          path: "fan",
+          component: () => import("@/views/client/layouts/person/fan.vue"),
+          meta: {
+            title: `${projectName}`,
+            requiresAuth: false,
+          },
+        },
+      ],
     },
     {
       path: "/page",
