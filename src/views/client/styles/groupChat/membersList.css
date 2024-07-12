@@ -1,0 +1,84 @@
+@charset "UTF-8";
+.membersList {
+  width: 100%;
+  height: 100%;
+  border-left: 1px solid #d1efe2;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+.membersList .listTop {
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  font-size: 15px;
+  align-items: center;
+  display: flex;
+}
+.membersList .listTop svg {
+  width: 15px;
+  height: 15px;
+}
+.membersList .listMain .search {
+  position: relative;
+  display: flex;
+  height: 30px;
+  margin-top: 20px;
+}
+.membersList .listMain .search input {
+  width: 100%;
+  border: 1px solid #71c7a2;
+  outline: none;
+  border-radius: 3px;
+  padding-left: 36px;
+}
+.membersList .listMain .search svg {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.membersList .listMain .userList {
+  padding: 0;
+}
+.membersList .listMain .userList li {
+  display: flex;
+  padding: 3px 5px;
+  margin-top: 15px;
+  cursor: pointer;
+  align-items: center;
+  border-radius: 5px;
+}
+.membersList .listMain .userList li .username {
+  display: block;
+  margin-left: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 14px;
+}
+.membersList .listMain .userList li .username:nth-child(2) {
+  flex-grow: 1; /* 中间的盒子占据剩余空间 */
+}
+.membersList .listMain .userList li .title {
+  white-space: nowrap;
+  font-size: 12px;
+  padding: 2px 5px;
+  background-color: #d1efe2;
+  border-radius: 5px;
+  margin-left: 5px;
+  color: #71c7a2;
+}
+.membersList .listMain .userList li .avatar {
+  width: 40px;
+  height: 40px;
+}
+.membersList .listMain .userList li .avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.membersList .listMain .userList li:hover {
+  background-color: #dfe6e3;
+}/*# sourceMappingURL=membersList.css.map */

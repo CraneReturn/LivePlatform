@@ -3,7 +3,7 @@
     <div class="inforTop">
       <div class="groupName">柒总没有钱</div>
       <span
-        ><svg
+      ><svg
           @click="exendMation()"
           t="1714641807092"
           class="icon"
@@ -33,13 +33,17 @@
     </div>
     <div class="inforMain">
       <div class="chatmain">
-        <div class="inforList"></div>
+        <div class="inforList">
+          <chatMessageList/>
+        </div>
         <div class="inforSend">
-          <input placeholder="发送消息" type="text" />
+          {{ getText }}
+          <input placeholder="发送消息" v-model="getText"/>
+          <button class="inforMainSend">发送</button>
           <chatFileVue/>
         </div>
       </div>
-      <div class="inforSider">
+      <div class="inforSider" v-if="isgroup">
         <div class="notoce">
           <div class="title">
             <span>群公告</span>
@@ -143,20 +147,25 @@
           </ul>
         </div>
       </div>
-      <mation :maexend="maexend" />
+      <mation :maexend="maexend" @exend-affiche="exendAffiche"  />
     </div>
-    <affiche :isexend="isexend" @close-affiche="closeAffiche" />
+    <affiche class="cov" :isexend="isexend" @close-affiche="closeAffiche" @exend-send="exendSend" />
+    <send-notice class="cov" :issend="issend" @colse-send="closeSend" />
   </div>
 </template>
 
 <script lang="ts">
+ import chatMessageList from "./chatMessageList.vue";
+import { computed, onMounted, reactive, ref } from "vue";
 export default {
   data() {
     return {
       isearch: false,
       isput: false,
       isexend: false,
+      issend: false,
       maexend: false,
+      isgroup:true,
       searchname: "",
     };
   },
@@ -178,11 +187,14 @@ export default {
     closeMation() {
       const member = this.$el.querySelector(".mation");
       const btn = this.$el.querySelector(".icon");
+      const cov = this.$el.querySelector(".cov");
       if (
         !(member && member.contains(event.target)) &&
-        !(btn && btn.contains(event.target))
+        !(btn && btn.contains(event.target)) &&
+        !(cov && cov.contains(event.target))
       ) {
         this.maexend = false;
+        this.$router.push('/mainMation');
       }
     },
     inputChange() {
@@ -198,8 +210,16 @@ export default {
     closeAffiche() {
       this.isexend = false;
     },
+    exendSend(){
+      this.issend = true;
+    },
+    closeSend(){
+      this.issend = false;
+    },
     exendMation() {
       this.maexend = !this.maexend;
+      this.$router.push('/mainMation');
+      this.isexend=false;
     },
   },
   mounted() {
@@ -216,158 +236,14 @@ export default {
 import affiche from "./affiche.vue";
 import chatFileVue from './chatFile.vue';
 import mation from "./mation.vue";
+import sendNotice from './sendNotice.vue';
+import { useMainStore } from '@/store/chat/chat.ts';
+const mainStore = useMainStore();
+const nowText=mainStore.nowText;
+const getText=ref(nowText)
+import chatMessageList from "./chatMessageList.vue";
 </script>
 
-<style lang="scss">
-.inforMax {
-  background-color: #fff;
-  width: 80%;
-  height: 100vh;
-  overflow: hidden;
-  border-left: 1px #d1efe2 solid;
-  .inforTop {
-    width: 80%;
-    display: flex;
-    padding: 20px;
-    z-index: 1000;
-    justify-content: space-between;
-    border-bottom: 1px #d1efe2 solid;
-    position: fixed;
-    top: 0;
-    span {
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      svg {
-        width: 100%;
-        height: 20px;
-      }
-    }
-    .groupName {
-      color: #353641;
-      height: 30px;
-      line-height: 30px;
-    }
-  }
-  .inforMain {
-    height: 100%;
-    width: 100%;
-    position: relative;
-    display: flex;
-    .chatmain {
-      width: 75%;
-      .inforSend {
-        width: 60%;
-        height: 60px;
-        padding: 10px;
-        position: fixed;
-        bottom: 5px;
-        input {
-          width: 660px;
-          outline: none;
-          height: 40px;
-          padding: 10px;
-          border-radius: 8px;
-          border: #71c7a2 1px solid;
-          background-color: #e8f9f2;
-        }
-      }
-    }
-    .inforSider {
-      width: 25%;
-      margin-top: 70px;
-      border-left: 1px #d1efe2 solid;
-      .notoce {
-        border-bottom: #d1efe2 1px solid;
-        padding: 10px;
-        .noticemain {
-          padding: 10px;
-          font-size: 13px;
-          color: #747477;
-          span {
-            width: 100%;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            -webkit-line-clamp: 5;
-          }
-        }
-      }
-      .title {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        span {
-          height: 30px;
-          display: flex;
-          align-items: center;
-          svg {
-            height: 15px;
-            width: 15px;
-          }
-        }
-      }
-      .member {
-        padding: 10px;
-        .search {
-          padding: 0 10px;
-          height: 30px;
-          position: relative;
-          input {
-            width: 100%;
-            height: 30px;
-            border: none;
-            position: relative;
-            background-color: #eef6f2;
-            border-radius: 5px;
-            outline: #89d6b4 1px solid;
-            padding-left: 30px;
-          }
-          .sericon {
-            height: 18px;
-            width: 18px;
-            position: absolute;
-            left: 15px;
-            top: 6px;
-          }
-          .canicon {
-            height: 12px;
-            width: 12px;
-            position: absolute;
-            right: 18px;
-            top: 8px;
-          }
-        }
-        .userList {
-          width: 100%;
-          padding: 10px;
-          display: block;
-          li {
-            display: flex;
-            width: 100%;
-            margin: 5px 0;
-            .avatar {
-              width: 25px;
-              height: 25px;
-              margin: 2px;
-              img {
-                width: 25px;
-                border-radius: 50%;
-              }
-            }
-            .username {
-              height: 25px;
-              line-height: 25px;
-              font-size: 13px;
-              margin-left: 8px;
-              color: #747477;
-            }
-          }
-        }
-      }
-    }
-  }
-}
+<style lang="scss" scope>
+@import "@/views/client/styles/groupChat/inforMain.scss";
 </style>

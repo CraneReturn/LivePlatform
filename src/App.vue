@@ -1,4 +1,5 @@
 <template>
+    
     <router-view></router-view>
     <router-link to="/" v-if="isUser"></router-link>
     <router-link to="/admin" v-if="isAdmin"></router-link>

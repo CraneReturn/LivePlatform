@@ -62,6 +62,41 @@ const router = createRouter({
         title: `${projectName}`,
         requiresAuth: false,
       },
+      children: [
+        {
+          path: "/personmessage",
+          redirect: "/personmessage/changemessage",
+          component: () =>
+            import(
+              "@/views/client/personMessage.vue"
+            ),
+          children: [
+            {
+              path: "changemessage",
+              component: () =>
+                import(
+                  "@/views/client/layouts/person/changeMessage/changeMessage.vue"
+                ),
+            },
+            {
+              path: "passwordset",
+              component: () =>
+                import(
+                  "@/views/client/layouts/person/changeMessage/passwordSet.vue"
+                ),
+            },
+          ],
+        },
+        {
+          path: "/put",
+          component: () =>
+            import(
+              "@/views/client/putStream.vue"
+            ),
+
+        },
+
+      ],
     },
     {
       path: "/admin",
@@ -194,6 +229,17 @@ const router = createRouter({
         title: `${projectName}`,
         requiresAuth: false,
       },
+      redirect: "/mainMation",
+      children:[
+        {
+          path: "/mainMation",
+          component: () => import("@/views/client/layouts/groupChat/mainMation.vue"),
+        },
+        {
+          path: "/membersList",
+          component: () => import("@/views/client/layouts/groupChat/membersList.vue"),
+        },
+      ]
     },
     {
       path: "/haha",

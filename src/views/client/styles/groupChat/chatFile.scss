@@ -1,7 +1,9 @@
 .chatFileMain {
-    width: 30%;
+    width: 20%;
     margin-left: 20px;
     position: relative;
+    display: flex;
+    align-items: center;
 
     span {
         margin-left: 10px;
@@ -27,9 +29,16 @@
     display: flex
 }
 
+.chatIconFile{
+    display: block;
+    height: 28px;
+    width: 28px;    
+}
+
 .picture {
     position: relative;
-    top: -6px;
+    height:23px;
+    width: 23px;
 }
 
 .chatIconFile:hover {
@@ -160,4 +169,7 @@
         cursor: pointer;
 
     }
+}
+.chatmain{
+    width: 100%;
 }

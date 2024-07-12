@@ -1,0 +1,62 @@
+.sendNotice {
+  position: fixed;
+  width: 600px;
+  top: 10%;
+  left: 50%;
+  height: 465px;
+  transform: translateY(-10%);
+  transform: translateX(-50%);
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.sendNotice .topTitle {
+  font-size: 13px;
+  border-bottom: 1px solid #e9e8e8;
+  text-align: center;
+}
+.sendNotice textarea {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 14px;
+  border: none;
+  height: 340px;
+  outline: none;
+  resize: none;
+}
+.sendNotice .bottombt {
+  margin: 0 10px;
+  padding: 0 8px;
+  border-top: 1px solid #eeeeee;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sendNotice .bottombt .put {
+  background: url("@/assets/images/select.png") no-repeat center;
+  background-size: 100%;
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-top: 3px;
+}
+.sendNotice .bottombt input[type=checkbox]:checked + .put {
+  background: url("@/assets/images/selected.png") center no-repeat;
+  background-size: cover;
+}
+.sendNotice .bottombt .bottom-right {
+  width: 130px;
+  display: flex;
+  justify-content: space-between;
+}
+.sendNotice .bottombt .bottom-right button {
+  width: 60px;
+  border: none;
+  border-radius: 3px;
+  height: 28px;
+}
+.sendNotice .bottombt .bottom-right .sendbtn {
+  color: #fff;
+  background-color: #6cb089;
+}/*# sourceMappingURL=sendNotice.css.map */

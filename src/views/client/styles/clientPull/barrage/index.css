@@ -1,7 +1,6 @@
 .inputFrame {
   width: 700px;
 }
-
 .inputFrame .chatInput {
   height: 100%;
   border-radius: var(--el-border-radius-base);
@@ -13,7 +12,6 @@
   margin: 0 auto;
   background-color: var(--el-color-info-light-9);
 }
-
 .inputFrame .chatInput .chatArea {
   height: 100%;
   outline: 1.5px solid transparent;
@@ -28,37 +26,31 @@
   border-radius: var(--el-border-radius-base);
   font-family: inherit;
 }
-
 .inputFrame .chatInput .chatArea:focus {
   border: 1px solid var(--el-color-success-light-3);
   outline: 1.5px solid var(--el-color-success-light-5);
 }
-
 .inputFrame .chatInput .emoji {
   position: absolute;
   bottom: 5px;
   right: 70px;
 }
-
 .inputFrame .chatInput .emoji .icon-Emoji {
   font-size: 25px;
   line-height: 35px;
   cursor: pointer;
 }
-
 .inputFrame .chatInput .textSet {
   position: absolute;
   top: 0;
   left: 8px;
   cursor: pointer;
 }
-
 .inputFrame .chatInput .textSet .iconfont {
   font-size: 23px;
   line-height: 42px;
   color: var(--vt-c-divider-dark-2);
 }
-
 .inputFrame .chatInput .sendMessage {
   position: absolute;
   bottom: 5px;
@@ -66,7 +58,6 @@
   width: 60px;
   height: 35px;
 }
-
 .inputFrame .chatInput .sendMessage .send {
   width: 100%;
   height: 100%;
@@ -78,7 +69,7 @@
 }
 
 .sendBarragrBtnstyle {
-  color: white !important;
+  color: rgb(255, 255, 255) !important;
 }
 
 .icon-xitong_zaixianyonghu {
@@ -101,12 +92,10 @@
   height: 45px;
   line-height: 45px;
 }
-
 .top .audienceNumber {
   display: flex;
   gap: 5px;
 }
-
 .top p {
   font-size: var(--el-font-size-base);
 }
@@ -135,7 +124,6 @@
   width: 100%;
   background-color: var(--el-color-info-light-9);
 }
-
 .chatInput .chatArea {
   height: 100%;
   outline: 1.5px solid transparent;
@@ -150,37 +138,31 @@
   border-radius: var(--el-border-radius-base);
   font-family: inherit;
 }
-
 .chatInput .chatArea:focus {
   border: 1px solid var(--el-color-success-light-3);
   outline: 1.5px solid var(--el-color-success-light-5);
 }
-
 .chatInput .emoji {
   position: absolute;
   bottom: 5px;
   right: 70px;
 }
-
 .chatInput .emoji .icon-Emoji {
   font-size: 25px;
   line-height: 35px;
   cursor: pointer;
 }
-
 .chatInput .textSet {
   position: absolute;
   top: 0;
   left: 8px;
   cursor: pointer;
 }
-
 .chatInput .textSet .iconfont {
   font-size: 23px;
   line-height: 42px;
   color: var(--vt-c-divider-dark-2);
 }
-
 .chatInput .sendMessage {
   position: absolute;
   bottom: 5px;
@@ -188,7 +170,6 @@
   width: 60px;
   height: 35px;
 }
-
 .chatInput .sendMessage .send {
   width: 100%;
   height: 100%;
@@ -217,9 +198,8 @@
   width: 200px;
   align-items: baseline;
   display: flex;
-  color: #747272;
+  color: rgb(116, 114, 114);
 }
-
 .centerBarrageShowswitch span {
   position: relative;
   top: -5px;
@@ -236,4 +216,4 @@
 
 .designBarrage {
   margin-left: 10px;
-}
+}/*# sourceMappingURL=index.css.map */
