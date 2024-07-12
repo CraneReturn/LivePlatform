@@ -2,11 +2,11 @@
     width: 100%;
     overflow: hidden;
     display: flex;
-    
+
     .chatPage {
         display: flex;
         flex-direction: column;
-
+        width: 100%;
         .chatBody {
             width: 100%;
             margin: 0 auto;
@@ -18,11 +18,12 @@
             &::-webkit-scrollbar {
                 width: 5px;
             }
-    
+
             &::-webkit-scrollbar-thumb {
                 background-color: #c2ebda;
                 border-radius: 10px;
             }
+
             .other {
                 padding-left: 15px;
                 padding-bottom: 15px;
@@ -43,7 +44,7 @@
                 .dialogue {
                     background-color: #F4F6F8;
                     padding: 10px;
-                    max-width: 85%;
+                    width: auto;
                     border-radius: 5px;
                     margin: 0 45px;
                 }
@@ -176,11 +177,18 @@
         }
     }
 }
+
 .chat:hover {
     background-color: rgba(136, 139, 143, 0.2);
 }
+
 img {
     width: 45px;
     height: 45px;
     border-radius: 50%;
+}
+
+.otherClassMain {
+    display: flex;
+    justify-content: flex-end
 }
