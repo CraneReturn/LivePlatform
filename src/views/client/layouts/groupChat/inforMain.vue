@@ -37,7 +37,8 @@
           <chatMessageList/>
         </div>
         <div class="inforSend">
-          <input placeholder="发送消息" type="text" />
+          {{ getText }}
+          <input placeholder="发送消息" v-model="getText"/>
           <button class="inforMainSend">发送</button>
           <chatFileVue/>
         </div>
@@ -154,6 +155,8 @@
 </template>
 
 <script lang="ts">
+ import chatMessageList from "./chatMessageList.vue";
+import { computed, onMounted, reactive, ref } from "vue";
 export default {
   data() {
     return {
@@ -234,6 +237,10 @@ import affiche from "./affiche.vue";
 import chatFileVue from './chatFile.vue';
 import mation from "./mation.vue";
 import sendNotice from './sendNotice.vue';
+import { useMainStore } from '@/store/chat/chat.ts';
+const mainStore = useMainStore();
+const nowText=mainStore.nowText;
+const getText=ref(nowText)
 import chatMessageList from "./chatMessageList.vue";
 </script>
 

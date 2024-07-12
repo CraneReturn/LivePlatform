@@ -1,0 +1,158 @@
+.mationmain {
+  width: 100%;
+  height: 100%;
+  border-left: 1px solid #d1efe2;
+  background-color: #f5f5f5;
+  padding: 20px;
+  overflow: auto;
+}
+.mationmain .members {
+  width: 100%;
+  height: 136px;
+  background-color: #fff;
+  border-radius: 6px;
+}
+.mationmain .members .toptitle {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.mationmain .members .toptitle span {
+  display: flex;
+  font-size: 13px;
+  height: 13px;
+  line-height: 13px;
+}
+.mationmain .members .toptitle span svg {
+  height: 13px;
+  width: 13px;
+}
+.mationmain .members .toptitle .number {
+  font-size: 12px;
+  color: #b6b0b0;
+}
+.mationmain .members ul {
+  display: grid;
+  padding: 20px 10px;
+  grid-template-columns: repeat(5, 50px);
+  grid-column-gap: 5px;
+}
+.mationmain .members ul .user {
+  width: 50px;
+  font-size: 11px;
+}
+.mationmain .members ul .user .avatar {
+  width: 100%;
+  text-align: center;
+}
+.mationmain .members ul .user .avatar img,
+.mationmain .members ul .user .avatar svg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.mationmain .members ul .user .nickname {
+  width: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  color: #b6b0b0;
+  text-align: center;
+}
+.mationmain .groupName,
+.mationmain .userGroupName,
+.mationmain .groupRemarks {
+  margin-top: 20px;
+}
+.mationmain .groupName p,
+.mationmain .userGroupName p,
+.mationmain .groupRemarks p {
+  font-size: 14px;
+  color: #b6b0b0;
+  padding-left: 20px;
+  margin-bottom: 6px;
+}
+.mationmain .groupName input,
+.mationmain .userGroupName input,
+.mationmain .groupRemarks input {
+  border: none;
+  width: 100%;
+  height: 40px;
+  color: #000;
+  border-radius: 8px;
+  outline: 1px solid #71c7a2;
+  padding: 13px;
+}
+.mationmain .groupName input::-moz-placeholder, .mationmain .userGroupName input::-moz-placeholder, .mationmain .groupRemarks input::-moz-placeholder {
+  color: #b6b0b0;
+}
+.mationmain .groupName input::placeholder,
+.mationmain .userGroupName input::placeholder,
+.mationmain .groupRemarks input::placeholder {
+  color: #b6b0b0;
+}
+.mationmain .newnotice {
+  margin-top: 20px;
+}
+.mationmain .newnotice p {
+  font-size: 14px;
+  color: #b6b0b0;
+  padding-left: 20px;
+  margin-bottom: 6px;
+}
+.mationmain .newnotice span {
+  display: flex;
+  background-color: #fff;
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  outline: 1px solid #71c7a2;
+  line-height: 40px;
+  align-items: center;
+}
+.mationmain .newnotice span p {
+  margin-bottom: 0;
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  color: #000;
+}
+.mationmain .newnotice span svg {
+  width: 15px;
+  height: 15px;
+}
+.mationmain .switch {
+  background-color: #fff;
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.mationmain button {
+  display: block;
+  margin-top: 20px;
+  height: 40px;
+  background-color: #fff;
+  border: none;
+  width: 100%;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.mationmain::-webkit-scrollbar {
+  width: 6px;
+  height: 8px;
+}
+
+.mationmain::-webkit-scrollbar-thumb {
+  background: #c2ebda;
+  border-radius: 5px;
+}/*# sourceMappingURL=mainMation.css.map */
