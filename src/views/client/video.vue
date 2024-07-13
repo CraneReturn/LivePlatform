@@ -1,10 +1,12 @@
 <template>
-  <div class="video-home">
+  <div class="video-max">
+   <div class="video-home">
     <div class="video-top">
         <Slideshow/>
         <video-list/>
     </div>
     <video-classify/>
+  </div> 
   </div>
 </template>
 
@@ -15,13 +17,17 @@ import videoClassify from "./layouts/video/videoClassify.vue"
 </script>
 
 <style lang="scss" scoped>
-.video-home{
+.video-max{
+  background-color: #f4f5f8;
+  width: 100%;
+  padding-top: 20px;
+  .video-home{
     width:1200px;
     margin: 0 auto;
     .video-top{
-      margin-top: 15px;
       display: flex;
       justify-content: space-between;
     }
+}
 }
 </style>
