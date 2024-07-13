@@ -6,6 +6,7 @@
         <video-list/>
     </div>
     <video-classify/>
+    <video-Main/>
   </div> 
   </div>
 </template>
@@ -14,6 +15,7 @@
 import Slideshow from "./layouts/video/Slideshow.vue";
 import videoList from "./layouts/video/videoList.vue";
 import videoClassify from "./layouts/video/videoClassify.vue"
+import videoMain from "./layouts/video/videoMain.vue"
 </script>
 
 <style lang="scss" scoped>

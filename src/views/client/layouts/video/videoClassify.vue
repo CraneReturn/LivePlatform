@@ -47,7 +47,7 @@ const category = ref([
 
 <style lang="scss" scoped>
 .video-classify {
-	margin-top: 20px;
+	margin: 20px 0;
 	border-radius: 4px;
 	background-color: #fff;
 	padding: 20px 20px 10px 20px;
