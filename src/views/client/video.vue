@@ -4,12 +4,14 @@
         <Slideshow/>
         <video-list/>
     </div>
+    <video-classify/>
   </div>
 </template>
 
 <script lang="ts" setup>
 import Slideshow from "./layouts/video/Slideshow.vue";
 import videoList from "./layouts/video/videoList.vue";
+import videoClassify from "./layouts/video/videoClassify.vue"
 </script>
 
 <style lang="scss" scoped>
