@@ -1,0 +1,94 @@
+.video-list {
+  height: 280px;
+  width: 760px;
+  background-color: azure;
+  display: grid;
+  grid-template-columns: repeat(4, 24%);
+  grid-template-rows: repeat(2, 48%);
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+  .video-item {
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+    }
+    .video-cover {
+      color: #fff;
+      .video-mask {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 6px;
+        border-radius: 5px;
+        .video-title {
+          width: 170px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+      .video-detail {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 8px 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transform: translate(0, 100%);
+        transition: transform 0.5s;
+        .detail-title {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: normal;
+        }
+        .detail-bottom {
+          font-size: 12px;
+          display: flex;
+          justify-content: space-between;
+          svg {
+            height: 15px;
+            width: 15px;
+          }
+          .bot-author {
+            max-width: 59%;
+          }
+          .view-counts {
+            max-width: 40%;
+          }
+          div {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            display: flex;
+            align-items: center;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+  .video-item:hover .video-cover {
+    .video-mask {
+      top: 0;
+      background: rgba(0, 0, 0, 0.68);
+      .video-title {
+        display: none;
+      }
+    }
+    .video-detail{
+        transform: translate(0, 0);    
+    }
+  }
+}

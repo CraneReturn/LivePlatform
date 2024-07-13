@@ -19,6 +19,7 @@ import videoList from "./layouts/video/videoList.vue";
     .video-top{
       margin-top: 15px;
       display: flex;
+      justify-content: space-between;
     }
 }
 </style>
