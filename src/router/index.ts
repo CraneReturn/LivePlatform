@@ -70,10 +70,7 @@ const router = createRouter({
         {
           path: "/personmessage",
           redirect: "/personmessage/changemessage",
-          component: () =>
-            import(
-              "@/views/client/personMessage.vue"
-            ),
+          component: () => import("@/views/client/personMessage.vue"),
           children: [
             {
               path: "changemessage",
@@ -93,13 +90,8 @@ const router = createRouter({
         },
         {
           path: "/put",
-          component: () =>
-            import(
-              "@/views/client/putStream.vue"
-            ),
-
+          component: () => import("@/views/client/putStream.vue"),
         },
-
       ],
     },
     {
@@ -151,6 +143,15 @@ const router = createRouter({
       },
     },
     {
+      path: "/publish-setting",
+      component: () =>
+        import("@/views/streamer/components/broadcast/index.vue"),
+      meta: {
+        title: `${projectName}`,
+        requiresAuth: false,
+      },
+    },
+    {
       path: "/kefu",
       component: () =>
         import("@/views/client/layouts/customeService/index.vue"),
@@ -174,6 +175,24 @@ const router = createRouter({
         title: `${projectName}`,
         requiresAuth: false,
       },
+      children: [
+        {
+          path: "concern",
+          component: () => import("@/views/client/layouts/person/concern.vue"),
+          meta: {
+            title: `${projectName}`,
+            requiresAuth: false,
+          },
+        },
+        {
+          path: "fan",
+          component: () => import("@/views/client/layouts/person/fan.vue"),
+          meta: {
+            title: `${projectName}`,
+            requiresAuth: false,
+          },
+        },
+      ],
     },
     {
       path: "/page",
@@ -216,16 +235,18 @@ const router = createRouter({
         requiresAuth: false,
       },
       redirect: "/mainMation",
-      children:[
+      children: [
         {
           path: "/mainMation",
-          component: () => import("@/views/client/layouts/groupChat/mainMation.vue"),
+          component: () =>
+            import("@/views/client/layouts/groupChat/mainMation.vue"),
         },
         {
           path: "/membersList",
-          component: () => import("@/views/client/layouts/groupChat/membersList.vue"),
+          component: () =>
+            import("@/views/client/layouts/groupChat/membersList.vue"),
         },
-      ]
+      ],
     },
     {
       path: "/haha",

@@ -34,6 +34,7 @@
     "element-plus": "^2.7.0",
     "emoji-regex": "^10.3.0",
     "flv.js": "^1.6.2",
+    "hls.js": "^1.5.13",
     "m3u8-parser": "^7.1.0",
     "pinia": "^2.1.7",
     "qrcode": "^1.5.3",

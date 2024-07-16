@@ -95,7 +95,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, onBeforeUnmount } from "vue";
 import contenShowdesigned from "./barrage/contenShowdesigned.vue";
-import { useFlvPlay } from "@/assets/pull";
+import { useFlvPlay } from "@/assets/pull/index";
 const { setMuted, setVolume, setPlay, init, destroyFlv } = useFlvPlay();
 const canvasVideo = ref<HTMLVideoElement | null>(null);
 const barrage = ref<HTMLCanvasElement | null>(null);
@@ -126,7 +126,7 @@ let prevVolume = 50;
 const play = ref(true);
 const mute = ref(true);
 const volume = ref(0);
-const url = "http://118.31.245.3/live?port=1935&app=live&stream=stream";
+const url = "http://118.31.245.3/live?port=1935&app=live&stream=test";
 function pause() {
   setPlay(!play.value);
   play.value = !play.value;
