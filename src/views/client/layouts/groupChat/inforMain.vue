@@ -237,13 +237,13 @@ import affiche from "./affiche.vue";
 import chatFileVue from './chatFile.vue';
 import mation from "./mation.vue";
 import sendNotice from './sendNotice.vue';
-import { useMainStore } from '@/store/chat/chat.ts';
+import { useMainStore } from '@/store/chat/chat';
 const mainStore = useMainStore();
 const nowText=mainStore.nowText;
 const getText=ref(nowText)
 import chatMessageList from "./chatMessageList.vue";
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 @import "@/views/client/styles/groupChat/inforMain.scss";
 </style>

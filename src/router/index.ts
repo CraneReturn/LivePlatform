@@ -66,10 +66,7 @@ const router = createRouter({
         {
           path: "/personmessage",
           redirect: "/personmessage/changemessage",
-          component: () =>
-            import(
-              "@/views/client/personMessage.vue"
-            ),
+          component: () => import("@/views/client/personMessage.vue"),
           children: [
             {
               path: "changemessage",
@@ -89,13 +86,8 @@ const router = createRouter({
         },
         {
           path: "/put",
-          component: () =>
-            import(
-              "@/views/client/putStream.vue"
-            ),
-
+          component: () => import("@/views/client/putStream.vue"),
         },
-
       ],
     },
     {
@@ -141,6 +133,15 @@ const router = createRouter({
     {
       path: "/login",
       component: () => import("@/views/client/login.vue"),
+      meta: {
+        title: `${projectName}`,
+        requiresAuth: false,
+      },
+    },
+    {
+      path: "/publish-setting",
+      component: () =>
+        import("@/views/streamer/components/broadcast/index.vue"),
       meta: {
         title: `${projectName}`,
         requiresAuth: false,
@@ -230,16 +231,18 @@ const router = createRouter({
         requiresAuth: false,
       },
       redirect: "/mainMation",
-      children:[
+      children: [
         {
           path: "/mainMation",
-          component: () => import("@/views/client/layouts/groupChat/mainMation.vue"),
+          component: () =>
+            import("@/views/client/layouts/groupChat/mainMation.vue"),
         },
         {
           path: "/membersList",
-          component: () => import("@/views/client/layouts/groupChat/membersList.vue"),
+          component: () =>
+            import("@/views/client/layouts/groupChat/membersList.vue"),
         },
-      ]
+      ],
     },
     {
       path: "/haha",
