@@ -1,22 +1,27 @@
 <template>
   <div class="emojiConten">
-    <div class="emojiContenCenter" :class="{leaveICon:props.emojiContenflag}">
-      <div class="topMainEmoji" v-show="emojiBtnChange==true">
+    <div
+      class="emojiContenCenter"
+      :class="{ leaveICon: props.emojiContenflag }"
+    >
+      <div class="topMainEmoji" v-show="emojiBtnChange == true">
         <div class="iconListContenCenter">
           <div class="emojiContenList">
-            <span class="emojiIcon" 
-            v-for="item in emojShowarr" :key="item"
-            @click="emojiIconsend(item)"
+            <span
+              class="emojiIcon"
+              v-for="item in emojShowarr"
+              :key="item"
+              @click="emojiIconsend(item)"
             >
               {{ unicodeChange(`${item}`) }}
             </span>
           </div>
         </div>
       </div>
-      <div class="topMainEmoji"  v-show="emojiBtnChange==false">
+      <div class="topMainEmoji" v-show="emojiBtnChange == false">
         <div class="iconListContenCenter">
           <div class="emojiPackList" v-for="item in emojShowarr" :key="item">
-            <img src="@/assets/images/emojiPack/1.png" alt="" srcset="">
+            <img src="@/assets/images/emojiPack/1.png" alt="" srcset="" />
           </div>
         </div>
       </div>
@@ -68,7 +73,7 @@
           </div>
         </div>
         <div class="canleIconConten">
-          <button  @click="canleIconConten">取消</button>
+          <button @click="canleIconConten">取消</button>
         </div>
       </div>
     </div>
@@ -76,21 +81,19 @@
 </template>
 
 <script setup lang="ts">
-import { mapState, mapActions } from 'pinia';
-import { useMainStore } from '@/store/chat/chat.ts';
-import { reactive, ref ,defineProps, defineEmits } from "vue";
+import { mapState, mapActions } from "pinia";
+import { reactive, ref, defineProps, defineEmits } from "vue";
 import emojiregex from "emoji-regex";
 const emojiBtnChange = ref<boolean>(true);
+import useMainStore from "@/store/chat/chat.ts";
+import { storeToRefs } from "pinia";
+const mainStore = useMainStore();
+const { nowText } = storeToRefs(mainStore);
 const props = defineProps({
   emojiContenflag: Boolean,
 });
 const emits = defineEmits(["update:emojiContenflag"]);
-const mainStore = useMainStore();
 
-const emjo = mainStore.emjo;
-const nowText=mainStore.nowText
-
-const clickEmoji=mainStore.clickEmoji
 const emojShowarr = reactive([
   "[<U+1F601>]",
   "[<U+1F602>]",
@@ -234,13 +237,13 @@ const deCodeEmoji = (str: string) => {
   });
 };
 const canleIconConten = () => {
-const newValue =false;
-emits("update:emojiContenflag", newValue);
+  const newValue = false;
+  emits("update:emojiContenflag", newValue);
 };
-const emojiIconsend=((textemoji:string)=>{
-
-  clickEmoji(textemoji)
-})
+const clickEmoji=mainStore.clickEmoji
+const emojiIconsend = (textemoji: string) => {
+  clickEmoji(textemoji);
+};
 </script>
 
 <style lang="scss">

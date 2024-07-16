@@ -1,6 +1,5 @@
 import service from "@/utils/request";
 export function uploadFileonce(file: any, chunk: any, md5: any, total: any) {
-  console.log(file, chunk, md5, total,'777777');
   return service({
     url: `/video/uploadSlice?chunk=${chunk}&md5=${md5}&total=${total}`,
     headers: {
@@ -12,6 +11,8 @@ export function uploadFileonce(file: any, chunk: any, md5: any, total: any) {
   })
 }
 export function mergerFiles(fileName: any, md5: any) {
+  console.log('1000');
+  
   return service({
     url: `/video/uploadVideoMerge?fileName=${fileName}&md5=${md5}`,
     headers: {
@@ -20,7 +21,9 @@ export function mergerFiles(fileName: any, md5: any) {
     method: 'post',
   })
 }
-export function getrestStarIndexArr(md5: any){
+export function getrestStarIndexArr(md5: any) {
+  console.log(md5);
+
   return service({
     url: `/video/getNoUp?md5=${md5}`,
     headers: {
@@ -28,4 +31,25 @@ export function getrestStarIndexArr(md5: any){
     },
     method: 'get',
   })
+}
+//获取一级分类
+export function getOneSort() {
+  return service({
+    url: `/video/getOnSort`,
+    headers: {
+      isToken: true,
+    },
+    method: 'get',
+  })
+}
+//获取二级分类
+export function getTwoType(id: any){
+    return service({
+      url: `/video/getTwo?sortId=${id}`,
+      headers: {
+        isToken: true,
+      },
+      method: 'get',
+    })
+  
 }

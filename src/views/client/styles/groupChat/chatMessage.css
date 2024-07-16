@@ -3,11 +3,13 @@
   overflow: hidden;
   display: flex;
 }
+
 .chat .chatPage {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
+
 .chat .chatPage .chatBody {
   width: 100%;
   margin: 0 auto;
@@ -16,20 +18,25 @@
   overflow: hidden;
   overflow-y: auto;
 }
+
 .chat .chatPage .chatBody::-webkit-scrollbar {
   width: 5px;
 }
+
 .chat .chatPage .chatBody::-webkit-scrollbar-thumb {
   background-color: #c2ebda;
   border-radius: 10px;
 }
+
 .chat .chatPage .chatBody .other, .chat .chatPage .chatBody .self {
   padding-left: 15px;
   padding-bottom: 15px;
 }
+
 .chat .chatPage .chatBody .other .otherHead, .chat .chatPage .chatBody .self .otherHead {
   display: flex;
 }
+
 .chat .chatPage .chatBody .other .otherHead .name, .chat .chatPage .chatBody .self .otherHead .name {
   padding-top: 15px;
   padding-left: 5px;
@@ -37,6 +44,7 @@
   font-family: cursive;
   color: cadetblue;
 }
+
 .chat .chatPage .chatBody .other .dialogue, .chat .chatPage .chatBody .self .dialogue {
   background-color: #F4F6F8;
   padding: 10px;
@@ -44,11 +52,13 @@
   border-radius: 5px;
   margin: 0 45px;
 }
+
 .chat .chatPage .chatBody .self .selfHead {
   display: flex;
   justify-content: end;
   flex-direction: row-reverse;
 }
+
 .chat .chatPage .chatBody .self .selfHead .name {
   padding-top: 15px;
   padding-right: 5px;
@@ -56,20 +66,23 @@
   font-family: cursive;
   color: rgba(59, 130, 246, 0.5);
 }
+
 .chat .chatPage .chatBody .self .dialogue {
   background-color: rgba(104, 207, 197, 0.2);
   padding: 10px;
   border-radius: 5px;
   margin-left: 90px;
 }
+
 .chat .set {
   min-width: 200px;
   max-width: 200px;
-  transition-duration: 0.2s;
+  transition-duration: .2s;
   overflow: auto;
   position: relative;
   border-left: 1px solid silver;
 }
+
 .chat .set .setBack {
   cursor: pointer;
   width: 30px;
@@ -84,23 +97,28 @@
   left: -15px;
   z-index: 1;
 }
+
 .chat .set .setBack .iconfont {
   padding-right: 2px;
 }
+
 .chat .set .groupInfo {
   display: flex;
   justify-content: space-between;
   padding-top: 10px;
   align-items: center;
 }
+
 .chat .set .groupInfo .info {
   width: 70%;
   font-size: 15px;
   font-family: cursive;
 }
+
 .chat .set .groudMember {
   border-bottom: 1px solid silver;
 }
+
 .chat .set .groudMember .memberNumber {
   border-top: 1px solid silver;
   font-size: 12px;
@@ -110,6 +128,7 @@
   font-family: cursive;
   padding: 10px 0;
 }
+
 .chat .set .groudMember li {
   display: flex;
   align-items: center;
@@ -119,23 +138,29 @@
   font-family: cursive;
   gap: 5px;
 }
+
 .chat .set .groudMember li img {
   width: 25px;
   height: 25px;
 }
+
 .chat .set .editRemark {
   padding: 10px;
 }
+
 .chat .set .editRemark p {
   font-size: 15px;
 }
+
 .chat .set .editRemark #remark {
-  color: rgb(59, 130, 246);
+  color: #3b82f6;
 }
+
 .chat .set .outGroup {
   padding: 10px;
   padding-bottom: 30px;
 }
+
 .chat .set .outGroup button {
   display: block;
   background-color: rgba(237, 85, 106, 0.5);
@@ -156,4 +181,65 @@ img {
 .otherClassMain {
   display: flex;
   justify-content: flex-end;
-}/*# sourceMappingURL=chatMessage.css.map */
+}
+
+.dialogue {
+  position: relative;
+}
+
+.dialogue .userDOdialogue {
+  position: absolute;
+  top: -20px;
+  right: 5px;
+  display: none;
+}
+
+.dialogue .checkedIcon {
+  position: absolute;
+  right: -30px;
+  top: 20%;
+  display: none;
+}
+
+.dialogue:hover .userDOdialogue {
+  display: inline-block;
+}
+
+.dialogue:hover .checkedIcon {
+  display: inline-block !important;
+}
+
+.radiFlag {
+  display: inline-block !important;
+}
+
+.checkedIcon:hover {
+  display: inline-block !important;
+}
+
+.colour :hover .checkedIcon {
+  display: inline-block;
+}
+
+.colour .userDOdialogue {
+  position: absolute;
+  top: -20px;
+  right: 0px !important;
+  left: 5px !important;
+}
+
+.colour .checkedIcon {
+  left: -30px !important;
+}
+
+.dialogWidthAll {
+  width: 100%;
+}
+
+.dialogWidthAll:hover .userDOdialogue {
+  display: inline-block;
+}
+
+.dialogWidthAll:hover .checkedIcon {
+  display: inline-block !important;
+}

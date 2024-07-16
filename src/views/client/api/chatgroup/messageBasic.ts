@@ -1,6 +1,11 @@
+import { storeToRefs } from "pinia";
+import useMainStore from "@/store/chat/chat.ts";
+const mainStore = useMainStore();
+const { checkedmessage } = storeToRefs(mainStore);
 export default class MessageBasic{
     myMessage!:[]
     picture!:[]
+    checkedPut!:[]
     constructor(message:any){
         this.myMessage=message
     }
@@ -12,5 +17,8 @@ export default class MessageBasic{
        return {
         message
        }
+    }
+    updateChekedMessage(e){
+        checkedmessage.push(e)
     }
 }
