@@ -2,17 +2,24 @@
 import { defineStore } from 'pinia';
 const regx = '$ \s*<U\+[0-9A-Fa-f]{4}>\s* $'
 import unicodeChange from '../../views/client/api/chatgroup/utils'
-export const useMainStore = defineStore({
+const useMainStore = defineStore({
     id: 'chat',
     state: () => ({
         emjo: [],
-        nowText: ""
+        nowText: "",
+        groupId:1,
+        userID:[1],
+        groupName:"我是群聊",
+        notice:'1111',
+        userId:[1,2,3],
+        //存放选中消息状态
+        checkedmessage:[],
+        showCheckedflag:false
+
     }),
     actions: {
         clickEmoji(text: string) {
-            console.log(unicodeChange.unicodeChange,'111');
             this.nowText += `${unicodeChange.unicodeChange(text)}`
-            console.log(this.nowText);
         },
         getTextnew(){
             const returnText=this.nowText
@@ -20,5 +27,7 @@ export const useMainStore = defineStore({
                 returnText
             }
         }
+
     },
 });
+export default useMainStore

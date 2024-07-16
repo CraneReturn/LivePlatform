@@ -171,7 +171,7 @@
         <button
           class="send"
           :class="{ sendBarragrBtnstyle: barrageText != '' }"
-          @click="sendbarrageMethods"
+          @click="sendbarrageMethods(linkSocket)"
         >
           发送
         </button>
@@ -199,6 +199,8 @@ import useResize from "@/assets/barrage/resize";
 import { useBarrageOpen } from "@/assets/barrage/open";
 import videoPlayer from './videoPlayer.vue'
 //弹幕------
+const videoId=ref(6)
+const linkSocket=new WebSocket(`ws://47.109.85.211:8080/ws/videoBar/6`)
 let viedoplayerdom=ref<HTMLVideoElement>()
 const barrageRenderer = ref<BarrageRenderer>();
 const { barrageRenderList, shieldGrade, isOpenDrawer,disableJudges } = useDisable();

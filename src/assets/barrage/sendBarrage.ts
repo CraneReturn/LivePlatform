@@ -30,7 +30,7 @@ export function useSendBarrage(BarrageRenderer:Ref<BarrageRenderer|undefined>,vi
         '#9B9B9B', '#FFFFFF',
       ]);
       //发送弹幕
-      const sendbarrageMethods=(()=>{
+      const sendbarrageMethods=((socket)=>{
         if(barrageText.value.trim()==''){
           ElMessage({
             message:'请您输入弹幕内容',
@@ -38,6 +38,8 @@ export function useSendBarrage(BarrageRenderer:Ref<BarrageRenderer|undefined>,vi
           })
           return
         }
+        console.log(socket,'8888');
+        
         //构造弹幕对象
         let barrage:FixedBarrageOptions|ScrollBarrageOptions
         if (currentBarrageMode.value === 'scroll') {

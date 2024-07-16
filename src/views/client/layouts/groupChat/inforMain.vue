@@ -3,7 +3,7 @@
     <div class="inforTop">
       <div class="groupName">柒总没有钱</div>
       <span
-      ><svg
+        ><svg
           @click="exendMation()"
           t="1714641807092"
           class="icon"
@@ -34,13 +34,13 @@
     <div class="inforMain">
       <div class="chatmain">
         <div class="inforList">
-          <chatMessageList/>
+          <chatMessageList />
         </div>
         <div class="inforSend">
-          {{ getText }}
-          <input placeholder="发送消息" v-model="getText"/>
+        
+          <input placeholder="发送消息" v-model="nowText" />
           <button class="inforMainSend">发送</button>
-          <chatFileVue/>
+          <chatFileVue />
         </div>
       </div>
       <div class="inforSider" v-if="isgroup">
@@ -68,8 +68,7 @@
           </div>
           <div class="noticemain">
             <span class="noticetxt">
-              由于经中央政府决定，在2022年12月6日早上开启放空警报，所有用户不能在群/频道发送娱乐游戏，关于明星的一切，包括照片资料视频等此日禁止发布颜色违规内容
-              上午集体默哀，明天群内将全体禁止发送娱乐游戏，关于明星的一切，包括照片资料视频等
+             {{ notice}}
             </span>
           </div>
         </div>
@@ -147,15 +146,20 @@
           </ul>
         </div>
       </div>
-      <mation :maexend="maexend" @exend-affiche="exendAffiche"  />
+      <mation :maexend="maexend" @exend-affiche="exendAffiche" />
     </div>
-    <affiche class="cov" :isexend="isexend" @close-affiche="closeAffiche" @exend-send="exendSend" />
+    <affiche
+      class="cov"
+      :isexend="isexend"
+      @close-affiche="closeAffiche"
+      @exend-send="exendSend"
+    />
     <send-notice class="cov" :issend="issend" @colse-send="closeSend" />
   </div>
 </template>
 
 <script lang="ts">
- import chatMessageList from "./chatMessageList.vue";
+import chatMessageList from "./chatMessageList.vue";
 import { computed, onMounted, reactive, ref } from "vue";
 export default {
   data() {
@@ -165,7 +169,7 @@ export default {
       isexend: false,
       issend: false,
       maexend: false,
-      isgroup:true,
+      isgroup: true,
       searchname: "",
     };
   },
@@ -194,7 +198,7 @@ export default {
         !(cov && cov.contains(event.target))
       ) {
         this.maexend = false;
-        this.$router.push('/mainMation');
+        this.$router.push("/mainMation");
       }
     },
     inputChange() {
@@ -210,16 +214,16 @@ export default {
     closeAffiche() {
       this.isexend = false;
     },
-    exendSend(){
+    exendSend() {
       this.issend = true;
     },
-    closeSend(){
+    closeSend() {
       this.issend = false;
     },
     exendMation() {
       this.maexend = !this.maexend;
-      this.$router.push('/mainMation');
-      this.isexend=false;
+      this.$router.push("/mainMation");
+      this.isexend = false;
     },
   },
   mounted() {
@@ -234,14 +238,15 @@ export default {
 </script>
 <script lang="ts" setup>
 import affiche from "./affiche.vue";
-import chatFileVue from './chatFile.vue';
+import chatFileVue from "./chatFile.vue";
 import mation from "./mation.vue";
-import sendNotice from './sendNotice.vue';
-import { useMainStore } from '@/store/chat/chat.ts';
-const mainStore = useMainStore();
-const nowText=mainStore.nowText;
-const getText=ref(nowText)
 import chatMessageList from "./chatMessageList.vue";
+import sendNotice from "./sendNotice.vue";
+import  useMainStore from "@/store/chat/chat.ts";
+import { storeToRefs } from "pinia";
+const mainStore = useMainStore();
+const{nowText,groupName,notice}=storeToRefs(mainStore)
+
 </script>
 
 <style lang="scss" scope>

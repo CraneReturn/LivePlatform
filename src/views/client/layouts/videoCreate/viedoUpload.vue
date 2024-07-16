@@ -140,7 +140,7 @@ watch(fileUpload, (newvalue, oldvalue) => {
   }
 });
 const uploadFileViedo = async (event: any) => {
-  
+  loading.value=true
   if (event.target.files[0]) {
     if (event.target.files[0].type != "video/mp4") {
       ElMessage.error("请您上传视频文件");
@@ -156,22 +156,10 @@ const uploadFileViedo = async (event: any) => {
         maxSize = files.size / count;
       }
       const chunk = await spliceViedo(count, files, maxSize, hashArr, suffix);
-
-      const restArr = await getrestStarIndexArr(hashArr);
-      const restFilesIndexarr = restArr.data;
-
-      //  for(let i=0;i<chunk.length;i++){
-      //   const fm = new FormData()
-      //   fm.append('file',chunk[i].file)
-      //   uploadFileonce(fm,i,hashArr,count).then((data:any)=>{
-      //     if(data.code==20000){
-      //       uploadFlagMethods(chunk.length,files.name,hashArr,files);
-      //     }else{
-      //       ElMessage.error('上传失败请重试')
-      //       fileUpload.value=null
-      //     }
-      //   })
-      //  }
+      console.log(chunk);
+      
+      // const restArr = await getrestStarIndexArr(hashArr);
+      const restFilesIndexarr: number[] | null =[];
       console.log(restFilesIndexarr);
 
       const asyncFunctions = chunk.map((file, index) => {
@@ -205,9 +193,12 @@ const uploadFileViedo = async (event: any) => {
           }
         });
         uploadFlagMethods(files.name, hashArr, files);
+        console.log('1111');
+        
         // 处理上传结果
       } catch (error) {
         // 处理执行过程中的错误
+        loading.value = false;
       }
       loading.value = true;
       fileUpload.value = event.target.files[0];
@@ -219,6 +210,8 @@ const uploadFlagMethods = (name: any, md5: any, files: any) => {
   // 完成 合并
   mergerFiles(name, md5)
     .then(async (data: any) => {
+      console.log(data,'99999');
+      
       if (data.code === 20000) {
         ElMessage.success("文件上传成功");
         loading.value = false;
@@ -231,6 +224,8 @@ const uploadFlagMethods = (name: any, md5: any, files: any) => {
           list: list,
         };
         hasFilesUploaded.push(obj);
+        console.log(hasFilesUploaded,'12222');
+        
       } else {
         ElMessage.error("文件上传失败");
         loading.value = false;
