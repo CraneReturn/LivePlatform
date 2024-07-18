@@ -2,7 +2,7 @@
     <div class="chat">
         <div class="chatPage">
           <div class="chatBody inderbox">
-           <div v-for="message in basicmessage.myMessage">
+           <div v-for="message in messageAllShow">
             <div :class="{other:message.userid!=userId,self:message.userid==userId }">
               <div  :class="{otherHead:message.userid!=userId,selfHead:message.userid==userId }">
                 <img
@@ -10,9 +10,20 @@
                   alt="">
                 <p class="name" :class="{colorText:message.userid==userId}">{{ message.nickName }}</p>
               </div>
-              <div class="dialogue" :class="{colour:message.userid==userId}">
-              {{ message.text }}
+          <div class="dialogWidthAll">
+            <div class="dialogue" :class="{colour:message.userid==userId}">
+              <div class="userDOdialogue">
+                <el-icon><Delete /></el-icon>
               </div>
+         <p>
+          {{ message.text }}
+         </p>
+            <div class="checkedIcon" 
+            :class="{radiFlag:message.checked,checkedIconflag:pushArr.length!==0} ">
+              <el-checkbox v-model="message.checked"></el-checkbox>
+            </div>
+            </div>
+          </div>
            </div>
             </div>
 
@@ -26,33 +37,51 @@
   </template>
   
   <script lang="ts" setup>
-  import { onMounted, reactive, ref } from 'vue';
+  import { onMounted, reactive, ref, watch } from 'vue';
 import CreatMessage from '../../api/chatgroup/data.ts'
   import MessageBasic from '../../api/chatgroup/messageBasic'
   //获取到排序好的message
   const {myMessage}=CreatMessage();
   const userId=ref(1)
+  const checkedFlag=ref(false)
   const messageAllShow=reactive([
-        {id:'111',userid:1,aver:'11',nickName:'1111',text:'hahahah',time:111},
-        {id:'222',userid:1,aver:'11',nickName:'1111',text:'hahahah',time:111},
-        {id:'222',userid:3,aver:'11',nickName:'1111',text:'hahahah',time:222}
+        {id:'111',userid:1,aver:'11',nickName:'1111',
+        text:'hahahah',time:111,checked:false},
+        {id:'222',userid:1,aver:'11',nickName:'1111',
+        text:'hahahah',time:111,checked:false},
+        {id:'222',userid:3,aver:'11',nickName:'1111',
+        text:'hahahah',time:222,checked:false}
     ])
+    let pushArr=reactive([])
+    watch(messageAllShow,(newValue,oldValue)=>{
+      checkedarr()
+    })
+    const checkedarr=()=>{
+      pushArr=[]
+      messageAllShow.forEach((m)=>{
+      if(m.checked==true){
+        pushArr.push(m)
+      }
+    })
+    if(pushArr.length==0){
+        checkedFlag.value=false
+      }else{
+        checkedFlag.value=true
+      }
+      basicmessage.updateCheckedPut(checkedFlag.value)
+    }
   const basicmessage=new MessageBasic(messageAllShow)
   let messageAll=reactive([])
   onMounted(()=>{
     //给基本类
-    basicmessage.getMessage(myMessage)
-    console.log(basicmessage,'4444444');
-    
+    basicmessage.getMessage(myMessage)  
     //返回基本类的数据
-    getBasicMessage()
-  })
-  const getBasicMessage=(()=>{
-    const {message}=basicmessage.getBasicMessage()
-   messageAll=message
   })
   </script>
   
   <style lang="scss" scoped>
   @import "@/views/client/styles/groupChat/chatMessage.scss";
+  .checkedIconflag{
+    display: inline-block!important;
+  }
   </style>

@@ -92,6 +92,16 @@ const router = createRouter({
           path: "/put",
           component: () => import("@/views/client/putStream.vue"),
         },
+        {
+          //开播前预览
+          path: "/preview",
+          component: () =>
+            import("@/views/streamer/components/broadcast/preview/preview.vue"),
+          meta: {
+            title: `${projectName}`,
+            requiresAuth: false,
+          },
+        },
       ],
     },
     {

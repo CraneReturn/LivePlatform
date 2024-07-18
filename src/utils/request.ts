@@ -93,7 +93,7 @@ service.interceptors.response.use(res => {
             title: msg,
             type: 'error',
         })
-        return Promise.reject('error')
+        return Promise.reject(`${msg}`)
     } else {
         return res.data
     }

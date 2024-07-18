@@ -21,28 +21,19 @@
       <el-form-item label="标题" prop="name">
         <el-input v-model="ruleForm.name" />
       </el-form-item>
-      <el-form-item label="分类" prop="count">
-        <!-- <el-select-v2
-          v-model="ruleForm.count"
-          placeholder="直播"
-          :options="options"
-        /> -->
-        <el-select
-          v-model="ruleForm.count"
-          placeholder="全部"
-          size="middle"
-          style="width: 300px"
-        >
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </el-form-item>
+    <el-form-item label="分类" prop="count">
+        <div class="block">
+          <el-cascader
+            v-model="ruleForm.count"
+            :options="optionstype"
+            ></el-cascader>
+        </div>
+      </el-form-item> 
       <el-form-item label="来源" prop="location">
         <el-segmented v-model="ruleForm.location" :options="typeViedo" />
+      </el-form-item>
+      <el-form-item label="转载地址" prop="makeUrl" v-if="ruleForm.location=='转载'">
+        <el-input v-model="ruleForm.makeUrl" />
       </el-form-item>
       <el-form-item label="视频介绍" prop="desc">
         <el-input v-model="ruleForm.desc" type="textarea" />
@@ -79,8 +70,12 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, defineProps, watch } from "vue";
+import { reactive, ref, defineProps, watch, onMounted,onBeforeUnmount } from "vue";
 import ffmpegVue from "./ffmpegVue.vue";
+import {
+  getOneSort,
+  getTwoType
+} from "@/views/client/api/uploadFile/uploadFile";
 import type { ComponentSize, FormInstance, FormRules } from "element-plus";
 const spliceImgList = ref();
 const changefaceImgshowphoto=ref()
@@ -117,6 +112,7 @@ interface RuleForm {
   type: string[];
   resource: string;
   desc: string;
+  makeUrl:string
 }
 const dialogVisible = ref<boolean>(false);
 const formSize = ref<ComponentSize>("default");
@@ -132,32 +128,32 @@ const ruleForm = reactive<RuleForm>({
   type: [],
   resource: "",
   desc: "",
+  makeUrl:''
 });
+let optionstype=reactive([])
+onMounted(async()=>{
+  const sort=await getOneSort()
+  if(sort.data){
+    sort.data.forEach(async(e:any)=>{
+      e.value=e.sortId
+      e.label=e.sortName
+      const data=await getTwoType(e.value)
+     data.data.forEach((c:any)=>{
+      c.value=c.sortId
+      c.label=c.sortName
+     })
+     e.children=data.data
+      
+    })
+    optionstype=sort.data
+    console.log(optionstype);
+    
+  }
+  
+})
 const value = ref("");
 
-const options = [
-  {
-    value: "Option1",
-    label: "Option1",
-  },
-  {
-    value: "Option2",
-    label: "Option2",
-  },
-  {
-    value: "Option3",
-    label: "Option3",
-  },
-  {
-    value: "Option4",
-    label: "Option4",
-  },
-  {
-    value: "Option5",
-    label: "Option5",
-  },
-];
-const typeViedo = ["自制", "转载", "直播录屏"];
+const typeViedo = ["自制", "转载",];
 
 const rules = reactive<FormRules<RuleForm>>({
   name: [
@@ -204,6 +200,9 @@ const rules = reactive<FormRules<RuleForm>>({
   desc: [
     { required: true, message: "请提供视频介绍详细信息", trigger: "blur" },
   ],
+  makeUrl: [
+    { },
+  ],
 });
 
 const submitForm = async (formEl: FormInstance | undefined) => {
@@ -227,6 +226,7 @@ const handleDialogVisibleUpdate = (value: boolean) => {
 const changeFaceImgshowupdate= (value:any) => {
   changefaceImgshowphoto.value.src=value
 };
+//获取set
 </script>
 
 <style>
