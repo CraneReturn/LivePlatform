@@ -15,43 +15,42 @@ export function getToken(key: String) {
 
 // 用户邮箱注册
 export function register(obj: object) {
-  let params = {
+  let data = {
     code: "",
     email: "",
     password: "",
   };
-  params = { ...params, ...obj };
+  data = { ...data, ...obj };
   return service({
     url: "/user/register",
-    params: params,
+    data: data,
     method: "post",
   });
 }
 // 获取邮箱验证码
 export function getCode(obj: object) {
-  let params = {
-    code: "",
+  let data = {
     email: "",
-    password: "",
+    type: "register",
   };
-  params = { ...params, ...obj };
+  data = { ...data, ...obj };
   return service({
     url: "/user/getCode",
-    params: params,
+    data: data,
     method: "post",
   });
 }
 // 用户邮箱登录
 export function login(obj: object) {
-  let params = {
+  let data = {
     phone: "",
     email: "",
     password: "",
   };
-  params = { ...params, ...obj };
+  data = { ...data, ...obj };
   return service({
     url: "/user/login",
-    params: params,
+    data: data,
     method: "post",
   });
 }

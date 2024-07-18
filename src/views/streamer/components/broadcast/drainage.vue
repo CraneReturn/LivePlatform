@@ -33,7 +33,6 @@
 <script lang="ts" setup></script>
 <style lang="scss" scoped>
 .drainage {
-  max-width: 640px;
   padding: 20px;
 }
 .title {

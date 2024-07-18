@@ -85,7 +85,6 @@ let describe = ref("");
   border-top: 1px solid #ccc;
 }
 .describe {
-  max-width: 640px;
   padding: 20px;
   .tip {
     font-size: 13px;
