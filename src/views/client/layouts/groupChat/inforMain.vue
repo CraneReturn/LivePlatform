@@ -36,11 +36,14 @@
         <div class="inforList">
           <chatMessageList />
         </div>
-        <div class="inforSend">
+        <div class="inforSend" v-show="showCheckedflag">
         
           <input placeholder="发送消息" v-model="nowText" />
           <button class="inforMainSend">发送</button>
           <chatFileVue />
+        </div>
+        <div class="inforSend" v-show="!showCheckedflag">
+          <messageShareVue/>
         </div>
       </div>
       <div class="inforSider" v-if="isgroup">
@@ -160,6 +163,7 @@
 
 <script lang="ts">
 import chatMessageList from "./chatMessageList.vue";
+import messageShareVue from './chatFile/messageShare.vue'
 import { computed, onMounted, reactive, ref } from "vue";
 export default {
   data() {
@@ -244,8 +248,9 @@ import chatMessageList from "./chatMessageList.vue";
 import sendNotice from "./sendNotice.vue";
 import  useMainStore from "@/store/chat/chat.ts";
 import { storeToRefs } from "pinia";
+import messageShareVue from './chatFile/messageShare.vue';
 const mainStore = useMainStore();
-const{nowText,groupName,notice}=storeToRefs(mainStore)
+const{nowText,groupName,notice,showCheckedflag}=storeToRefs(mainStore)
 
 </script>
 

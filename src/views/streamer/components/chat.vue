@@ -1,5 +1,6 @@
 <!-- 在线观众+聊天 -->
 <template>
+  <preview/>
   <div class="chat">
     <div class="top">
       <i class="iconfont icon-xitong_zaixianyonghu"></i>
@@ -29,6 +30,7 @@
 import { ref } from "vue";
 import barrageText from "./barrage/barrageText.vue";
 import userIndex from "./userIndex.vue";
+import preview from './broadcast/preview/preview.vue'
 </script>
 <style lang="scss">
 @import "http://at.alicdn.com/t/c/font_4515498_x1t0sazzfdj.css";

@@ -26,7 +26,7 @@ const useMainStore = defineStore({
             return {
                 returnText
             }
-        }
+        },
 
     },
 });

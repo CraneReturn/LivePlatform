@@ -18,7 +18,8 @@
          <p>
           {{ message.text }}
          </p>
-            <div class="checkedIcon" :class="{radiFlag:message.checked}">
+            <div class="checkedIcon" 
+            :class="{radiFlag:message.checked,checkedIconflag:pushArr.length!==0} ">
               <el-checkbox v-model="message.checked"></el-checkbox>
             </div>
             </div>
@@ -42,6 +43,7 @@ import CreatMessage from '../../api/chatgroup/data.ts'
   //获取到排序好的message
   const {myMessage}=CreatMessage();
   const userId=ref(1)
+  const checkedFlag=ref(false)
   const messageAllShow=reactive([
         {id:'111',userid:1,aver:'11',nickName:'1111',
         text:'hahahah',time:111,checked:false},
@@ -50,30 +52,36 @@ import CreatMessage from '../../api/chatgroup/data.ts'
         {id:'222',userid:3,aver:'11',nickName:'1111',
         text:'hahahah',time:222,checked:false}
     ])
+    let pushArr=reactive([])
     watch(messageAllShow,(newValue,oldValue)=>{
-      
+      checkedarr()
     })
-    const checkedarr=messageAllShow.forEach((m)=>{
+    const checkedarr=()=>{
+      pushArr=[]
+      messageAllShow.forEach((m)=>{
       if(m.checked==true){
-
+        pushArr.push(m)
       }
     })
+    if(pushArr.length==0){
+        checkedFlag.value=false
+      }else{
+        checkedFlag.value=true
+      }
+      basicmessage.updateCheckedPut(checkedFlag.value)
+    }
   const basicmessage=new MessageBasic(messageAllShow)
   let messageAll=reactive([])
   onMounted(()=>{
     //给基本类
     basicmessage.getMessage(myMessage)  
     //返回基本类的数据
-    getBasicMessage()
   })
-  const getBasicMessage=(()=>{
-    const {message}=basicmessage.getBasicMessage()
-   messageAll=message
-  })
-
-const checked = ref(false)
   </script>
   
   <style lang="scss" scoped>
   @import "@/views/client/styles/groupChat/chatMessage.scss";
+  .checkedIconflag{
+    display: inline-block!important;
+  }
   </style>
