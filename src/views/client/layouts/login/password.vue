@@ -32,7 +32,9 @@
 <script setup lang="ts">
 import { defineEmits, ref } from "vue";
 import { ElMessage } from "element-plus";
+import { userStore } from "@/store/user";
 import { login } from "@/views/client/api/login/login";
+const store = userStore();
 const password = ref("");
 const count = ref("");
 const emit = defineEmits(["code", "forget"]);
@@ -60,12 +62,12 @@ const loginIt = () => {
     });
   } else if (testEmail.test(count.value)) {
     let obj = { email: count.value, password: password.value };
-    login(obj).then((response) => {
+    store.Login(obj).then((response) => {
       console.log(response);
     });
   } else if (testPhone.test(count.value)) {
     let obj = { phone: count.value, password: password.value };
-    login(obj).then((response) => {
+    store.Login(obj).then((response) => {
       console.log(response);
     });
   }

@@ -12,7 +12,7 @@
       </div>
       <div class="code">
         <label for="authCode">
-          <button class="getCode">获取验证码</button></label
+          <button class="getCode" @click="getCodeIt">获取验证码</button></label
         >
         <input
           type="text"
@@ -40,7 +40,12 @@
 <script setup lang="ts">
 import { defineEmits, ref } from "vue";
 import { ElMessage } from "element-plus";
-import { register } from "@/views/client/api/login/login";
+import { getCode } from "@/views/client/api/login/login";
+import { userStore } from "@/store/user";
+import { storeToRefs } from "pinia";
+const store = userStore();
+console.log(store,'1111');
+
 const emit = defineEmits(["password"]);
 function passwordLogin() {
   emit("password", false);
@@ -51,7 +56,25 @@ const password = ref("");
 // 邮箱注册
 const testEmail = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
 const testPassword = /^(?=.*[a-zA-Z])[a-zA-Z0-9]{8,16}$/;
-
+// 获取验证码
+const getCodeIt = function () {
+  if (!testEmail.test(count.value)) {
+    ElMessage({
+      message: "邮箱格式不合法",
+      type: "warning",
+    });
+  } else {
+    let obj = { email: count.value };
+    getCode(obj).then((response) => {
+      if (response.data) {
+        ElMessage({
+          message: "验证码发送成功",
+          type: "success",
+        });
+      }
+    });
+  }
+};
 const registerIt = function () {
   // 判断邮箱格式是否合法
   if (!testEmail.test(count.value)) {
@@ -70,7 +93,7 @@ const registerIt = function () {
       password: password.value,
       code: code.value,
     };
-    register(obj).then((response) => {
+    store.Register(obj).then((response) => {
       console.log(response);
     });
   }
@@ -131,6 +154,7 @@ const registerIt = function () {
   .countLogin {
     height: 35px;
     text-align: center;
+    transition-duration: 0.25s;
     width: 100%;
     font-size: var(--el-font-size-base);
     border-radius: var(--el-border-radius-base);
@@ -138,6 +162,9 @@ const registerIt = function () {
     background-color: var(--el-color-success-light-5);
     cursor: pointer;
     border: none;
+  }
+  .countLogin:hover {
+    background-color: var(--el-color-success-light-3);
   }
   .changeLogin {
     margin-top: 5px;
@@ -148,4 +175,3 @@ const registerIt = function () {
   }
 }
 </style>
-: { value: string; }: any: any: any: any: any
