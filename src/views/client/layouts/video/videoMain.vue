@@ -1,7 +1,11 @@
 <template>
   <div class="video-main">
-    <main-list/>
-    <leader-board/>
+    <div class="main-left">
+     
+    </div>
+    <div class="leaderBoard">
+
+    </div>
   </div>
 </template>
 
@@ -9,8 +13,6 @@
 export default {}
 </script>
 <script setup lang="ts">
-import mainList from "./mainList.vue";
-import leaderBoard from "./leaderBoard.vue";
 </script>
 
 <style lang="scss" scoped>
