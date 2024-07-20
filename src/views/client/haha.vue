@@ -171,7 +171,7 @@
         <button
           class="send"
           :class="{ sendBarragrBtnstyle: barrageText != '' }"
-          @click="sendbarrageMethods"
+          @click="send"
         >
           发送
         </button>
@@ -199,6 +199,9 @@ import useResize from "@/assets/barrage/resize";
 import { useBarrageOpen } from "@/assets/barrage/open";
 import videoPlayer from './videoPlayer.vue'
 //弹幕------
+const videoId=ref(6)
+const linkSocket=new WebSocket(`ws://47.109.85.211:8080/ws/videoBar/6`,
+['eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiMCIsImlkIjoiMTMiLCJleHAiOjE3MjE4Njc0OTQsInVzZXJuYW1lIjoiMjIyQHFxLmNvbSJ9.YCqPSSQlFXxuIngrUNkITQ7elNF6KFkW5ByZ40ZQHGY'])
 let viedoplayerdom=ref<HTMLVideoElement>()
 const barrageRenderer = ref<BarrageRenderer>();
 const { barrageRenderList, shieldGrade, isOpenDrawer,disableJudges } = useDisable();
@@ -311,6 +314,9 @@ const handleVideoPause = () => {
   // console.log('app pause');
   barrageRenderer.value?.pause();
 };
+const send=()=>{
+  sendbarrageMethods(linkSocket,6)
+}
 </script>
 <style lang="scss" scoped>
 @import "http://at.alicdn.com/t/c/font_4515498_x1t0sazzfdj.css";
@@ -339,7 +345,7 @@ const handleVideoPause = () => {
   justify-content: center;
   align-items: center;
 
-  background-color: #374b6a;
+  background-color:white;
 
   .player {
     width: calc(100vw - 60px);
@@ -556,5 +562,12 @@ const handleVideoPause = () => {
     border: 1px solid white;
     box-sizing: border-box;
   }
+}
+.centerBarrageShow{
+  position: absolute;
+bottom: 20px;
+}
+#app{
+  position: relative;
 }
 </style>

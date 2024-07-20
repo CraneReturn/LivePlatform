@@ -100,7 +100,7 @@ export function useFlvPlay() {
           // 创建flv拉流
           flvPlayer.value = flvjs.createPlayer(
             {
-              type: "flv",
+              type: "rmtp",
               isLive: true,
               url: source,
             },

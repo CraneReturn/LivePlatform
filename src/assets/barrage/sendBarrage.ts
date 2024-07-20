@@ -30,13 +30,54 @@ export function useSendBarrage(BarrageRenderer:Ref<BarrageRenderer|undefined>,vi
         '#9B9B9B', '#FFFFFF',
       ]);
       //发送弹幕
-      const sendbarrageMethods=(()=>{
+      const sendbarrageMethods=((socket,videoId)=>{
         if(barrageText.value.trim()==''){
           ElMessage({
             message:'请您输入弹幕内容',
             type:"warning"
           })
           return
+        }
+        let typeBarrage=0;
+        if(currentBarrageMode.value=='scroll'){
+          typeBarrage=3
+        }else if(currentBarrageMode.value=='top'){
+          typeBarrage=1
+        }else{
+          typeBarrage=0
+        }
+        const barrageTextsend={
+          type:typeBarrage,
+          text:barrageText.value,
+          color:currentBarrageColor.value,
+          videoId:videoId,
+          nodeTime:video.value.currentTime * 1000
+        }
+        socket.send(JSON.stringify(barrageTextsend))
+        socket.onpen=()=>{
+          console.log('简历');
+          socket.send(JSON.stringify(barrageTextsend))
+        }
+        socket.onmessage=(msg)=>{
+          console.log(msg);
+          if(msg){
+            ElMessage({
+              message:'弹幕发送成功',
+              type:"success"
+            })
+          }else{
+            ElMessage({
+              message:'弹幕发送失败',
+              type:"error"
+            })
+          }
+          
+        }
+        socket.onerror=()=>{
+          ElMessage({
+            message:'请检查你网络设置',
+            type:"warning"
+          })
         }
         //构造弹幕对象
         let barrage:FixedBarrageOptions|ScrollBarrageOptions

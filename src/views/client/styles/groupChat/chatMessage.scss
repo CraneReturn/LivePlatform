@@ -7,6 +7,7 @@
         display: flex;
         flex-direction: column;
         width: 100%;
+
         .chatBody {
             width: 100%;
             margin: 0 auto;
@@ -175,6 +176,7 @@
         }
     }
 }
+
 img {
     width: 45px;
     height: 45px;
@@ -184,4 +186,68 @@ img {
 .otherClassMain {
     display: flex;
     justify-content: flex-end
+}
+
+.dialogue {
+    position: relative;
+
+    .userDOdialogue {
+        position: absolute;
+        top: -20px;
+        right: 5px;
+        display: none;
+    }
+
+    .checkedIcon {
+        position: absolute;
+        right: -30px;
+        top: 20%;
+        display: none;
+    }
+}
+
+.dialogue:hover {
+    .userDOdialogue {
+        display: inline-block;
+    }
+
+    .checkedIcon {
+        display: inline-block!important;
+    }
+}
+.radiFlag{
+    display: inline-block!important;
+}
+
+.checkedIcon:hover {
+    display: inline-block!important;
+}
+.colour :hover{
+    .checkedIcon {
+      display: inline-block;
+    }
+}
+.colour {
+    .userDOdialogue {
+        position: absolute;
+        top: -20px;
+        right: 0px !important;
+        left: 5px !important;
+    }
+
+    .checkedIcon {
+        left: -30px !important;
+    }
+}
+.dialogWidthAll{
+    width: 100%;
+}
+.dialogWidthAll:hover{
+    .userDOdialogue {
+        display: inline-block;
+    }
+
+    .checkedIcon {
+        display: inline-block!important;
+    }
 }

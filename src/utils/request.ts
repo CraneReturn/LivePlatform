@@ -65,7 +65,7 @@ service.interceptors.response.use(res => {
     const code = res.data.code || 20000
     //获取错误信息
     const codeStr = String(code);
-    const msg = errorCode[code] || res.data.msg || errorCode['default']
+    const msg = errorCode[code] || res.data.errMsg || errorCode['default']
     if (res.request.responseType == 'blob' || res.request.responseType == 'arraybuffer') {
         return res.data
     }
@@ -82,18 +82,20 @@ service.interceptors.response.use(res => {
                 isRelogin.show = false;
             });
         }
-    } else if (code == 500) {
+    } else if (code == 51000) {
+        console.log('111111');
+        
         ElMessage({ message: msg, type: "error" })
         return Promise.reject(new Error(msg))
     } else if (code === 601) {
         ElMessage({ message: msg, type: 'warning' })
         return Promise.reject('error')
-    } else if (code !== 20000) {
+    } else if (code == 500) {
         ElNotification({
             title: msg,
             type: 'error',
         })
-        return Promise.reject('error')
+        return Promise.reject(`${msg}`)
     } else {
         return res.data
     }

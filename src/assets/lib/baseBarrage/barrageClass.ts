@@ -110,7 +110,6 @@ export default abstract class BaseBarrage {
 
         // 计算转换成 sections
         const sections: Section[] = [];
-        console.log(sectionObjects);
         
         sectionObjects.forEach(sectionObject => {
             // 设置好文本状态后，进行文本的测量
@@ -129,7 +128,6 @@ export default abstract class BaseBarrage {
             }));
 
         })
-        console.log(totalWidth,'999988888');
         this.sections = sections;
 
         // 设置当前弹幕的宽高，如果自定义中定义了的话，则取自定义中的 width 和 height，因为弹幕实际呈现出来的 width 和 height 是由渲染方式决定的

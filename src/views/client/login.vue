@@ -98,9 +98,8 @@ async function getWechatCode() {
   key.value = response.data.key;
   QRCode.toCanvas(wechat.value, url.value, function (error: any) {
     if (error) console.error(error);
-    console.log("成功生成二维码!");
     console.log(key.value);
-
+    
     if (key.value) getUserToken(key.value);
   });
 }
