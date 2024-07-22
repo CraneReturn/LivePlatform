@@ -27,6 +27,8 @@ export class PromisePool{
                         const {fn ,index}=taskWrap
                         fn().then((result)=>{
                             this.results[index]=result
+                            console.log(result,'1111');
+                            
                         }).catch((error)=>{
                             this.results[index]=error
                         }).finally(()=>{

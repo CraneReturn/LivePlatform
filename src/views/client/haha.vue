@@ -198,10 +198,15 @@ import { generateBarrageData } from "@/assets/data/index";
 import useResize from "@/assets/barrage/resize";
 import { useBarrageOpen } from "@/assets/barrage/open";
 import videoPlayer from './videoPlayer.vue'
+import { getToken } from "@/utils/auth";
 //弹幕------
+const token=getToken()
+if(!token){
+  
+}
 const videoId=ref(6)
 const linkSocket=new WebSocket(`ws://47.109.85.211:8080/ws/videoBar/6`,
-['eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiMCIsImlkIjoiMTMiLCJleHAiOjE3MjE4Njc0OTQsInVzZXJuYW1lIjoiMjIyQHFxLmNvbSJ9.YCqPSSQlFXxuIngrUNkITQ7elNF6KFkW5ByZ40ZQHGY'])
+['eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiMCIsImlkIjoiMTMiLCJleHAiOjE3MjE5OTg0MDUsInVzZXJuYW1lIjoiMjIyQHFxLmNvbSJ9.tVXWsCfae_DYX_GwnlFKwWN7R-yoNcmmwswu8SDyLRk'])
 let viedoplayerdom=ref<HTMLVideoElement>()
 const barrageRenderer = ref<BarrageRenderer>();
 const { barrageRenderList, shieldGrade, isOpenDrawer,disableJudges } = useDisable();
@@ -213,7 +218,7 @@ const { regionsShow, currentRenderRegions, isRenderRegionChange } =
 // 弹幕速度
 const { userSpeedlist, speendChange, currentSpeed } =
   userSpeed(barrageRenderer);
-//重复
+//重复generateBarrageData
 const { avoidFlag, changeAvoidOver } = avoidOverlap(barrageRenderer);
 const {
   barrageText,
@@ -285,9 +290,9 @@ onMounted(() => {
   });
   generateBarrageDataSet();
 });
-const generateBarrageDataSet = () => {
+const generateBarrageDataSet =async () => {
   // 获取弹幕数据
-  const barrages = generateBarrageData(1, {
+  const barrages =await generateBarrageData(6, {
     isFixed: true,
     isScroll: true,
     isSenior: true,
