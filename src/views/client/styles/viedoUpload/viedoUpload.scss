@@ -219,7 +219,6 @@
     .changePhoto {
         position: absolute;
         width: 100%;
-        text-align: center;
         bottom: 0px;
         background-color: rgba(148, 148, 148, 0.5);
 
@@ -227,6 +226,9 @@
             color: white;
         }
     }
+}
+.changePhotospan{
+    text-align: center;
 }
 
 .changecoverMain {
