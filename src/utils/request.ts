@@ -3,6 +3,8 @@ import { tansParams } from "./comment";
 import { ElMessageBox, ElMessage, ElNotification } from "element-plus";
 import cache from "./cache";
 import { getToken } from "./auth";
+import { userStore } from "@/store/user";
+const store = userStore();
 const baseApiUrl = import.meta.env.VITE_APP_CONTEXT_PATH;
 const errorCode: { [key: string]: string } = {
   "401": "认证失败，无法访问系统资源",
@@ -101,10 +103,11 @@ service.interceptors.response.use(
         )
           .then(() => {
             isRelogin.show = false;
-            // store.dispatch('LogOut').then(() => {
-            //     location.href = process.env.VUE_APP_CONTEXT_PATH + "index";
-            // })
-            location.href = baseApiUrl;
+            return store.Logout();
+          })
+          .then(() => {
+            // 重新登录后的处理，比如跳转到首页
+            location.href = process.env.VUE_APP_CONTEXT_PATH + "/home";
           })
           .catch(() => {
             isRelogin.show = false;
