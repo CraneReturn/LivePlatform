@@ -1,36 +1,12 @@
 <template>
   <div class="viedouploadMain">
-    <div class="viedoUploadMaincenter" v-show="!hasUploaded">
-      <div class="viedoUploadIcon">
-        <svg
-          t="1713964310959"
-          class="icon"
-          viewBox="0 0 1024 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          p-id="1701"
-          width="100"
-          height="100"
-        >
-          <path
-            d="M925.696 384q19.456 0 37.376 7.68t30.72 20.48 20.48 30.72 7.68 37.376q0 20.48-7.68 37.888t-20.48 30.208-30.72 20.48-37.376 7.68l-287.744 0 0 287.744q0 20.48-7.68 37.888t-20.48 30.208-30.72 20.48-37.376 7.68q-20.48 0-37.888-7.68t-30.208-20.48-20.48-30.208-7.68-37.888l0-287.744-287.744 0q-20.48 0-37.888-7.68t-30.208-20.48-20.48-30.208-7.68-37.888q0-19.456 7.68-37.376t20.48-30.72 30.208-20.48 37.888-7.68l287.744 0 0-287.744q0-19.456 7.68-37.376t20.48-30.72 30.208-20.48 37.888-7.68q39.936 0 68.096 28.16t28.16 68.096l0 287.744 287.744 0z"
-            p-id="1702"
-            fill="#bfbfbf"
-          ></path>
-        </svg>
-        <p>
-          <button>点击我上传视频</button>
-        </p>
-      </div>
-      <input type="file" class="fileUpload" @change="uploadFileViedo" />
-    </div>
   </div>
   <div class="uploadViedoList">
     <div class="topListViedoShowCenter">
       <div
         :class="{ onceUploadFilesflage: index == 0 }"
         class="onceUploadFiles"
-        v-for="(item, index) in hasFilesUploaded"
+        v-for="(item, index) in hasUploadedarr"
         :key="index"
       >
         <div class="onceUploadFileCenter">
@@ -115,6 +91,11 @@ import { ElMessage } from "element-plus";
 import uploadFillinVue from "./uploadFillin.vue";
 import { MP4Clip } from "@webav/av-cliper";
 import { getHash, spliceViedo } from "./upload";
+//集中处理数据
+import { storeToRefs } from "pinia";
+import videouploadMainStore from "@/store/video/videoUpload.ts";
+const mainvideoStore = videouploadMainStore();
+const { ruleForm, hasUploadedarr } = storeToRefs(mainvideoStore);
 import {
   uploadFileonce,
   mergerFiles,
@@ -124,6 +105,22 @@ const uploadcount = ref(0);
 const hasUploaded = ref<boolean>(false);
 const fileUpload = ref(null);
 const loading = ref(false);
+watch(
+  () => hasUploadedarr.value,
+  (newValue) => {
+    if (hasUploadedarr.value.length!==0) {
+    
+      ruleForm.value = hasUploadedarr.value[0];
+      console.log(ruleForm.value,'kkkkk');
+      
+    }
+  },
+  {
+    immediate: true, // 立即执行一次监听函数,
+    deep: true,
+  }
+);
+let duration = ref();
 let hasFilesUploaded = reactive<
   {
     name: any;
@@ -140,7 +137,7 @@ watch(fileUpload, (newvalue, oldvalue) => {
   }
 });
 const uploadFileViedo = async (event: any) => {
-  loading.value=true
+  loading.value = true;
   if (event.target.files[0]) {
     if (event.target.files[0].type != "video/mp4") {
       ElMessage.error("请您上传视频文件");
@@ -148,6 +145,9 @@ const uploadFileViedo = async (event: any) => {
     } else {
       const files = event.target.files[0];
       let maxSize = 1024 * 1024 * 1;
+      duration.value = Math.round(files.size / (1024 * 1024));
+      console.log(duration.value, "99999");
+
       const { hashArr, suffix } = await getHash(files);
       let count = Math.ceil(files.size / maxSize);
       //有多少需要上传的文件
@@ -157,9 +157,9 @@ const uploadFileViedo = async (event: any) => {
       }
       const chunk = await spliceViedo(count, files, maxSize, hashArr, suffix);
       console.log(chunk);
-      
+
       // const restArr = await getrestStarIndexArr(hashArr);
-      const restFilesIndexarr: number[] | null =[];
+      const restFilesIndexarr: number[] | null = [];
       console.log(restFilesIndexarr);
 
       const asyncFunctions = chunk.map((file, index) => {
@@ -193,8 +193,8 @@ const uploadFileViedo = async (event: any) => {
           }
         });
         uploadFlagMethods(files.name, hashArr, files);
-        console.log('1111');
-        
+        console.log("1111");
+
         // 处理上传结果
       } catch (error) {
         // 处理执行过程中的错误
@@ -210,22 +210,27 @@ const uploadFlagMethods = (name: any, md5: any, files: any) => {
   // 完成 合并
   mergerFiles(name, md5)
     .then(async (data: any) => {
-      console.log(data,'99999');
-      
+      console.log(data, "99999");
       if (data.code === 20000) {
         ElMessage.success("文件上传成功");
         loading.value = false;
         //截取视频帧数
-        const list = await splicePhotoList(files);
+        const { duration, imgaeListReturn,listBlob} = await splicePhotoList(files);
         const obj = {
           md5: md5,
           url: data.data,
           name: name,
-          list: list,
+          list: imgaeListReturn,
+          duration: duration,
+          title: "",
+          count1: "",
+          count2: "",
+          location: "",
+          desc: "",
+          makeUrl: "",
+          listBlob:listBlob
         };
-        hasFilesUploaded.push(obj);
-        console.log(hasFilesUploaded,'12222');
-        
+        hasUploadedarr.value.push(obj);
       } else {
         ElMessage.error("文件上传失败");
         loading.value = false;
@@ -233,6 +238,7 @@ const uploadFlagMethods = (name: any, md5: any, files: any) => {
       uploadcount.value = 0;
     })
     .catch((err) => {
+      loading.value = false;
       console.log(err);
     });
 };
@@ -242,19 +248,25 @@ const splicePhotoList = async (file: any) => {
   const response: any = await fetch(url); // 使用 fetch 获取本地文件内容
   const clip = new MP4Clip(response.body);
   await clip.ready;
-
-  const imgListData = await clip.thumbnails(200, {
-    start: 0,
-    end: file.lastModified,
-    step: 1e6,
-  });
+  console.log(clip, "8889999");
+  const duration = clip.meta.duration;
+  const imgListData = await clip.thumbnails();
   const imgaeListReturn = imgListData.map(
-    (it: { ts: any; img: Blob | MediaSource }) => ({
+    (it: { ts: any; img: Blob | MediaSource }) =>({
       ts: it.ts,
       img: URL.createObjectURL(it.img),
     })
   );
-  return imgaeListReturn;
+  const listBlob= imgListData.map(
+    (it) =>({
+      img: it.img,
+    })
+  );
+  return {
+    duration,
+    imgaeListReturn,
+    listBlob
+  };
 };
 </script>
 

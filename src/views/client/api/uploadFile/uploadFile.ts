@@ -11,8 +11,6 @@ export function uploadFileonce(file: any, chunk: any, md5: any, total: any) {
   })
 }
 export function mergerFiles(fileName: any, md5: any) {
-  console.log('1000');
-  
   return service({
     url: `/video/uploadVideoMerge?fileName=${fileName}&md5=${md5}`,
     headers: {
@@ -43,13 +41,71 @@ export function getOneSort() {
   })
 }
 //获取二级分类
-export function getTwoType(id: any){
-    return service({
-      url: `/video/getTwo?sortId=${id}`,
-      headers: {
-        isToken: true,
-      },
-      method: 'get',
-    })
-  
+export function getTwoType(id: any) {
+  return service({
+    url: `/video/getTwo?sortId=${id}`,
+    headers: {
+      isToken: true,
+    },
+    method: 'get',
+  })
+
+}
+//上传图片文件
+export function sendCoverimg(formdata: any) {
+  return service({
+    url: `/video/upCover`,
+    headers: {
+      isToken: true,
+      'Content-Type': 'multipart/form-data'
+    },
+    method: 'post',
+    data: formdata
+  })
+
+}
+export function sendCoverimgframe(formdata: any) {
+  const base64Data = formdata.replace(/^data:image\/png;base64,/, '');
+  // 去除整体的双引号
+  const cleanedData = base64Data.replace(/^"|"$/g, '');
+  const rawData = cleanedData;
+  return service({
+    url: `/video/upFrame`,
+    headers: {
+      'Content-Type': 'text/plain' ,
+      isToken: true,
+    },
+    data: rawData, // 直接使用 FormData 对象
+    method: 'post',
+  });
+}
+
+//上传视频
+export function uploadVideo(sortId: any, videoCoverUrl: any,
+   videoDesc: any, videoSource: any,
+  videoTime: any, videoTitle: any, videoType: any, videoUrl: any) {
+    console.log(sortId,videoCoverUrl,videoDesc,videoSource,videoTime,videoTitle,videoType,videoUrl);
+    
+  if (videoType == '自制') {
+    videoType = 0
+  } else {
+    videoType = 1
+  }
+  return service({
+    url: `/video/upVideo`,
+    headers: {
+      isToken: true,
+    },
+    data: {
+      sortId,
+      videoCoverUrl,
+      videoDesc,
+      videoSource,
+      videoTime,
+      videoTitle,
+      videoType,
+      videoUrl
+    },
+    method: 'post',
+  })
 }

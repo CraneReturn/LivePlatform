@@ -22,7 +22,7 @@ import videoMain from "./layouts/video/videoMain.vue"
 .video-max{
   background-color: #f4f5f8;
   width: 100%;
-  padding-top: 20px;
+  padding: 20px 0;
   .video-home{
     width:1200px;
     margin: 0 auto;
