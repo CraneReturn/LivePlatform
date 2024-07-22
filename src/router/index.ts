@@ -163,14 +163,6 @@ const router = createRouter({
       },
     },
     {
-      path: "/forget",
-      component: () => import("@/views/client/layouts/login/forget.vue"),
-      meta: {
-        title: `${projectName}`,
-        requiresAuth: false,
-      },
-    },
-    {
       path: "/user",
       component: () => import("@/views/client/person.vue"),
       meta: {
@@ -206,7 +198,7 @@ const router = createRouter({
     },
     {
       path: "/send",
-      component: () => import("@/views/streamer/components/videoPlayer.vue"),
+      component: () => import("@/views/streamer/send.vue"),
       meta: {
         title: `${projectName}`,
         requiresAuth: false,
