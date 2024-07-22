@@ -81,29 +81,26 @@ import {
 import { getUsermessages,changeUsermessages } from '@/views/client/api/user/changeMessage.ts'
 import { ElMessage } from "element-plus";
 //先获取用户信息
-onMounted(async () => {
+onMounted(async () => {  
   const userdata = await getUsermessages()
   if (userdata.code != 20000) {
     ElMessage.error("请您先登陆");
     return
   }
-  const { avatar, birthday, nickname, sex, intr } = userdata.data
+  const { birthday, nickname, sex, intr } = userdata.data
   ruleForm.name = nickname
-  const newaver = avatar
-  const newpersonImg = avatar.value
-  avatar.value = newaver ? newaver : newpersonImg
+  const newaver = userdata.data.avatar
+  avatar.value = newaver ? newaver :  avatar.value  
   ruleForm.region = sex
+  
   ruleForm.date1 = birthday
   ruleForm.desc = intr
+  
 })
 const ruleForm = reactive({
   name: "Hello",
   region: "",
-  count: "",
   date1: "",
-  date2: "",
-  delivery: false,
-  type: [],
   resource: "",
   desc: "",
 });
@@ -157,7 +154,14 @@ const rules = reactive({
 
 const submitForm = async () => {
   const {name,region,date1,desc}=ruleForm
-  const changedata=await changeUsermessages(userId,name,region,date1,desc,avatar.value)
+  if(name==''||region==''||date1==''||desc==''){
+    ElMessage.error("请上传完整信息");
+  }
+  const changedata=await changeUsermessages(userId.value,name,region,date1,desc,avatar.value)
+  if(changedata.code==20000){
+    ElMessage.success("更改个人信息成功");
+  }
+  
 };
 
 const resetForm = (formEl: FormInstance | undefined) => {

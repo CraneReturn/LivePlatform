@@ -86,7 +86,8 @@ import ffmpegVue from "./ffmpegVue.vue";
 import {
   getOneSort,
   getTwoType,
-  uploadVideo
+  uploadVideo,
+  addnewtype
 } from "@/views/client/api/uploadFile/uploadFile";
 import { ElMessage, type ComponentSize, type FormInstance, type FormRules, ElInput } from "element-plus";
 //集中处理
@@ -106,11 +107,15 @@ const InputRef = ref<InstanceType<typeof ElInput>>()
   })
 }
 
-const handleInputConfirm = () => {
+const handleInputConfirm = async() => {
   if (inputValue.value) {
-    console.log(ruleForm.value.dynamicTags);
-    
-    ruleForm.value.dynamicTags.push(inputValue.value)
+    const tipsdata=await addnewtype(inputValue.value)
+    if(tipsdata.code==20000){
+      ElMessage.success("添加标签成功");
+      ruleForm.value.dynamicTags.push(inputValue.value)
+    }
+    //添加标签
+
   }
   inputVisible.value = false
   inputValue.value = ''
@@ -183,6 +188,8 @@ const submitForm = async () => {
     return
   }
   const {title,coverUrl,region,count,count2,location,desc,makeUrl,md5,duration,url,dynamicTags}=ruleForm.value
+  console.log(dynamicTags);
+  
   if(md5==''){
     ElMessage.error("请您上传完整视频");
   }else if(!title || !count2 ||!count || !location || !desc ){
@@ -194,6 +201,27 @@ const submitForm = async () => {
   }
   else{
    const senddata=await uploadVideo(count2[0],coverUrl,desc,makeUrl,duration,title,location,url,dynamicTags)
+   if(senddata.code==20000){
+    ElMessage.success("上传成功");
+    hasUploadedarr.value=[]
+    ruleForm.value={
+      title: "",
+            coverUrl:'',
+            region: "",
+            count:'',
+            count2: "",
+            location: "",
+            desc: "",
+            makeUrl:'',
+            listBlob:[],
+            md5:'',
+            name:"",
+            duration:"",
+            list:[],
+            url:"",
+            dynamicTags:[]
+    }
+   }
    
   }
 

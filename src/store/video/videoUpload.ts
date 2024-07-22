@@ -21,8 +21,7 @@ const videouploadMainStore = defineStore({
             duration:"",
             list:[],
             url:"",
-            dynamicTags:([])
-  
+            dynamicTags:[]
           }),
           nowindex:0,
         //储存已经上传的
