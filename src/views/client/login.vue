@@ -80,7 +80,7 @@
       <p>注册登录即表示同意 <span>用户协议</span> 和 <span>隐私政策</span></p>
     </div>
   </div>
-  <forgetIt v-if="forget" @forget="forgetPassword"></forgetIt>
+  <forgetIt v-if="forget" @forget="forgetPassword" @loginShow="cancelLogin"></forgetIt>
   <div class="shadow"></div>
 </template>
 <script setup lang="ts">

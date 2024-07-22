@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { getToken, setToken } from "../../utils/auth";
+import { getToken, removeToken, setToken } from "../../utils/auth";
 import { getuserInfo, login, register } from "@/views/client/api/login/login";
 import defultHead from "@/assets/images/userPhoto/defaultHead.png";
 // 存储用户信息
@@ -18,7 +18,7 @@ export const userStore = defineStore("user", {
       userId: 0,
       userType: "",
       userName: "",
-      avatar: defultHead,
+      avatar: "",
     };
   },
   actions: {
@@ -67,6 +67,12 @@ export const userStore = defineStore("user", {
           .catch((error) => {
             console.log(error);
           });
+      });
+    },
+    Logout() {
+      return new Promise(() => {
+        this.token = "";
+        removeToken();
       });
     },
   },
