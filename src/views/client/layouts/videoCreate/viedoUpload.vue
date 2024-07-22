@@ -228,7 +228,8 @@ const uploadFlagMethods = (name: any, md5: any, files: any) => {
           location: "",
           desc: "",
           makeUrl: "",
-          listBlob:listBlob
+          listBlob:listBlob,
+          dynamicTags:[]
         };
         hasUploadedarr.value.push(obj);
       } else {

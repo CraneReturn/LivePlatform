@@ -10,9 +10,7 @@ export function getUsermessages() {
 }
 export function changeUsermessages(userid:any,nickname:string,sex:string,birthday,intr,avatar) {
     const date = new Date(birthday);
-    const newdate=date.toISOString();    
-    console.log(userid,'qqqqqq');
-    
+    const newdate=date.toISOString();  
     return service({
       url: `/user/update`,
       headers: {
