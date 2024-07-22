@@ -9,27 +9,27 @@
       <div class="coverIt">
         <img
           class="cover"
-          src="https://img0.baidu.com/it/u=3383294599,716789071&fm=253&fmt=auto&app=120&f=JPEG?w=501&h=500"
+          :src="
+            props.cover ||
+            'https://img1.baidu.com/it/u=4081011998,564762961&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500'
+          "
           alt="封面"
         />
         <div class="shade"></div>
         <div class="userMessage">
           <div class="userHead">
-            <img
-              src="https://img1.baidu.com/it/u=4081011998,564762961&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500"
-              alt=""
-            />
+            <img :src="avatar" alt="用户头像" />
           </div>
-          <p class="userName">lxy</p>
+          <p class="userName">{{ userName }}</p>
           <div class="hot">
             <i class="iconfont icon-daochu1024-07"></i>
-            <p class="hotNumber">14亿</p>
+            <p class="hotNumber">0</p>
           </div>
         </div>
       </div>
       <div class="liveInfo">
         <!-- 标题 -->
-        <p class="title">我是新手lxy，快来看我直播</p>
+        <p class="title">{{ props.title || "标题" }}</p>
       </div>
       <div class="label">
         <!-- 话题 -->
@@ -41,7 +41,15 @@
     </div>
   </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { defineProps } from "vue";
+import { userStore } from "@/store/user";
+import { storeToRefs } from "pinia";
+const store = userStore();
+const { userName, avatar } = storeToRefs(store);
+const props = defineProps(["cover", "title", "label"]);
+ 
+</script>
 <style lang="scss" scoped>
 @import url("http://at.alicdn.com/t/c/font_4515498_kgflfyz9p7.css");
 .preview {

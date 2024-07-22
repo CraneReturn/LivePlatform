@@ -19,7 +19,7 @@
       <div class="foot">
         <div class="oprateUser">
           <p class="cost">200joker</p>
-          <div class="donate"><button>赠送</button></div>
+          <div class="donate"><button @click="donate">赠送</button></div>
         </div>
       </div>
     </div>
@@ -36,8 +36,12 @@
   </el-popover>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
-let radio4 = ref("1");
+import emitter from "@/utils/event-bus";
+import svga from "@/assets/images/visual/HamburgerArrow.svga";
+// 当用户点击赠送时
+const donate = () => {
+  emitter.emit("svga", svga);
+};
 </script>
 <style lang="scss" scoped>
 .giftInfo {

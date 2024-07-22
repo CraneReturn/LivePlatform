@@ -2,32 +2,74 @@
   <div class="forget">
     <div class="top">
       <p>登录XX畅享更多权益</p>
-      <button class="cancel"><i class="iconfont icon-cuohao"></i></button>
+      <button class="cancel" @click="cancelLogin()">
+        <i class="iconfont icon-cuohao"></i>
+      </button>
     </div>
     <div class="forgetTable">
       <div class="title">重置密码</div>
       <div class="forgetInput">
         <div class="count">
-          <input type="text" placeholder="请输入账号" />
-        </div>
-        <div class="newPassword">
-          <input type="password" placeholder="请输入新密码" />
+          <input type="text" placeholder="请输入账号" v-model="email" />
         </div>
         <div class="code">
-          <input type="text" placeholder="请输入验证码" />
+          <input type="text" placeholder="请输入验证码" v-model="verifyCode" />
           <button class="getCode">获取验证码</button>
+        </div>
+        <div class="newPassword">
+          <input
+            type="password"
+            placeholder="请输入新密码"
+            v-model="password"
+          />
         </div>
       </div>
       <div class="update">
-        <button class="changePassword">修改</button>
-        <span class="backLogin">返回登录</span>
+        <button class="changePassword" @click="changeIt">修改</button>
+        <span class="backLogin" @click="forgetPassword()">返回登录</span>
       </div>
     </div>
   </div>
-  <div class="shadow"></div>
 </template>
-<script></script>
-<style lang="scss">
+<script setup lang="ts">
+import { defineEmits, ref } from "vue";
+import { ElMessage } from "element-plus";
+import { uploadPassword } from "../../api/login/login";
+const email = ref("");
+const password = ref("");
+const verifyCode = ref("");
+const emit = defineEmits(["forget", "loginShow"]);
+function forgetPassword() {
+  emit("forget", false);
+}
+function cancelLogin() {
+  emit("loginShow", false);
+}
+const testPassword = /^(?=.*[a-zA-Z])[a-zA-Z0-9]{8,16}$/;
+const changeIt = () => {
+  if (!email.value || !password.value || !verifyCode.value) {
+    ElMessage({
+      message: "信息未填写完整",
+      type: "warning",
+    });
+  } else if (!testPassword.test(password.value)) {
+    ElMessage({
+      message: "密码格式不合法",
+      type: "warning",
+    });
+  } else {
+    const obj = {
+      email: email.value,
+      password: password.value,
+      verifyCode: verifyCode.value,
+    };
+    uploadPassword(obj).then((response) => {
+      console.log(response);
+    });
+  }
+};
+</script>
+<style lang="scss" scoped>
 @import "http://at.alicdn.com/t/c/font_4515498_og2qxp99w8d.css";
 .forget {
   width: 380px;
@@ -118,14 +160,5 @@
       cursor: pointer;
     }
   }
-}
-.shadow {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 999;
-  background-color: rgba(#000, 0.5);
 }
 </style>

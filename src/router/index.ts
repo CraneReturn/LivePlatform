@@ -145,14 +145,6 @@ const router = createRouter({
       },
     },
     {
-      path: "/login",
-      component: () => import("@/views/client/login.vue"),
-      meta: {
-        title: `${projectName}`,
-        requiresAuth: false,
-      },
-    },
-    {
       path: "/publish-setting",
       component: () =>
         import("@/views/streamer/components/broadcast/index.vue"),

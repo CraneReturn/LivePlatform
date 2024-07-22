@@ -22,7 +22,7 @@
     </div>
     <div>
       <div class="loginBtn">
-        <button class="signIn">注册</button>
+        <button class="signIn" @click="codeLogin()">注册</button>
         <button class="loginIt" @click="loginIt">登录</button>
       </div>
       <span class="changeLogin" @click="codeLogin()">验证码注册</span>
@@ -33,7 +33,6 @@
 import { defineEmits, ref } from "vue";
 import { ElMessage } from "element-plus";
 import { userStore } from "@/store/user";
-import { login } from "@/views/client/api/login/login";
 const store = userStore();
 const password = ref("");
 const count = ref("");
@@ -42,7 +41,7 @@ function codeLogin() {
   emit("code", false);
 }
 function forgetPassword() {
-  emit("forget", false);
+  emit("forget", true);
 }
 // 用户账号登录
 const testEmail = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$/;
@@ -64,11 +63,13 @@ const loginIt = () => {
     let obj = { email: count.value, password: password.value };
     store.Login(obj).then((response) => {
       console.log(response);
+      store.userInfo().catch(Error);
     });
   } else if (testPhone.test(count.value)) {
     let obj = { phone: count.value, password: password.value };
     store.Login(obj).then((response) => {
       console.log(response);
+      store.userInfo().catch(Error);
     });
   }
 };
