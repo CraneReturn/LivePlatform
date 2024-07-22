@@ -221,7 +221,7 @@
     </div>
   </div>
   <div></div>
-  <login v-if="loginShow && token" @login-show="cancelLogin" />
+  <login v-if="loginShow && !token" @login-show="cancelLogin" />
 </template>
 <script setup lang="ts">
 import { reactive, ref } from "vue";
