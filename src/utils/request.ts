@@ -87,7 +87,7 @@ service.interceptors.response.use(
     ) {
       return res.data;
     }
-    if (code === 401) {
+    if (code === 40100) {
       if (!isRelogin.show) {
         isRelogin.show = true;
         ElMessageBox.confirm(
