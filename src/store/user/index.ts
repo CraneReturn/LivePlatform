@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { getToken, setToken } from "../../utils/auth";
-import { login, register } from "@/views/client/api/login/login";
+import { getuserInfo, login, register } from "@/views/client/api/login/login";
+import defultHead from "@/assets/images/userPhoto/defaultHead.png";
 // 存储用户信息
 type user = {
   token: string;
@@ -17,19 +18,18 @@ export const userStore = defineStore("user", {
       userId: 0,
       userType: "",
       userName: "",
-      avatar: "",
+      avatar: defultHead,
     };
   },
   actions: {
     // 封装login
     Login(obj: object) {
-        console.log('6666');
-        
+      console.log(obj);
+
       return new Promise<void>((resolve, reject) => {
         login(obj)
           .then((res) => {
-            console.log(res,'4444');
-            
+            console.log(res);
             setToken(res.data);
             this.token = res.data;
             resolve(res.data);
@@ -40,17 +40,32 @@ export const userStore = defineStore("user", {
       });
     },
     Register(obj: object) {
-      console.log(obj);
       return new Promise<void>((resolve, reject) => {
         register(obj)
           .then((res) => {
-            console.log(res);
             setToken(res.data);
             this.token = res.data;
             resolve(res.data);
           })
           .catch((error) => {
             reject(error);
+          });
+      });
+    },
+    // 获取用户信息
+    userInfo() {
+      return new Promise<void>((resolve, reject) => {
+        getuserInfo()
+          .then((response) => {
+            this.userId = response.data.userId;
+            if (response.data.avatar) this.avatar = response.data.avatar;
+            else this.avatar = defultHead;
+            if (response.data.userName) this.userName = response.data.userName;
+            else this.userName = "用户";
+            resolve();
+          })
+          .catch((error) => {
+            console.log(error);
           });
       });
     },

@@ -31,6 +31,7 @@
         width="920"
         height="1280"
       ></video>
+      <canvas class="AnimationEffect" ref="showArea"></canvas>
     </div>
     <div class="footer">
       <div class="left">
@@ -96,11 +97,16 @@
 import { ref, watch, onMounted, onBeforeUnmount } from "vue";
 import contenShowdesigned from "./barrage/contenShowdesigned.vue";
 import { useFlvPlay } from "@/assets/pull/index";
+import emitter from "@/utils/event-bus";
+import AnimationEffect from "@/assets/effects";
 const { setMuted, setVolume, setPlay, init, destroyFlv } = useFlvPlay();
 const canvasVideo = ref<HTMLVideoElement | null>(null);
 const barrage = ref<HTMLCanvasElement | null>(null);
 const videoPlayer = ref<HTMLDivElement | null>(null);
+const showArea = ref<HTMLCanvasElement | null>();
+let svgaPlayer: AnimationEffect;
 let elm: HTMLDivElement | null;
+
 onMounted(() => {
   window.addEventListener("keydown", handleKeyDown);
   document.addEventListener("fullscreenchange", updateFullscreenStatus);
@@ -111,7 +117,19 @@ onMounted(() => {
   if (canvas && contaniner) {
     init(url, canvas, contaniner);
   }
+  if (showArea.value) {
+    svgaPlayer = new AnimationEffect(showArea.value);
+  }
+  emitter.on("svga", (data: any) => {
+    showAnimation(data);
+  });
 });
+function showAnimation(svga: string) {
+  svgaPlayer.init(svga).then(() => {
+    svgaPlayer.start();
+    svgaPlayer.clearIt();
+  });
+}
 onBeforeUnmount(() => {
   window.removeEventListener("keydown", handleKeyDown);
   document.removeEventListener("fullscreenchange", updateFullscreenStatus);
@@ -213,6 +231,14 @@ const handleKeyDown = (event: {
       min-width: 470px !important;
     }
   }
+}
+.AnimationEffect {
+  position: absolute;
+  bottom: 10%;
+  left: 0;
+  width: 100%;
+  min-width: 300px;
+  height: 100%;
 }
 .videoPlayer {
   width: 100%;

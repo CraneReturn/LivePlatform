@@ -6,7 +6,7 @@ import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 // @ts-ignore
-import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import zhCn from "element-plus/es/locale/lang/zh-cn";
 import "dayjs/locale/zh-cn";
 import { createApp } from "vue";
 import App from "./App.vue";

@@ -1,19 +1,37 @@
 <template>
-  <div class="coverIt">
-    <!-- 选中该封面 -->
-    <label for="1">
-      <input type="radio" id="1" />
-      <img
-        src="https://img0.baidu.com/it/u=3354087818,251408951&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto?sec=1721235600&t=fa73e9d171d8a8211be0899b31ed84b4"
-        alt="封面"
-      />
-      <el-button :icon="Delete" circle />
-      <div class="shadow"></div>
-    </label>
-  </div>
+  <!-- 选中该封面 -->
+  <label :for="props.id" class="coverIt">
+    <input
+      type="radio"
+      :id="props.id"
+      :value="props.id"
+      name="options"
+      @change="handleChange($event)"
+      checked
+    />
+    <img :src="props.cover" alt="封面" />
+    <el-button :icon="Delete" @click="del(props.id)" circle />
+    <div class="shadow"></div>
+  </label>
 </template>
 <script setup lang="ts">
 import { Delete } from "@element-plus/icons-vue";
+import { defineProps, defineEmits } from "vue";
+const props = defineProps(["id", "cover"]);
+const emit = defineEmits(["index", "changeIndex"]);
+const del = (index: number) => {
+  emit("index", index);
+};
+const handleChange = (event: Event) => {
+  // Ensure the event target is an HTMLInputElement
+  const target = event.target as HTMLInputElement;
+  console.log(target);
+
+  if (target.checked) {
+    console.log(props.id, target.checked, 111111);
+    emit("changeIndex", props.id);
+  }
+};
 </script>
 <style lang="scss" scoped>
 .coverIt {

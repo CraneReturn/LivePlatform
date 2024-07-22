@@ -2,9 +2,10 @@
   <centerViedo />
   <clientCommentVue />
   <programeLike />
-  <hotanchorPerson/>
-  <recommendType/>
-  <viedoShowRecommed/>
+  <hotanchorPerson />
+  <recommendType />
+  <viedoShowRecommed />
+ 
 </template>
 
 <script lang="ts" setup>

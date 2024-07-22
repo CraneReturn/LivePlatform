@@ -1,12 +1,12 @@
 <template>
   <div class="index">
     <div class="left">
-      <describe />
+      <describe @title="getTitle" @describe="getDescribe" />
       <drainage />
-      <cover />
+      <cover @cover="getCover" />
     </div>
     <div class="right">
-      <preview />
+      <preview :cover="coverImg" :title="title" :describe="describeIt" />
       <labelIt />
     </div>
   </div>
@@ -17,6 +17,19 @@ import drainage from "./drainage.vue";
 import cover from "./coverSetting.vue";
 import preview from "./preview.vue";
 import labelIt from "./label.vue";
+import { ref } from "vue";
+let coverImg = ref("");
+let title = ref("");
+let describeIt = ref("");
+function getCover(value: string) {
+  coverImg.value = value;
+}
+function getTitle(value: string) {
+  title.value = value;
+}
+function getDescribe(value: string) {
+  describeIt.value = value;
+}
 </script>
 <style lang="scss">
 h2 {
@@ -29,7 +42,7 @@ h2 {
   margin: 0 auto;
   grid-template-columns: 2fr 1fr;
 }
-.right{
+.right {
   position: sticky;
   top: 70px;
 }

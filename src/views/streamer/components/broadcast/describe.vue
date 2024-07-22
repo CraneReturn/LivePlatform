@@ -10,16 +10,20 @@
         placeholder="填写直播标题"
         show-word-limit
         type="text"
+        @input="changeTitle"
       />
-      <el-input
-        v-model="describe"
-        maxlength="500"
-        placeholder="添加直播简介"
-        show-word-limit
-        rows="5"
-        type="textarea"
-        resize="none"
-      />
+      <div
+        class="describeInput"
+        contenteditable="true"
+        spellcheck="false"
+        aria-placeholder="添加直播简介"
+        role="textbox"
+        aria-multiline="true"
+        ref="inputElement"
+        @input="changeDescribe"
+      >
+        {{ content }}
+      </div>
       <!-- 推荐话题 -->
       <div class="recommented">
         <div class="add">
@@ -42,7 +46,20 @@
 <script setup lang="ts">
 import { ref } from "vue";
 let title = ref("");
-let describe = ref("");
+const content = ref<string | null>("");
+
+let inputElement = ref<HTMLDivElement | null>(null);
+import { defineEmits } from "vue";
+const emit = defineEmits(["title", "label"]);
+function changeTitle(value: string) {
+  emit("title", value);
+}
+function changeDescribe() {
+  if (inputElement.value) {
+    inputElement.value.ariaPlaceholder = "";
+    content.value = inputElement.value.textContent;
+  }
+}
 </script>
 <style lang="scss" scoped>
 ::v-deep {
@@ -60,7 +77,6 @@ let describe = ref("");
     }
   }
 }
-.el-textarea,
 .el-input {
   --el-input-border: transparent;
   --el-fill-color-blank: transparent;
@@ -75,14 +91,6 @@ let describe = ref("");
     position: absolute;
     right: 20px;
   }
-  .el-textarea .el-input__count {
-    position: absolute;
-    bottom: -30px;
-    right: 20px;
-  }
-}
-.el-textarea {
-  border-top: 1px solid #ccc;
 }
 .describe {
   padding: 20px;
@@ -90,6 +98,30 @@ let describe = ref("");
     font-size: 13px;
     color: #ccc;
   }
+}
+.describeInput {
+  height: auto !important;
+  margin: 10px;
+  max-width: 100%;
+  min-height: 129px;
+  max-height: 200px;
+  border-top: 1px solid #ccc;
+  padding-top: 5px;
+  font-size: 15px;
+  line-height: 1.6;
+  word-break: break-all;
+  outline: none;
+  position: relative;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  span {
+    font-size: 15px;
+    color: #606266;
+  }
+}
+.describeInput::after {
+  content: attr(aria-placeholder);
+  font-size: 15px;
 }
 .describeIt {
   overflow: hidden;
