@@ -16,6 +16,7 @@
           <!-- 用户进入时长 -->
           <p class="meetTime">庆祝我们相遇的第1111天</p>
           <p class="info">杀不死我的,只能让我变得更强大</p>
+          <userAddgroup />
         </div>
         <div class="setting">
           <router-link to="/home">
@@ -108,7 +109,9 @@
     </div>
   </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import userAddgroup from './layouts/groupChat/userAddgroup.vue';
+</script>
 <style lang="scss" scoped>
 @import url(http://at.alicdn.com/t/c/font_4515498_kgflfyz9p7.css);
 

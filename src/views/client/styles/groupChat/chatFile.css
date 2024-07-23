@@ -5,11 +5,13 @@
   display: flex;
   align-items: center;
 }
+
 .chatFileMain span {
   margin-left: 10px;
   margin-right: 10px;
   position: relative;
 }
+
 .chatFileMain span .chatFileMainwords {
   position: absolute !important;
   top: -40px;
@@ -42,6 +44,7 @@
 .chatIconFile:hover {
   cursor: pointer;
 }
+
 .chatIconFile:hover .chatFileMainwords {
   border-radius: 6px;
   display: inline-block !important;
@@ -67,6 +70,7 @@
   height: 100%;
   width: 100%;
 }
+
 .topMainEmoji .iconListContenCenter {
   width: 95%;
   height: 85%;
@@ -75,9 +79,11 @@
   padding-bottom: 5px;
   overflow-y: auto;
 }
+
 .topMainEmoji .iconListContenCenter::-webkit-scrollbar {
   width: 5px;
 }
+
 .topMainEmoji .iconListContenCenter::-webkit-scrollbar-thumb {
   background-color: #c2ebda;
   border-radius: 10px;
@@ -90,6 +96,7 @@
   bottom: 0px;
   border-top: 1px dashed var(--el-color-primary);
 }
+
 .BottonMainEmojichange .BottonMainEmojichangebtn {
   width: 95%;
   margin: 0 auto;
@@ -102,6 +109,7 @@
   height: 100%;
   margin-top: 2px;
 }
+
 .emojiBtnChange .icon {
   position: relative;
   top: 2px;
@@ -124,11 +132,12 @@
   padding-top: 4px;
   margin-right: 35px;
 }
+
 .canleIconConten button {
   border: none;
   border-radius: 6px;
   padding: 7px 12px;
-  color: rgb(80, 78, 78);
+  color: #504e4e;
   background-color: #e8f9f2;
 }
 
@@ -144,6 +153,7 @@
     height: 300px;
   }
 }
+
 .emojiPackList {
   width: 100px;
   height: 100px;
@@ -152,6 +162,7 @@
   margin-left: 10px;
   margin-top: 10px;
 }
+
 .emojiPackList img {
   width: 100%;
   height: 100%;
@@ -160,4 +171,54 @@
 
 .chatmain {
   width: 100%;
-}/*# sourceMappingURL=chatFile.css.map */
+}
+
+.lookMyFans {
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+}
+
+.lookMyFansBtn:hover {
+  background-color: var(--el-color-primary) !important;
+}
+
+.userInfo {
+  position: relative;
+}
+
+.groupCreateList {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  border-bottom: 1px dashed var(--el-color-primary);
+}
+
+.groupCreateList .groupcreateListImg {
+  width: 200px;
+}
+
+.groupCreateList .groupcreateListImg img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.groupCreateList .groupcreateListName {
+  width: 70%;
+  align-items: center;
+  position: relative;
+  top: 6px;
+}
+
+.groupCreateList .groupcreateListbtn {
+  width: 20%;
+  position: relative;
+  top: 6px;
+}
+
+.createnewfans:hover {
+  color: var(--el-color-primary);
+  cursor: pointer;
+}

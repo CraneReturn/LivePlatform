@@ -2,6 +2,7 @@
 import { defineStore } from "pinia";
 const regx = "$ s*<U+[0-9A-Fa-f]{4}>s* $";
 import unicodeChange from "../../views/client/api/chatgroup/utils";
+import groupChat from "@/views/client/api/chatgroup/groupChatBasic";
 const useMainStore = defineStore({
   id: "chat",
   state: () => ({
@@ -15,6 +16,7 @@ const useMainStore = defineStore({
     //存放选中消息状态
     checkedmessage: [],
     showCheckedflag: false,
+    chatObj:groupChat
   }),
   actions: {
     clickEmoji(text: string) {

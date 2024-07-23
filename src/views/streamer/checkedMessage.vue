@@ -146,7 +146,6 @@ const sendQuestChecked=()=>{
     return changeFiles(formLabelAlign.name,formLabelAlign.carnum,fileList.value)
   }
 }
-
 </script>
 <style lang="scss">
 @import "@/styles/variables.scss";
