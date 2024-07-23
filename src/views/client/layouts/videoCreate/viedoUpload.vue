@@ -210,7 +210,6 @@ const uploadFlagMethods = (name: any, md5: any, files: any) => {
   // 完成 合并
   mergerFiles(name, md5)
     .then(async (data: any) => {
-      console.log(data, "99999");
       if (data.code === 20000) {
         ElMessage.success("文件上传成功");
         loading.value = false;
@@ -228,7 +227,8 @@ const uploadFlagMethods = (name: any, md5: any, files: any) => {
           location: "",
           desc: "",
           makeUrl: "",
-          listBlob:listBlob
+          listBlob:listBlob,
+          dynamicTags:[]
         };
         hasUploadedarr.value.push(obj);
       } else {

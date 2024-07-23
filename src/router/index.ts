@@ -96,7 +96,7 @@ const router = createRouter({
           //开播前预览
           path: "/preview",
           component: () =>
-            import("@/views/streamer/components/broadcast/preview/preview.vue"),
+            import("@/views/streamer/checkedMessage.vue"),
           meta: {
             title: `${projectName}`,
             requiresAuth: false,

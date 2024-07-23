@@ -43,24 +43,33 @@
       <el-form-item label="转载地址" prop="makeUrl" v-if="ruleForm.location=='转载'">
         <el-input v-model="ruleForm.makeUrl" />
       </el-form-item>
+      <el-form-item label="视频类型" prop="desc">
+        <el-tag
+        v-for="tag in ruleForm.dynamicTags"
+        :key="tag"
+        class="mx-1"
+        closable
+        :disable-transitions="false"
+        @close="handleClose(tag)"
+      >
+        {{ tag }}
+      </el-tag>
+      <el-input
+        v-if="inputVisible"
+        ref="InputRef"
+        v-model="inputValue"
+        class="ml-1 w-20"
+        size="small"
+        @keyup.enter="handleInputConfirm"
+        @blur="handleInputConfirm"
+      />
+      <el-button v-else class="button-new-tag ml-1" size="small" @click="showInput">
+        +视频标签
+      </el-button>
+      </el-form-item>
       <el-form-item label="视频介绍" prop="desc">
         <el-input v-model="ruleForm.desc" type="textarea" />
       </el-form-item>
-      <!-- <el-form-item label="是否定时" prop="delivery">
-        <el-switch v-model="ruleForm.delivery" />
-      </el-form-item>
-      <el-form-item label="选择日期(15天内)" v-show="ruleForm.delivery">
-        <el-form-item prop="date1">
-          <el-date-picker
-            v-model="ruleForm.date1"
-            type="datetime"
-            placeholder="请选择日期"
-            format="YYYY/MM/DD hh:mm:ss"
-            value-format="x"
-          />
-        </el-form-item>
-      </el-form-item> -->
-
       <el-form-item>
         <el-button type="primary" @click="submitForm()">
           上传
@@ -72,14 +81,15 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, defineProps, watch, onMounted,onBeforeUnmount } from "vue";
+import { reactive, ref, defineProps, watch, onMounted,onBeforeUnmount, nextTick } from "vue";
 import ffmpegVue from "./ffmpegVue.vue";
 import {
   getOneSort,
   getTwoType,
-  uploadVideo
+  uploadVideo,
+  addnewtype
 } from "@/views/client/api/uploadFile/uploadFile";
-import { ElMessage, type ComponentSize, type FormInstance, type FormRules } from "element-plus";
+import { ElMessage, type ComponentSize, type FormInstance, type FormRules, ElInput } from "element-plus";
 //集中处理
 import { storeToRefs } from "pinia";
 import videouploadMainStore from '@/store/video/videoUpload.ts'
@@ -87,6 +97,32 @@ const mainvideoStore=videouploadMainStore()
 const {ruleForm,hasUploadedarr}=storeToRefs(mainvideoStore)
 const spliceImgList = ref();
 const changefaceImgshowphoto=ref()
+const inputValue = ref('')
+const inputVisible = ref(false)
+const InputRef = ref<InstanceType<typeof ElInput>>()
+  const showInput = () => {
+  inputVisible.value = true
+  nextTick(() => {
+    InputRef.value!.input!.focus()
+  })
+}
+
+const handleInputConfirm = async() => {
+  if (inputValue.value) {
+    const tipsdata=await addnewtype(inputValue.value)
+    if(tipsdata.code==20000){
+      ElMessage.success("添加标签成功");
+      ruleForm.value.dynamicTags.push(inputValue.value)
+    }
+    //添加标签
+
+  }
+  inputVisible.value = false
+  inputValue.value = ''
+}
+const handleClose = (tag: string) => {
+  ruleForm.value.dynamicTags.splice(ruleForm.value.dynamicTags.indexOf(tag), 1)
+}
 const props = defineProps({
   hasFilesUploaded: {
     type: Array as () => any[],
@@ -96,6 +132,7 @@ const props = defineProps({
     type: Number,
   },
 });
+
 //监听
 watch(
   () => props.hasFilesUploaded,
@@ -150,16 +187,41 @@ const submitForm = async () => {
     ElMessage.error("请您上传完整信息");
     return
   }
-  const {title,coverUrl,region,count,count2,location,desc,makeUrl,md5,duration,url}=ruleForm.value
+  const {title,coverUrl,region,count,count2,location,desc,makeUrl,md5,duration,url,dynamicTags}=ruleForm.value
+  console.log(dynamicTags);
+  
   if(md5==''){
     ElMessage.error("请您上传完整视频");
   }else if(!title || !count2 ||!count || !location || !desc ){
     ElMessage.error("请您上传完整视频信息");
   }else if(location=='转载' && makeUrl==''){
     ElMessage.error("请您填写视频转载地址");
-  }else{
-   const senddata=uploadVideo(count2[0],coverUrl,desc,makeUrl,duration,title,location,url)
-   console.log(senddata,'1111');
+  }else if(dynamicTags.length==0){
+    ElMessage.error("请你输入标签类型");
+  }
+  else{
+   const senddata=await uploadVideo(count2[0],coverUrl,desc,makeUrl,duration,title,location,url,dynamicTags)
+   if(senddata.code==20000){
+    ElMessage.success("上传成功");
+    hasUploadedarr.value=[]
+    ruleForm.value={
+      title: "",
+            coverUrl:'',
+            region: "",
+            count:'',
+            count2: "",
+            location: "",
+            desc: "",
+            makeUrl:'',
+            listBlob:[],
+            md5:'',
+            name:"",
+            duration:"",
+            list:[],
+            url:"",
+            dynamicTags:[]
+    }
+   }
    
   }
 

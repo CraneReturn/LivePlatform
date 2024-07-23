@@ -20,8 +20,8 @@ const videouploadMainStore = defineStore({
             name:"",
             duration:"",
             list:[],
-            url:""
-  
+            url:"",
+            dynamicTags:[]
           }),
           nowindex:0,
         //储存已经上传的
@@ -31,47 +31,6 @@ const videouploadMainStore = defineStore({
 
     },
 });
-const rules = reactive<FormRules<RuleForm>>({
-    title: [
-      { required: true, message: "请提供视频标题", trigger: "blur" },
-      { min: 0, max: 30, message: "长度需要小于30并且大于0", trigger: "blur" },
-    ],
-    count: [
-      {
-        required: true,
-        message: "请选择分类",
-        trigger: "change",
-      },
-    ],
-    location: [
-      {
-        required: true,
-        message: "请选择视频来源",
-        trigger: "change",
-      },
-    ],
-    type: [
-      {
-        type: "array",
-        required: true,
-        message: "Please select at least one activity type",
-        trigger: "change",
-      },
-    ],
-    resource: [
-      {
-        required: true,
-        message: "Please select activity resource",
-        trigger: "change",
-      },
-    ],
-    desc: [
-      { required: true, message: "请提供视频介绍详细信息", trigger: "blur" },
-    ],
-    makeUrl: [
-      { },
-    ],
-  });
   interface RuleForm {
     title: string;
     region: string;

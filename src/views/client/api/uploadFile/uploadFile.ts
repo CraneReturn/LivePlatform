@@ -83,8 +83,16 @@ export function sendCoverimgframe(formdata: any) {
 //上传视频
 export function uploadVideo(sortId: any, videoCoverUrl: any,
    videoDesc: any, videoSource: any,
-  videoTime: any, videoTitle: any, videoType: any, videoUrl: any) {
-    console.log(sortId,videoCoverUrl,videoDesc,videoSource,videoTime,videoTitle,videoType,videoUrl);
+  videoTime: any, videoTitle: any, videoType: any, videoUrl: any,dynamicTags:[]) {
+    console.log( sortId,
+      videoCoverUrl,
+      videoDesc,
+      videoSource,
+      videoTime,
+      videoTitle,
+      videoType,
+      videoUrl,
+   dynamicTags);
     
   if (videoType == '自制') {
     videoType = 0
@@ -104,8 +112,19 @@ export function uploadVideo(sortId: any, videoCoverUrl: any,
       videoTime,
       videoTitle,
       videoType,
-      videoUrl
+      videoUrl,
+      tipIds:dynamicTags
     },
     method: 'post',
   })
+}
+//添加标签
+export function addnewtype(tips:string) {
+  return service({
+    url: `/tip/addTip?tipName=${tips}`,
+    headers: {
+      isToken: true,
+    },
+    method: 'post',
+  });
 }

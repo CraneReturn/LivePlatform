@@ -9,6 +9,7 @@ type user = {
   userType: string;
   userName: string;
   avatar: string;
+  introduction:string
 };
 
 export const userStore = defineStore("user", {
@@ -19,6 +20,7 @@ export const userStore = defineStore("user", {
       userType: "",
       userName: "",
       avatar: "",
+      introduction:''
     };
   },
   actions: {
@@ -58,6 +60,9 @@ export const userStore = defineStore("user", {
         getuserInfo()
           .then((response) => {
             this.userId = response.data.userId;
+            this.userName=response.data.nickname;
+            this.userType=response.data.sex
+            this.introduction=response.data.intr
             if (response.data.avatar) this.avatar = response.data.avatar;
             else this.avatar = defultHead;
             if (response.data.userName) this.userName = response.data.userName;
