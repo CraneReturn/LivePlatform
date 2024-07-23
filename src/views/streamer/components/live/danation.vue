@@ -17,7 +17,7 @@
         <p>贡献值</p>
         <p>更多</p>
       </div>
-      <userindex v-for="index in 5" />
+      <userindex v-for="index in 7" />
     </div>
   </div>
 </template>
@@ -30,6 +30,8 @@ const input2 = ref("");
 <style lang="scss" scoped>
 .danation {
   padding: 10px;
+  padding-top: 0;
+  height: 100%;
   background-color: #f0f9eb;
   .title {
     padding: 5px 10px;

@@ -32,7 +32,7 @@ import barrageText from "./barrage/barrageText.vue";
 import userIndex from "./userIndex.vue";
 import preview from './broadcast/preview/preview.vue'
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import "http://at.alicdn.com/t/c/font_4515498_x1t0sazzfdj.css";
 .icon-xitong_zaixianyonghu {
   color: var(--el-color-success-light-3);

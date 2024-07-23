@@ -1,7 +1,6 @@
 import "@/styles/main.css";
 import "animate.css";
 import "@/styles/variables.scss";
-import { createPinia } from "pinia";
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
@@ -11,9 +10,10 @@ import "dayjs/locale/zh-cn";
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router/index";
+// 导入 pinia
+import pinia from "./store/index";
+// 持久化存储
 const app = createApp(App);
-// 创建你的 pinia 实例
-const pinia = createPinia();
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }

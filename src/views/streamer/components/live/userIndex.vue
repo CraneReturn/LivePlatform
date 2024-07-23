@@ -63,12 +63,18 @@
     }
   }
   .number {
-    font-size: 13px;
+    font-size: 12px;
   }
   .moreOprate {
     button {
       border: none;
       background-color: transparent;
+      cursor: pointer;
+      transition-duration: 0.25s;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: var(--jjext-color-layer-4-plugin);
     }
   }
 }

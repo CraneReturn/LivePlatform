@@ -3,9 +3,7 @@ import { tansParams } from "./comment";
 import { ElMessageBox, ElMessage, ElNotification } from "element-plus";
 import cache from "./cache";
 import { getToken } from "./auth";
-import { userStore } from "@/store/user";
-const store = userStore();
-const baseApiUrl = import.meta.env.VITE_APP_CONTEXT_PATH;
+import { userStore } from "@/store/index";
 const errorCode: { [key: string]: string } = {
   "401": "认证失败，无法访问系统资源",
   "403": "当前操作没有权限",
@@ -89,7 +87,7 @@ service.interceptors.response.use(
     ) {
       return res.data;
     }
-    if (code === 401) {
+    if (code === 4100) {
       if (!isRelogin.show) {
         isRelogin.show = true;
         ElMessageBox.confirm(
@@ -102,6 +100,7 @@ service.interceptors.response.use(
           }
         )
           .then(() => {
+            const store = userStore();
             isRelogin.show = false;
             return store.Logout();
           })

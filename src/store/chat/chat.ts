@@ -28,4 +28,4 @@ const useMainStore = defineStore({
     },
   },
 });
-export { useMainStore };
+export default useMainStore;

@@ -76,4 +76,5 @@ export const userStore = defineStore("user", {
       });
     },
   },
+  persist: true,
 });

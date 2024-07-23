@@ -1,14 +1,13 @@
 // store.ts
 import { createPinia } from "pinia";
-import {userStore}  from "./user/index";
-import { useMainStore } from "./chat/chat";
-import getters  from "./getter";
+import persist from "pinia-plugin-persistedstate";
 
 const pinia = createPinia();
+pinia.use(persist);
 
-// 使用 pinia.use 方法注册模块和 getters
-// pinia.use(userStore);
-// pinia.use(useMainStore);
-pinia.use(getters);
+export * from "./chat/chat";
+export * from "./user";
+export * from "./video/videoUpload";
+export * from "./getter";
 
 export default pinia;
