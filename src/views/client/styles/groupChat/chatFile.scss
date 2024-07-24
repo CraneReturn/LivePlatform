@@ -173,3 +173,44 @@
 .chatmain{
     width: 100%;
 }
+.lookMyFans{
+    position: absolute;
+    bottom: 20px;
+    right:10px;
+}
+.lookMyFansBtn:hover{
+    background-color: var(--el-color-primary)!important;
+}
+.userInfo{
+    position: relative;
+}
+.groupCreateList{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-bottom: 1px dashed var(--el-color-primary);
+    .groupcreateListImg{
+        width: 200px;
+        img{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+    }
+    .groupcreateListName{
+        width: 70%;
+        align-items:center;
+        position: relative;
+        top: 6px;
+    }
+    .groupcreateListbtn{
+        width: 20%;
+        position: relative;
+        top: 6px;
+    }
+}
+.createnewfans:hover{
+    color: var(--el-color-primary);
+    cursor: pointer;
+}

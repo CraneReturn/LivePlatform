@@ -83,7 +83,11 @@
 import { storeToRefs } from "pinia";
 import useMainStore from "@/store/chat/chat.ts";
 import { ElMessage, ElMessageBox } from "element-plus";
+import { onMounted, ref } from "vue";
 const mainStore = useMainStore();
+import { getToken } from "@/utils/auth";
+//弹幕------
+const token=getToken()
 const { showCheckedflag } = storeToRefs(mainStore);
 const changeMessageReturn=()=>{
     ElMessageBox.confirm(
@@ -98,6 +102,20 @@ const changeMessageReturn=()=>{
     showCheckedflag.value=!showCheckedflag.value
   })
 }
+let chatWebSocket=ref<WebSocket>()
+onMounted(()=>{
+  console.log(token);
+  
+  chatWebSocket.value=new WebSocket(`ws://47.109.85.211:9999/chat`,token)
+  chatWebSocket.value.onopen=()=>{
+    console.log('连接上了');
+    
+  }
+  chatWebSocket.value.onmessage=()=>{
+    console.log('连接上了');
+    
+  }
+})
 </script>
   
   <style lang="scss" scoped>
