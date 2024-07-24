@@ -1,0 +1,104 @@
+.live-list {
+  padding-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 23%);
+  grid-template-rows: 200px;
+  grid-row-gap: 10px;
+  grid-column-gap: 28px;
+  .live-item {
+    list-style: none;
+    .live-detail {
+      width: 100%;
+      height: 150px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      border-radius: 4px;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+        object-fit: cover;
+        transition: transform 0.25s ease-in-out;
+      }
+      .live-cover {
+        width: 110px;
+        height: 11px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -25px;
+        margin-left: -25px;
+        img {
+          width: 50px;
+          height: 50px;
+          opacity: 0;
+          transform: scale(2);
+          transition: all 0.25s ease-in-out;
+        }
+      }
+    }
+    .live-detail:hover img {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .live-title {
+      width: 100%;
+      overflow: hidden;
+      cursor: pointer;
+      white-space: nowrap;
+      padding: 0 5px;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+    .live-title:hover {
+      color: rgb(70, 206, 145);
+    }
+    .live-bottom {
+        display: flex;
+        justify-content: space-between;
+      .live-author , .live-hot {
+        font-size: 12px;
+        display: flex;
+        cursor: pointer;
+        align-items: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding: 2px 5px;
+        color: #999;
+        svg {
+          height: 15px;
+          width: 15px;
+          path {
+            fill: #999;
+          }
+        }
+      }
+    }
+    .live-author{
+        max-width: 70%;    
+    }
+    .live-hot{
+        max-width: 30%;    
+    }
+    .live-author:hover,.live-hot:hover {
+      color: rgb(70, 206, 145);
+      svg path {
+        fill: rgb(70, 206, 145);
+      }
+    }
+  }
+  .live-item:hover {
+    border-radius: 4px;
+    box-shadow: 0 3px 21px 0 #ccc;
+    .live-detail {
+      .live-img {
+        transform: scale(1.2);
+      }
+      .live-infor {
+        opacity: 0;
+      }
+    }
+  }
+}

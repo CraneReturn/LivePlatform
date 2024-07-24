@@ -1,0 +1,37 @@
+.search-max {
+  background-color: #f6f6f6;
+  min-height: 85vh;
+  padding-top: 16px;
+}
+.search {
+  width: 1080px;
+  margin: 0 auto;
+  .search-nav {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+    cursor: pointer;
+    a {
+      background-color: #f6f6f6;
+    }
+    li {
+      padding: 8px 15px;
+      border-bottom: 1px #ccc solid;
+    }
+    a:hover {
+      background-color: #f6f6f6!important;
+      color: #46ce91;
+    }
+    .iselect {
+      border-bottom: 1px #46ce91 solid;
+      color: #46ce91;
+    }
+  }
+  .result-num {
+    padding: 16px 0;
+    cursor: default;
+    span {
+      color: #46ce91;
+    }
+  }
+}

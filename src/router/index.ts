@@ -57,6 +57,41 @@ const router = createRouter({
           path: "/video",
           component: () => import("@/views/client/video.vue"),
         },
+        {
+          path: "/search",
+          component: () => import("@/views/client/search.vue"),
+          redirect: "/search/integrated",
+          children: [
+            {
+              path: "integrated",
+              component: () =>
+                import(
+                  "@/views/client/layouts/search/search-integrated.vue"
+                ),
+            },
+            {
+              path: "user",
+              component: () =>
+                import(
+                  "@/views/client/layouts/search/search-user.vue"
+                ),
+            },
+            {
+              path: "live",
+              component: () =>
+                import(
+                  "@/views/client/layouts/search/search-live.vue"
+                ),
+            },
+            {
+              path: "video",
+              component: () =>
+                import(
+                  "@/views/client/layouts/search/search-video.vue"
+                ),
+            },
+          ],
+        },
       ],
     },
     {

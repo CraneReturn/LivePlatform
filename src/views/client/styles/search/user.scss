@@ -1,0 +1,32 @@
+.up-list {
+  display: grid;
+  padding-bottom: 20px;
+  grid-template-columns: repeat(5, 18%);
+  grid-column-gap: 2.5%;
+  grid-row-gap: 10px;
+  .up-item {
+    background-color: #fff;
+    height: 200px;
+    border-radius: 5px;
+    padding: 30px 10px 0;
+    text-align: center;
+    cursor: pointer;
+    .up-avatar {
+      width: 80px;
+      height: 80px;
+      display: inline-block;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+    }
+    .up-name {
+      color: #000;
+      font-size: 16px;
+    }
+    .up-fans {
+      font-size: 12px;
+    }
+  }
+}
