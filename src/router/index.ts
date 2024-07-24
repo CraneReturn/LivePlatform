@@ -95,8 +95,7 @@ const router = createRouter({
         {
           //开播前预览
           path: "/preview",
-          component: () =>
-            import("@/views/streamer/checkedMessage.vue"),
+          component: () => import("@/views/streamer/checkedMessage.vue"),
           meta: {
             title: `${projectName}`,
             requiresAuth: false,
@@ -126,6 +125,51 @@ const router = createRouter({
           path: "userManage",
           component: () => import("@/views/admin/layouts/userManage/index.vue"),
         },
+        {
+          path: "/publish-setting",
+          component: () =>
+            import("@/views/streamer/components/broadcast/index.vue"),
+          meta: {
+            title: `${projectName}`,
+            requiresAuth: false,
+          },
+        },
+        {
+          path: "/kefu",
+          component: () =>
+            import("@/views/client/layouts/customeService/index.vue"),
+          meta: {
+            title: `${projectName}`,
+            requiresAuth: false,
+          },
+        },
+        {
+          path: "/user",
+          component: () => import("@/views/client/person.vue"),
+          meta: {
+            title: `${projectName}`,
+            requiresAuth: false,
+          },
+          children: [
+            {
+              path: "concern",
+              component: () =>
+                import("@/views/client/layouts/person/concern.vue"),
+              meta: {
+                title: `${projectName}`,
+                requiresAuth: false,
+              },
+            },
+            {
+              path: "fan",
+              component: () => import("@/views/client/layouts/person/fan.vue"),
+              meta: {
+                title: `${projectName}`,
+                requiresAuth: false,
+              },
+            },
+          ],
+        },
       ],
     },
     {
@@ -135,6 +179,24 @@ const router = createRouter({
         title: `${projectName} - 主播`,
         requiresAuth: true,
       },
+      children: [
+        {
+          path: "/streamer",
+          component: () => import("@/views/streamer/player.vue"),
+          meta: {
+            title: `${projectName}`,
+            requiresAuth: false,
+          },
+        },
+        {
+          path: "/send",
+          component: () => import("@/views/streamer/send.vue"),
+          meta: {
+            title: `${projectName}`,
+            requiresAuth: false,
+          },
+        },
+      ],
     },
     {
       path: "/category",
@@ -145,60 +207,8 @@ const router = createRouter({
       },
     },
     {
-      path: "/publish-setting",
-      component: () =>
-        import("@/views/streamer/components/broadcast/index.vue"),
-      meta: {
-        title: `${projectName}`,
-        requiresAuth: false,
-      },
-    },
-    {
-      path: "/kefu",
-      component: () =>
-        import("@/views/client/layouts/customeService/index.vue"),
-      meta: {
-        title: `${projectName}`,
-        requiresAuth: false,
-      },
-    },
-    {
-      path: "/user",
-      component: () => import("@/views/client/person.vue"),
-      meta: {
-        title: `${projectName}`,
-        requiresAuth: false,
-      },
-      children: [
-        {
-          path: "concern",
-          component: () => import("@/views/client/layouts/person/concern.vue"),
-          meta: {
-            title: `${projectName}`,
-            requiresAuth: false,
-          },
-        },
-        {
-          path: "fan",
-          component: () => import("@/views/client/layouts/person/fan.vue"),
-          meta: {
-            title: `${projectName}`,
-            requiresAuth: false,
-          },
-        },
-      ],
-    },
-    {
       path: "/page",
       component: () => import("@/views/admin/layouts/giftManage/index.vue"),
-      meta: {
-        title: `${projectName}`,
-        requiresAuth: false,
-      },
-    },
-    {
-      path: "/send",
-      component: () => import("@/views/streamer/send.vue"),
       meta: {
         title: `${projectName}`,
         requiresAuth: false,

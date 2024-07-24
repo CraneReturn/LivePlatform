@@ -1,4 +1,7 @@
 <template>
+  <div class="background">
+    <img src="@/assets/images/background.jpeg" alt="" />
+  </div>
   <div class="userLive">
     <!-- 左边栏 -->
     <div class="left">
@@ -20,7 +23,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import videoPlayer from "./components/videoPlayer.vue";
+import videoPlayer from "./components/live/index.vue";
 import danation from "./components/live/danation.vue";
 import material from "./components/live/material.vue";
 import present from "./components/live/present.vue";
@@ -31,7 +34,8 @@ import barrageText from "./components/barrage/barrageText.vue";
 <style lang="scss" scoped>
 .userLive {
   display: flex;
-  max-height: 90vh;
+  height: 90vh;
+  gap: 5px;
 }
 .right {
   min-width: 300px;
@@ -45,5 +49,14 @@ import barrageText from "./components/barrage/barrageText.vue";
 }
 .videoPlayer {
   height: fit-content;
+}
+.background {
+  img {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    top: 0;
+  }
 }
 </style>

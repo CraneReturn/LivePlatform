@@ -32,7 +32,7 @@ const input2 = ref("");
   padding: 10px;
   padding-top: 0;
   height: 100%;
-  background-color: #f0f9eb;
+  background-color: rgba(#fff, 0.7);
   .title {
     padding: 5px 10px;
     font-size: 14px;

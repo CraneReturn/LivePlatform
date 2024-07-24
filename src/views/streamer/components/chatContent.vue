@@ -5,6 +5,8 @@
 <style lang="scss" scoped>
 .chatFrame {
   height: 100%;
-  background: #ccc;
+  background: rgba(#fff, 0.7);
+  border-radius: 5px;
+  margin-top: 5px;
 }
 </style>

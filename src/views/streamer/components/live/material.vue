@@ -39,6 +39,7 @@ const handleChange: UploadProps["onChange"] = (uploadFile, uploadFiles) => {
   border: 1px silver solid;
   margin: 10px;
   border-radius: 5px;
+  background-color: #fff;
 }
 .el-upload__tip {
   border-top: 1px solid var(--jjext-color-nav-title);
