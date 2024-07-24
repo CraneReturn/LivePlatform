@@ -220,21 +220,54 @@
             ></path>
           </svg>
         </div>
-        <input type="file" class="upload" title="" />
+        <input
+          type="file"
+          class="upload"
+          title=""
+          @change="upload($event)"
+          accept="image/png,image/gif,image/jpeg,image/jpg"
+        />
       </div>
       <div class="covers">
         <p class="title">合适的封面可以吸引更多用户</p>
 
         <div class="coverChosen">
-          <coverStyle v-for="index in 3" />
+          <coverStyle
+            @index="del(index)"
+            @changeIndex="change(index)"
+            v-for="(cover, index) in coverBlob"
+            key="index"
+            :id="index"
+            :cover="cover"
+          />
         </div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 import coverStyle from "./cover.vue";
+import { defineEmits } from "vue";
+//向外传递封面
+const emit = defineEmits(["cover"]);
+let coverBlob = reactive<Array<string>>([]);
+const upload = (event: any) => {
+  if (coverBlob.length >= 3) {
+    coverBlob.splice(0, 1);
+  }
+  const file = event.target.files[0];
+  let src = URL.createObjectURL(file);
+  console.log(src);
+  coverBlob.push(src);
+  emit("cover", src);
+};
+function del(index: number) {
+  coverBlob.splice(index, 1);
+}
+function change(index: number) {
+  emit("cover", coverBlob[index]);
+}
 </script>
 <style lang="scss" scoped>
 @import url("http://at.alicdn.com/t/c/font_4515498_kgflfyz9p7.css");
@@ -313,10 +346,11 @@ import coverStyle from "./cover.vue";
     .coverChosen {
       padding: 10px;
       display: flex;
+      gap: 5px;
       max-width: 600px;
       overflow: hidden;
       overflow-x: auto;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
     }
     .coverChosen::-webkit-scrollbar {

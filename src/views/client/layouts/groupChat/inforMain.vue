@@ -36,13 +36,13 @@
         <div class="inforList">
           <chatMessageList />
         </div>
-        <div class="inforSend" v-show="showCheckedflag">
+        <div class="inforSend" v-show="!showCheckedflag">
         
           <input placeholder="发送消息" v-model="nowText" />
           <button class="inforMainSend">发送</button>
           <chatFileVue />
         </div>
-        <div class="inforSend" v-show="!showCheckedflag">
+        <div class="inforSend" v-show="showCheckedflag">
           <messageShareVue/>
         </div>
       </div>

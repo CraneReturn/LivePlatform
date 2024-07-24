@@ -3,34 +3,47 @@
   top: 0px;
   left: 0px;
   width: 100%;
-  z-index: 6;
+  z-index: 100;
   background-color: white;
   border-bottom: 1px solid var(--el-color-primary);
 }
+
 .nailTop .nailTopCenter {
   display: flex;
-  justify-content: space-around;
-  width: 80%;
+  justify-content: space-between;
+  max-width: 80%;
+  height: 100%;
   margin: 0px auto;
 }
+
 .nailTop .nailTopCenter .leftNailTopBtn {
   width: 50%;
-  margin-top: 30px;
+  display: flex;
+  height: 100%;
+  align-items: center;
 }
+
 .nailTop .nailTopCenter .leftNailTopBtn ul li {
   float: left;
   margin-left: 25px;
   transition: 0.5s;
-  font-size: 19px;
+  font-size: 16px;
 }
+
 .nailTop .nailTopCenter .leftNailTopBtn ul li:hover {
   color: var(--el-color-primary);
   cursor: pointer;
 }
+
 .nailTop .nailTopCenter .userNail {
-  width: 30%;
-  margin-top: 25px;
+  width: 35%;
+  height: 100%;
   display: flex;
+}
+
+.nailTop .nailTopCenter .userNail .Usermessage ul {
+  display: flex;
+  gap: 20px;
 }
 
 .searchContain {
@@ -42,16 +55,14 @@
 }
 
 .searchNailInput {
-  margin-top: -30px;
-  margin-left: 10px;
   float: left;
 }
 
 .searchContainer {
   width: 200px;
-  height: 100px;
   position: relative;
 }
+
 .searchContainer .searchradius {
   position: absolute;
   margin: auto;
@@ -60,45 +71,49 @@
   bottom: 0;
   left: 0;
   transform: scale(0.8);
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background: var(--el-color-primary);
   border-radius: 50%;
   transition: all 1s;
   z-index: 4;
   box-shadow: 0 0 25px 0 rgba(74, 73, 73, 0.1);
 }
+
 .searchContainer .searchradius:hover {
   cursor: pointer;
 }
+
 .searchContainer .searchradius::before {
   content: "";
   position: absolute;
-  margin: auto;
-  top: 22px;
+  top: 26px;
   right: 0;
   bottom: 0;
-  left: 22px;
-  width: 12px;
+  left: 25px;
+  width: 7px;
   height: 2px;
   background: white;
   transform: rotate(45deg);
   transition: all 0.5s;
 }
+
 .searchContainer .searchradius::after {
   content: "";
   position: absolute;
   margin: auto;
-  top: -5px;
+  top: 50%;
   right: 0;
   bottom: 0;
-  left: -5px;
-  width: 25px;
-  height: 25px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   border: 2px solid white;
   transition: all 0.5s;
 }
+
 .searchContainer input {
   position: absolute;
   margin: auto;
@@ -123,24 +138,30 @@
   font-weight: bolder;
   letter-spacing: 0.1em;
 }
+
 .searchContainer input:hover {
   cursor: pointer;
 }
+
 .searchContainer input:focus {
   width: 300px;
   opacity: 1;
   cursor: text;
 }
+
 .searchContainer input:focus ~ .searchradius {
   right: -320px;
   background: #7ca86d;
   z-index: 6;
 }
+
 .searchContainer input:focus ~ .searchradius::before {
   top: 0;
-  left: 0;
+  left: 7px;
   width: 25px;
+  margin: auto 0;
 }
+
 .searchContainer input:focus ~ .searchradius::after {
   top: 0;
   left: 0;
@@ -151,11 +172,7 @@
   border-radius: 0%;
   transform: rotate(-45deg);
 }
-.searchContainer input::-moz-placeholder {
-  color: white;
-  opacity: 0.5;
-  font-weight: bolder;
-}
+
 .searchContainer input::placeholder {
   color: white;
   opacity: 0.5;
@@ -165,14 +182,24 @@
 .Usermessage .nailMessage:hover {
   cursor: pointer;
 }
+
 .Usermessage ul li {
-  float: left;
-  margin-left: 20px;
+  padding-top: 5px;
+  text-align: center;
+  line-height: 18px;
+  width: 30px;
 }
+
+.Usermessage ul li svg {
+  width: 20px;
+  line-height: 20px;
+}
+
 .Usermessage ul li p {
   text-align: center;
-  font-size: 15px;
+  font-size: 13px;
 }
+
 .Usermessage ul li:hover {
   cursor: pointer;
 }
@@ -187,13 +214,14 @@ iconNail {
 }
 
 .userPhoto {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   overflow: hidden;
   position: relative;
   top: -2px;
   transition: 0.5s;
 }
+
 .userPhoto img {
   width: 100%;
   height: 100%;
@@ -203,4 +231,4 @@ iconNail {
 .userPhoto:hover {
   transform: scale(1.4);
   top: 0px;
-}/*# sourceMappingURL=homePageTop.css.map */
+}

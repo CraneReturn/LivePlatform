@@ -2,6 +2,7 @@
   width: 50%;
   margin: 0 auto;
 }
+
 .viedouploadMain .viedoUploadMaincenter {
   width: 100%;
   height: 300px;
@@ -22,6 +23,7 @@
   text-align: center;
   transform: translate(-50%, -50%);
 }
+
 .viedoUploadIcon button {
   border: none;
   padding: 9px 12px;
@@ -43,6 +45,7 @@
 .uploadViedoList {
   width: 100%;
 }
+
 .uploadViedoList .topListViedoShowCenter {
   width: 90%;
   margin: 10px auto;
@@ -51,6 +54,7 @@
   overflow: hidden;
   background-color: #eeeeef;
 }
+
 .uploadViedoList .topListViedoShowCenter .onceUploadFiles {
   float: left;
   background-color: white;
@@ -58,6 +62,7 @@
   border-radius: 6px;
   margin-left: 15px;
 }
+
 .uploadViedoList .topListViedoShowCenter .onceUploadFiles .onceUploadFileCenter {
   width: 90%;
   margin: 0 auto;
@@ -65,15 +70,18 @@
   height: 50px;
   position: relative;
 }
+
 .uploadViedoList .topListViedoShowCenter .onceUploadFiles .onceUploadFileCenter p {
-  color: rgb(121, 120, 120);
+  color: #797878;
 }
+
 .uploadViedoList .topListViedoShowCenter .onceUploadFiles .onceUploadFileCenter .uploadwordsFiles {
   position: absolute;
   bottom: 0px;
 }
+
 .uploadViedoList .topListViedoShowCenter .onceUploadFiles .onceUploadFileCenter .uploadwordsFiles span {
-  color: rgb(121, 120, 120);
+  color: #797878;
   font-size: 12px;
   position: relative;
   top: -3px;
@@ -98,6 +106,7 @@
   height: 50px;
   position: relative;
 }
+
 .uploadFilesListBtnCenter .uploadFilesListBtnMain {
   height: 40px;
   position: absolute;
@@ -107,12 +116,14 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .uploadFilesListBtnCenter .uploadFilesListBtnMain input {
   opacity: 0;
   top: 0px;
   left: 0px;
   position: absolute;
 }
+
 .uploadFilesListBtnCenter .uploadFilesListBtnMain p {
   color: #949495;
   font-size: 13px;
@@ -156,6 +167,7 @@
   background-color: var(--el-color-opcatiy);
   text-align: center;
 }
+
 .changeViedoprogressBorder .icon {
   position: relative;
   top: 4px;
@@ -166,6 +178,7 @@
   position: absolute;
   top: -26px;
 }
+
 .changeViedoprogressposition span {
   font-size: 12px;
   color: #949495;
@@ -193,18 +206,24 @@
   border-radius: 6px;
   overflow: hidden;
 }
+
 .fillInPhotoShow img {
   width: 100%;
 }
+
 .fillInPhotoShow .changePhoto {
   position: absolute;
   width: 100%;
-  text-align: center;
   bottom: 0px;
   background-color: rgba(148, 148, 148, 0.5);
 }
+
 .fillInPhotoShow .changePhoto p {
   color: white;
+}
+
+.changePhotospan {
+  text-align: center;
 }
 
 .changecoverMain {
@@ -215,6 +234,7 @@
   width: 95%;
   margin: 0 auto;
 }
+
 .photoCoverSelect .photoCoverSelected {
   width: 90%;
   border-radius: 6px;
@@ -222,6 +242,7 @@
   margin-top: 10px;
   overflow: hidden;
 }
+
 .photoCoverSelect .photoCoverSelected img {
   width: 100%;
   height: auto;
@@ -232,11 +253,13 @@
   overflow: hidden;
   margin-top: 12px;
 }
+
 .userPhotoListSelect .photoList {
   width: 20%;
   text-align: center;
   float: left;
 }
+
 .userPhotoListSelect .photoList img {
   width: 100%;
   height: 80px;
@@ -245,6 +268,7 @@
 .photoList:hover {
   cursor: pointer;
 }
+
 .photoList:hover img {
   transform: scale(1.2);
 }
@@ -258,6 +282,7 @@
   border-radius: 6px;
   border: 1px dashed var(--el-color-primary);
 }
+
 .customChangPhotocenter .customChangPhotocentericon {
   width: 100%;
   height: 100%;
@@ -275,4 +300,4 @@
   left: 0px;
   z-index: 6;
   opacity: 0;
-}/*# sourceMappingURL=viedoUpload.css.map */
+}

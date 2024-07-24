@@ -42,10 +42,7 @@ import { defineEmits, ref } from "vue";
 import { ElMessage } from "element-plus";
 import { getCode } from "@/views/client/api/login/login";
 import { userStore } from "@/store/user";
-import { storeToRefs } from "pinia";
 const store = userStore();
-console.log(store,'1111');
-
 const emit = defineEmits(["password"]);
 function passwordLogin() {
   emit("password", false);
@@ -94,7 +91,7 @@ const registerIt = function () {
       code: code.value,
     };
     store.Register(obj).then((response) => {
-      console.log(response);
+      store.userInfo().catch(Error);
     });
   }
 };

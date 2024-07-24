@@ -10,22 +10,30 @@
       :size="formSize"
       status-icon
     >
-      <el-form-item label="封面" prop="name">
-        <div class="fillInPhotoShow">
-          <img :src="spliceImgList[0].img" alt="" v-if="spliceImgList" ref="changefaceImgshowphoto"/>
-          <div class="changePhoto" @click="dialogVisible = true">
-            <p>更改封面</p>
+      <el-form-item label="封面" prop="coverUrl">
+        
+        <div class="fillInPhotoShow" v-if="ruleForm.list.length!=0">
+          <img :src="ruleForm.coverUrl" alt="" ref="changefaceImgshowphoto"/>
+          <div class="changePhoto">
+            <ffmpegVue 
+            :spliceImgList="spliceImgList"
+            @update:sureChangeFaceImg="changeFaceImgshowupdate" />
           </div>
         </div>
       </el-form-item>
-      <el-form-item label="标题" prop="name">
-        <el-input v-model="ruleForm.name" />
+      <el-form-item label="标题" prop="title">
+        <el-input v-model="ruleForm.title" />
       </el-form-item>
     <el-form-item label="分类" prop="count">
         <div class="block">
           <el-cascader
             v-model="ruleForm.count"
-            :options="optionstype"
+            :options="optionstype" @change="getDetailMore(ruleForm.count)"
+            ></el-cascader>
+            <el-cascader
+            v-model="ruleForm.count2"
+            :options="optionTypetype"
+            v-show="ruleForm.count==''"
             ></el-cascader>
         </div>
       </el-form-item> 
@@ -35,50 +43,86 @@
       <el-form-item label="转载地址" prop="makeUrl" v-if="ruleForm.location=='转载'">
         <el-input v-model="ruleForm.makeUrl" />
       </el-form-item>
+      <el-form-item label="视频类型" prop="desc">
+        <el-tag
+        v-for="tag in ruleForm.dynamicTags"
+        :key="tag"
+        class="mx-1"
+        closable
+        :disable-transitions="false"
+        @close="handleClose(tag)"
+      >
+        {{ tag }}
+      </el-tag>
+      <el-input
+        v-if="inputVisible"
+        ref="InputRef"
+        v-model="inputValue"
+        class="ml-1 w-20"
+        size="small"
+        @keyup.enter="handleInputConfirm"
+        @blur="handleInputConfirm"
+      />
+      <el-button v-else class="button-new-tag ml-1" size="small" @click="showInput">
+        +视频标签
+      </el-button>
+      </el-form-item>
       <el-form-item label="视频介绍" prop="desc">
         <el-input v-model="ruleForm.desc" type="textarea" />
       </el-form-item>
-      <el-form-item label="是否定时" prop="delivery">
-        <el-switch v-model="ruleForm.delivery" />
-      </el-form-item>
-      <el-form-item label="选择日期(15天内)" v-show="ruleForm.delivery">
-        <el-form-item prop="date1">
-          <el-date-picker
-            v-model="ruleForm.date1"
-            type="datetime"
-            placeholder="请选择日期"
-            format="YYYY/MM/DD hh:mm:ss"
-            value-format="x"
-          />
-        </el-form-item>
-      </el-form-item>
-
       <el-form-item>
-        <el-button type="primary" @click="submitForm(ruleFormRef)">
+        <el-button type="primary" @click="submitForm()">
           上传
         </el-button>
         <el-button @click="resetForm(ruleFormRef)">重置</el-button>
       </el-form-item>
     </el-form>
-    <ffmpegVue
-      :dialogVisible="dialogVisible"
-      @update:dialogVisible="handleDialogVisibleUpdate"
-      :spliceImgList="spliceImgList"
-      @update:changeFaceImgshow="changeFaceImgshowupdate"
-    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, defineProps, watch, onMounted,onBeforeUnmount } from "vue";
+import { reactive, ref, defineProps, watch, onMounted,onBeforeUnmount, nextTick } from "vue";
 import ffmpegVue from "./ffmpegVue.vue";
 import {
   getOneSort,
-  getTwoType
+  getTwoType,
+  uploadVideo,
+  addnewtype
 } from "@/views/client/api/uploadFile/uploadFile";
-import type { ComponentSize, FormInstance, FormRules } from "element-plus";
+import { ElMessage, type ComponentSize, type FormInstance, type FormRules, ElInput } from "element-plus";
+//集中处理
+import { storeToRefs } from "pinia";
+import videouploadMainStore from '@/store/video/videoUpload.ts'
+const mainvideoStore=videouploadMainStore()
+const {ruleForm,hasUploadedarr}=storeToRefs(mainvideoStore)
 const spliceImgList = ref();
 const changefaceImgshowphoto=ref()
+const inputValue = ref('')
+const inputVisible = ref(false)
+const InputRef = ref<InstanceType<typeof ElInput>>()
+  const showInput = () => {
+  inputVisible.value = true
+  nextTick(() => {
+    InputRef.value!.input!.focus()
+  })
+}
+
+const handleInputConfirm = async() => {
+  if (inputValue.value) {
+    const tipsdata=await addnewtype(inputValue.value)
+    if(tipsdata.code==20000){
+      ElMessage.success("添加标签成功");
+      ruleForm.value.dynamicTags.push(inputValue.value)
+    }
+    //添加标签
+
+  }
+  inputVisible.value = false
+  inputValue.value = ''
+}
+const handleClose = (tag: string) => {
+  ruleForm.value.dynamicTags.splice(ruleForm.value.dynamicTags.indexOf(tag), 1)
+}
 const props = defineProps({
   hasFilesUploaded: {
     type: Array as () => any[],
@@ -88,6 +132,7 @@ const props = defineProps({
     type: Number,
   },
 });
+
 //监听
 watch(
   () => props.hasFilesUploaded,
@@ -101,131 +146,96 @@ watch(
     deep: true,
   }
 );
-interface RuleForm {
-  name: string;
-  region: string;
-  count: string;
-  date1: string;
-  date2: string;
-  delivery: boolean;
-  location: string;
-  type: string[];
-  resource: string;
-  desc: string;
-  makeUrl:string
-}
-const dialogVisible = ref<boolean>(false);
+
+// const dialogVisible = ref<boolean>(false);
 const formSize = ref<ComponentSize>("default");
 const ruleFormRef = ref<FormInstance>();
-const ruleForm = reactive<RuleForm>({
-  name: "Hello",
-  region: "",
-  count: "",
-  date1: "",
-  date2: "",
-  delivery: false,
-  location: "",
-  type: [],
-  resource: "",
-  desc: "",
-  makeUrl:''
-});
-let optionstype=reactive([])
+//存储所有数据
+const sendRuleForm=reactive([
+])
+
+let optionstype=ref([])
+let optionTypetype=ref([])
 onMounted(async()=>{
-  const sort=await getOneSort()
-  if(sort.data){
-    sort.data.forEach(async(e:any)=>{
-      e.value=e.sortId
-      e.label=e.sortName
-      const data=await getTwoType(e.value)
-     data.data.forEach((c:any)=>{
-      c.value=c.sortId
-      c.label=c.sortName
-     })
-     e.children=data.data
-      
+  const sort = await getOneSort()
+  if (sort.data) {
+    sort.data.forEach(async (e: { value: any; sortId: any; label: any; sortName: any; }) => {
+      e.value = e.sortId
+      e.label = e.sortName
     })
-    optionstype=sort.data
-    console.log(optionstype);
-    
+    optionstype.value=[...sort.data]
   }
   
 })
-const value = ref("");
-
+//更新分类第二个数据
+const getDetailMore=async(num: any[])=>{
+  const sendnum=num[0]
+  const data=await getTwoType(sendnum)
+  if (data.data) {
+    data.data.forEach((m) => {
+      m.value = m.sortId
+      m.label = m.sortName
+    })
+    optionTypetype.value=[...data.data]
+  }
+  
+}
 const typeViedo = ["自制", "转载",];
 
-const rules = reactive<FormRules<RuleForm>>({
-  name: [
-    { required: true, message: "请提供视频标题", trigger: "blur" },
-    { min: 0, max: 30, message: "长度需要小于30并且大于0", trigger: "blur" },
-  ],
-  count: [
-    {
-      required: true,
-      message: "请选择分类",
-      trigger: "change",
-    },
-  ],
-  date1: [
-    {
-      type: "date",
-      required: true,
-      message: "请选择正确日期",
-      trigger: "change",
-    },
-  ],
-  location: [
-    {
-      required: true,
-      message: "请选择视频来源",
-      trigger: "change",
-    },
-  ],
-  type: [
-    {
-      type: "array",
-      required: true,
-      message: "Please select at least one activity type",
-      trigger: "change",
-    },
-  ],
-  resource: [
-    {
-      required: true,
-      message: "Please select activity resource",
-      trigger: "change",
-    },
-  ],
-  desc: [
-    { required: true, message: "请提供视频介绍详细信息", trigger: "blur" },
-  ],
-  makeUrl: [
-    { },
-  ],
-});
-
-const submitForm = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return;
-  await formEl.validate((valid, fields) => {
-    if (valid) {
-      console.log("submit!");
-    } else {
-      console.log("error submit!", fields);
+const submitForm = async () => {
+  if(!ruleForm.value){
+    ElMessage.error("请您上传完整信息");
+    return
+  }
+  const {title,coverUrl,region,count,count2,location,desc,makeUrl,md5,duration,url,dynamicTags}=ruleForm.value
+  console.log(dynamicTags);
+  
+  if(md5==''){
+    ElMessage.error("请您上传完整视频");
+  }else if(!title || !count2 ||!count || !location || !desc ){
+    ElMessage.error("请您上传完整视频信息");
+  }else if(location=='转载' && makeUrl==''){
+    ElMessage.error("请您填写视频转载地址");
+  }else if(dynamicTags.length==0){
+    ElMessage.error("请你输入标签类型");
+  }
+  else{
+   const senddata=await uploadVideo(count2[0],coverUrl,desc,makeUrl,duration,title,location,url,dynamicTags)
+   if(senddata.code==20000){
+    ElMessage.success("上传成功");
+    hasUploadedarr.value=[]
+    ruleForm.value={
+      title: "",
+            coverUrl:'',
+            region: "",
+            count:'',
+            count2: "",
+            location: "",
+            desc: "",
+            makeUrl:'',
+            listBlob:[],
+            md5:'',
+            name:"",
+            duration:"",
+            list:[],
+            url:"",
+            dynamicTags:[]
     }
-  });
+   }
+   
+  }
+
 };
 
 const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.resetFields();
 };
-const handleDialogVisibleUpdate = (value: boolean) => {
-  dialogVisible.value = value;
-};
 const changeFaceImgshowupdate= (value:any) => {
   changefaceImgshowphoto.value.src=value
 };
+//存储所有上传的数组
+
 //获取set
 </script>
 

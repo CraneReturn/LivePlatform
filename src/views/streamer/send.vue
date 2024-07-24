@@ -1,42 +1,62 @@
 <template>
-  <div>
-    <!-- 暂停和开始 -->
-    <!-- 声音和 -->
-    
-    <canvas ref="videoCanvas" width="1280" height="720"></canvas>
+  <div class="background">
+    <img src="@/assets/images/background.jpeg" alt="" />
+  </div>
+  <div class="userLive">
+    <!-- 左边栏 -->
+    <div class="left">
+      <danation />
+      <material />
+    </div>
+    <div class="main">
+      <videoPlayer />
+      <footerIt />
+    </div>
+
+    <!-- 主播 -->
+    <div class="right">
+      <present />
+      <chatContent />
+      <barrageText />
+    </div>
+    <!-- 右边栏 -->
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-let videoCanvas = ref(null);
-let videoTrack, processor, reader, context, videoFrame;
-
-const videoPlayer = async () => {
-  context = videoCanvas.value.getContext("2d");
-  try {
-    const mediaStream = await navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: false,
-    });
-    videoTrack = mediaStream.getVideoTracks()[0];
-    processor = new MediaStreamTrackProcessor(videoTrack);
-    reader = processor.readable.getReader();
-    // 音视频的采集与编码
-    // 视频渲染
-    while (true) {
-      let videoFrame = await reader.read();
-      const state = videoFrame.done;
-      const video = videoFrame.value;
-      if (state) break;
-      if (videoFrame !== null && !state) {
-        context.clearRect(0, 0, videoCanvas.width, videoCanvas.height);
-        // 绘制
-        context.drawImage(video, 0, 0, 1280, 720);
-        video.close();
-      }
-    }
-  } catch (err) {
-    console.error("getUserMedia error:", err);
-  }
-};
+import videoPlayer from "./components/live/index.vue";
+import danation from "./components/live/danation.vue";
+import material from "./components/live/material.vue";
+import present from "./components/live/present.vue";
+import chatContent from "./components/chatContent.vue";
+import footerIt from "./components/live/footer.vue";
+import barrageText from "./components/barrage/barrageText.vue";
 </script>
+<style lang="scss" scoped>
+.userLive {
+  display: flex;
+  height: 90vh;
+  gap: 5px;
+}
+.right {
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+.main,
+.left {
+  display: flex;
+  flex-direction: column;
+}
+.videoPlayer {
+  height: fit-content;
+}
+.background {
+  img {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    top: 0;
+  }
+}
+</style>

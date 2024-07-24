@@ -13,8 +13,6 @@ export default class MessageBasic{
         this.myMessage= my
     }
     updateCheckedPut(checkfalg){
-        console.log(showCheckedflag,'444');
-        
-        showCheckedflag.value=checkfalg
+     showCheckedflag.value=checkfalg
     }
 }

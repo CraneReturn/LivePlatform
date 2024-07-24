@@ -1,0 +1,29 @@
+.checkedMessage {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.checkMessageimg {
+  width: 70%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.checkMessageimg .checkedstateImg {
+  width: 600px;
+}
+
+.checkMessageimg .checkedstateTips:hover {
+  color: var(--el-color-primary);
+  cursor: pointer;
+}
+
+input {
+  background-color: white !important;
+}
+
+.uploadChecked {
+  position: relative;
+  left: -23%;
+  top: 20px;
+}

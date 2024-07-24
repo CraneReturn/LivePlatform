@@ -124,6 +124,8 @@ export default class BarrageRenderer {
     setBarrage(barrage?:BarrageOptions[]){
         if(!barrage) return
         //判断弹幕是不是合规的
+        console.log(barrage,'111111');
+        
         barrage=barrage.filter(barrage=>{return this.deleteNoRulues(barrage)==true})
         this.barrageLayoutCalculate.setBarrages(barrage);
         this.lastContainerHeight = {

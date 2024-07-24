@@ -1,9 +1,12 @@
 <template lang="">
-  <div class="chatFrame">
-    
-  </div>
+  <div class="chatFrame"></div>
 </template>
-<script>
-export default {};
-</script>
-<style lang=""></style>
+<script lang="ts" setup></script>
+<style lang="scss" scoped>
+.chatFrame {
+  height: 100%;
+  background: rgba(#fff, 0.7);
+  border-radius: 5px;
+  margin-top: 5px;
+}
+</style>

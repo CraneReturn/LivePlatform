@@ -1,9 +1,11 @@
-<template lang="">
+<template>
   <!-- 登录注册 -->
-  <div class="login">
+  <div class="login" v-if="!forget">
     <div class="loginTop">
       <p class="title">登录XX畅享更多权益</p>
-      <button class="cancelLogin"><i class="iconfont icon-cuohao"></i></button>
+      <button class="cancelLogin" @click="cancelLogin">
+        <i class="iconfont icon-cuohao"></i>
+      </button>
     </div>
     <div class="loginTable">
       <div class="logo">
@@ -78,6 +80,7 @@
       <p>注册登录即表示同意 <span>用户协议</span> 和 <span>隐私政策</span></p>
     </div>
   </div>
+  <forgetIt v-if="forget" @forget="forgetPassword" @loginShow="cancelLogin"></forgetIt>
   <div class="shadow"></div>
 </template>
 <script setup lang="ts">
@@ -85,9 +88,13 @@ import { onMounted, ref } from "vue";
 import * as QRCode from "qrcode";
 import Code from "./layouts/login/code.vue";
 import Password from "./layouts/login/password.vue";
+import forgetIt from "./layouts/login/forget.vue";
 import { wechatCode, getToken } from "@/views/client/api/login/login";
+import { defineEmits } from "vue";
+const emit = defineEmits(["loginShow"]);
 let passwordLogin = ref(true);
 let codeLogin = ref(false);
+let forget = ref(false);
 let url = ref("");
 let key = ref(null);
 
@@ -98,10 +105,11 @@ async function getWechatCode() {
   key.value = response.data.key;
   QRCode.toCanvas(wechat.value, url.value, function (error: any) {
     if (error) console.error(error);
-    console.log(key.value);
-    
     if (key.value) getUserToken(key.value);
   });
+}
+function cancelLogin() {
+  emit("loginShow", false);
 }
 // 长轮询当前用户是否扫码
 function getUserToken(key: string) {
@@ -117,6 +125,9 @@ function getUserToken(key: string) {
 function changeCodeLogin(value: boolean) {
   passwordLogin.value = value;
   codeLogin.value = !value;
+}
+function forgetPassword(value: boolean) {
+  forget.value = value;
 }
 function changePasswordLogin(value: boolean) {
   codeLogin.value = value;
