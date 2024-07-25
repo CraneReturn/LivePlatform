@@ -85,7 +85,10 @@
         </li>
       </router-link>
     </ul>
+    <div class="max">
     <router-view @update="handleUpdate"></router-view>
+  </div>
+    
   </div>
 </template>
 
@@ -98,19 +101,22 @@ const handleUpdate = (data: number) => {
 </script>
 
 <style lang="scss" scoped>
+.max{
+    width: 85%;
+    background-color: #f8f8f8;
+}
 .message-max {
   height: 100vh;
   padding-top: 60px;
   display: flex;
   .left-nav {
-    width: 155px;
+    width: 15%;
     padding-left: 0;
-    padding: 10px;
+    padding: 10px 25px;
     border-right: 1px solid #d1efe2;
     height: 100%;
     li {
       display: flex;
-      justify-content: space-between;
       align-items: center;
       border-radius: 10px;
       cursor: pointer;
@@ -119,6 +125,7 @@ const handleUpdate = (data: number) => {
       svg {
         width: 30px;
         height: 30px;
+        margin-right: 18px;
       }
     }
     .iselect {

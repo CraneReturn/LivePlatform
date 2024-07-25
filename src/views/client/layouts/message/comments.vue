@@ -1,5 +1,7 @@
 <template>
-  
+  <div class="max">
+    
+  </div>
 </template>
 
 <script lang="ts">
