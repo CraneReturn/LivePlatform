@@ -30,7 +30,8 @@
         </div>
         <div class="Usermessage">
           <ul>
-            <li>
+            <router-link to="/message">
+             <li>
               <span class="nailMessage">
                 <svg
                   t="1713424853378"
@@ -56,6 +57,35 @@
               </span>
               <p>消息</p>
             </li>
+            </router-link>
+            <router-link to="/groupChat">
+              <li>
+                <span class="nailMessage">
+                  <svg
+                    t="1721892828959"
+                    class="icon iconNail"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="4298"
+                    width="25"
+                    height="25"
+                  >
+                    <path
+                      d="M874.666667 277.333333v469.333334H149.333333V277.333333h725.333334m14.72-64H134.613333A49.066667 49.066667 0 0 0 85.333333 262.613333v498.773334A49.066667 49.066667 0 0 0 134.613333 810.666667h754.773334A49.066667 49.066667 0 0 0 938.666667 761.386667V262.613333A49.066667 49.066667 0 0 0 889.386667 213.333333z"
+                      fill="#8a8a8a"
+                      p-id="4299"
+                    ></path>
+                    <path
+                      d="M786.986667 400.426667a32 32 0 0 0-42.666667-11.52L512 522.24l-231.253333-133.333333a32 32 0 1 0-32 55.253333l240.213333 138.666667a31.36 31.36 0 0 0 23.04 3.413333 31.36 31.36 0 0 0 23.04-3.413333l240.213333-138.666667a32 32 0 0 0 11.733334-43.733333z"
+                      fill="#8a8a8a"
+                      p-id="4300"
+                    ></path>
+                  </svg>
+                </span>
+                <p>私信</p>
+              </li>
+            </router-link>
             <router-link to="/video-createBefore/analysis">
               <li>
                 <span class="nailMessage">

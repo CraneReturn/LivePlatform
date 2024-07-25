@@ -92,6 +92,10 @@ const router = createRouter({
             },
           ],
         },
+        {
+          path: "/message",
+          component: () => import("@/views/client/message.vue"),
+        }
       ],
     },
     {

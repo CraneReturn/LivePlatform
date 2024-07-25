@@ -16,4 +16,8 @@ import hotanchorPerson from "./layouts/homePage/hotanchorPerson.vue";
 import recommendType from "./layouts/homePage/recommendType.vue";
 import viedoShowRecommed from "./layouts/homePage/viedoShowRecommed.vue";
 </script>
-<style></style>
+<style scoped>
+body{
+  padding-top: 60px;
+}
+</style>
