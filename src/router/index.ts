@@ -95,6 +95,26 @@ const router = createRouter({
         {
           path: "/message",
           component: () => import("@/views/client/message.vue"),
+          redirect: "/message/group",
+          children: [
+            {
+              path: "group",
+              component: () =>
+                import(
+                  "@/views/client/layouts/message/group.vue"
+                ),
+            },
+            {
+              path: "comments",
+              component: () =>
+                import("@/views/client/layouts/message/comments.vue"),
+            },
+            {
+              path: "attention",
+              component: () =>
+                import("@/views/client/layouts/message/attention.vue"),
+            },
+          ],
         }
       ],
     },
