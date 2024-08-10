@@ -13,6 +13,3 @@ import { ref } from 'vue';
     const isAdmin = ref(true);
 
 </script>
-<style scoped>
-
-</style>

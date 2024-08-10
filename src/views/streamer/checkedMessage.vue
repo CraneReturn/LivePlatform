@@ -139,6 +139,7 @@ const sendQuestChecked=()=>{
     ElMessage.error("请您上传完整信息");
   }else if(!isValidCarNum(formLabelAlign.carnum)){
     ElMessage.error("请您上传正常身份证号码");
+    
   }
   if(userState.value==-1){
     return uploadFilesSend(formLabelAlign.name,formLabelAlign.carnum,fileList.value)

@@ -19,14 +19,6 @@ const router = createRouter({
           component: () => import("@/views/client/homePage.vue"),
         },
         {
-          path: "/video-preview",
-          component: () => import("@/components/huh-player/index.vue"),
-        },
-        {
-          path: "/video-detail",
-          component: () => import("@/components/huh-player/index.vue"),
-        },
-        {
           path: "/history",
           component: () => import("@/views/client/watchHistory.vue"),
         },
@@ -174,15 +166,11 @@ const router = createRouter({
         {
           path: "home",
           component: () =>
-            import("@/views/admin/layouts/adminHome/adminHome.vue"),
+            import("@/views/admin/index.vue"),
           meta: {
             title: "首页",
             requiresAuth: true,
           },
-        },
-        {
-          path: "userManage",
-          component: () => import("@/views/admin/layouts/userManage/index.vue"),
         },
         {
           path: "/publish-setting",
@@ -260,14 +248,6 @@ const router = createRouter({
     {
       path: "/category",
       component: () => import("@/views/client/layouts/category/index.vue"),
-      meta: {
-        title: `${projectName}`,
-        requiresAuth: false,
-      },
-    },
-    {
-      path: "/page",
-      component: () => import("@/views/admin/layouts/giftManage/index.vue"),
       meta: {
         title: `${projectName}`,
         requiresAuth: false,
